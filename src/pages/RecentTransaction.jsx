@@ -13,25 +13,29 @@ const RecentTransaction = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         color: "white",
+        height: "100vh",
+        overflowY: "scroll",
       }}
-      className="w-100"
+      className="w-full overflow-hidden"
     >
       <Navbar />
-      <div className="flex flex-col items-center justify-center gap-5 w-100">
-        <h1 className="mr-auto">Recent Transactions</h1>
-        <div className="flex flex-col items-center justify-center gap-5 w-100">
-          <div className="flex flex-row items-center justify-around gap-5 w-100">
-            <h1>Actions</h1>
-            <h1>Chain</h1>
-            <h1>User ID</h1>
-            <h1>Asset</h1>
+      <div className="flex flex-col items-center justify-center gap-5 w-full p-5">
+        <h1 className="mr-auto font-bold pl-10" style={{ fontSize: "1.5rem" }}>
+          Recent Transactions
+        </h1>
+        <div className="flex flex-col items-center justify-between gap-5 w-full">
+          <div className="flex flex-row items-center justify-center gap-5 w-full">
+            <h1 className="w-full text-center">Actions</h1>
+            <h1 className="w-full text-center">Chain</h1>
+            <h1 className="w-full text-center">User ID</h1>
+            <h1 className="w-full text-center">Asset</h1>
           </div>
 
           {Data.map((item) => {
             return (
-              <div className="flex flex-row items-center justify-around gap-5 w-100">
-                <h1>{item.action}</h1>
-                <div className="flex flex-row items-center justify-center">
+              <div className="flex flex-row items-center justify-center gap-5 w-full">
+                <h1 className="w-full text-center">{item.action}</h1>
+                <div className="flex flex-row items-center justify-center w-full gap-3 text-center">
                   <img
                     className="w-10"
                     src={`/src/assets/` + item.chainImg}
@@ -39,8 +43,8 @@ const RecentTransaction = () => {
                   />
                   <h1>{item.chainName}</h1>
                 </div>
-                <h1>{item.userId}</h1>
-                <div className="flex flex-col items-center justify-center">
+                <h1 className="w-full text-center">{item.userId}</h1>
+                <div className="flex flex-col items-center justify-center w-full">
                   <h1>{item.assetCrypto}</h1>
                   <h1>{item.assetUsd}</h1>
                 </div>
