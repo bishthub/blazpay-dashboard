@@ -1,0 +1,22 @@
+.slide-button {
+    position: relative;
+    padding: 16px 24px;
+    background-color: #3498db;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+  }
+  
+  .button-text {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .slide-button:hover .button-text {
+    transform: translateX(50%); /* Adjust the distance as needed */
+    transition: transform 0.2s ease-in-out;
+  }
+  

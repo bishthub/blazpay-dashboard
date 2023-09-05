@@ -1,0 +1,123 @@
+[
+    {
+      "name": "Player1",
+      "rank": 1,
+      "img": "a",
+      "points": 2000
+    },
+    {
+      "name": "Player2",
+      "rank": 2,
+      "img": "a",
+      "points": 1800
+    },
+    {
+      "name": "Player3",
+      "rank": 3,
+      "img": "a",
+      "points": 1600
+    },
+    {
+      "name": "Player4",
+      "rank": 4,
+      "img": "a",
+      "points": 1400
+    },
+    {
+      "name": "Player5",
+      "rank": 5,
+      "img": "a",
+      "points": 1200
+    },
+    {
+      "name": "Player6",
+      "rank": 6,
+      "img": "a",
+      "points": 1000
+    },
+    {
+      "name": "Player7",
+      "rank": 7,
+      "img": "a",
+      "points": 800
+    },
+    {
+      "name": "Player8",
+      "rank": 8,
+      "img": "a",
+      "points": 600
+    },
+    {
+      "name": "Player9",
+      "rank": 9,
+      "img": "a",
+      "points": 400
+    },
+    {
+      "name": "Player10",
+      "rank": 10,
+      "img": "a",
+      "points": 200
+    },
+    {
+      "name": "Player11",
+      "rank": 11,
+      "img": "a",
+      "points": 100
+    },
+    {
+      "name": "Player12",
+      "rank": 12,
+      "img": "a",
+      "points": 50
+    },
+    {
+      "name": "Player13",
+      "rank": 13,
+      "img": "a",
+      "points": 40
+    },
+    {
+      "name": "Player14",
+      "rank": 14,
+      "img": "a",
+      "points": 30
+    },
+    {
+      "name": "Player15",
+      "rank": 15,
+      "img": "a",
+      "points": 20
+    },
+    {
+      "name": "Player16",
+      "rank": 16,
+      "img": "a",
+      "points": 10
+    },
+    {
+      "name": "Player17",
+      "rank": 17,
+      "img": "a",
+      "points": 9
+    },
+    {
+      "name": "Player18",
+      "rank": 18,
+      "img": "a",
+      "points": 8
+    },
+    {
+      "name": "Player19",
+      "rank": 19,
+      "img": "a",
+      "points": 7
+    },
+    {
+      "name": "Player20",
+      "rank": 20,
+      "img": "a",
+      "points": 6
+    }
+  ]
+  
