@@ -14,9 +14,8 @@ const RecentTransaction = () => {
         backgroundPosition: "center",
         color: "white",
         height: "100vh",
-        overflowY: "scroll",
       }}
-      className="w-full overflow-hidden"
+      className="w-full overflow-y-auto scrollbar-hide"
     >
       <Navbar />
       <div className="flex flex-col items-center justify-center gap-5 w-full p-5">

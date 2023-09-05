@@ -1,9 +1,20 @@
-*{
-    color: white;
-    /* background-image: url('./assets/dashboard_bg.png');
+* {
+  color: white;
+  /* background-image: url('./assets/dashboard_bg.png');
     background-size: cover; 
     background-repeat: no-repeat; 
     z-index: -1; */
-
 }
 
+/* Hide the scrollbar in WebKit browsers (Safari) */
+.scrollbar-hide::-webkit-scrollbar {
+  width: 0.5rem; /* Adjust the width as needed, setting to 0 hides it */
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
+  background: transparent; /* Hide the thumb */
+}
+
+.scrollbar-hide::-webkit-scrollbar-track {
+  background: transparent; /* Hide the track */
+}
