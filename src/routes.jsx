@@ -15,6 +15,8 @@ import Spinner from "./pages/Spinner";
 import UserProfile from "./pages/UserProfile";
 import MyItems from "./pages/MyItems";
 import RecentTransaction from "./pages/RecentTransaction";
+import Swap from "./pages/Swap";
+import Request from "./pages/Request";
 
 const BaseRoute = () => (
   <Routes>
@@ -23,6 +25,8 @@ const BaseRoute = () => (
     <Route path="/storefront" element={<StoreFront />} />
     <Route path="/leaderboard" element={<LeaderBoard />} />
     <Route path="/spin" element={<Spinner />} />
+    <Route path="/manage-funds" element={<Swap />} />
+    <Route path="/manage-funds/request" element={<Request />} />
 
     <Route exact path="/user/register" element={<RegisterForm />} />
     <Route exact path="/user/profile" element={<UserProfile />} />
