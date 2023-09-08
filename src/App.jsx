@@ -1,14 +1,8 @@
 import "./App.css";
-import BaseRoute from './routes';
-import { BrowserRouter as Router } from 'react-router-dom';
+import BaseRoute from "./routes";
 
 function App() {
-
-  return (
-    <Router>
-      <BaseRoute />
-    </Router>
-  );
+  return <BaseRoute />;
 }
 
 export default App;

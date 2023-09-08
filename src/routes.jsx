@@ -17,6 +17,7 @@ import MyItems from "./pages/MyItems";
 import RecentTransaction from "./pages/RecentTransaction";
 import Swap from "./pages/Swap";
 import Request from "./pages/Request";
+import Receive from "./pages/Receive";
 
 const BaseRoute = () => (
   <Routes>
@@ -27,8 +28,10 @@ const BaseRoute = () => (
     <Route path="/spin" element={<Spinner />} />
     <Route path="/manage-funds" element={<Swap />} />
     <Route path="/manage-funds/request" element={<Request />} />
+    <Route path="/manage-funds/receive" element={<Receive />} />
 
     <Route exact path="/user/register" element={<RegisterForm />} />
+    <Route exact path="/user/login" element={<LoginForm />} />
     <Route exact path="/user/profile" element={<UserProfile />} />
     <Route exact path="/user/my-items" element={<MyItems />} />
     <Route exact path="/user/transactions" element={<RecentTransaction />} />
