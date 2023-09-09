@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import bgImage from "../assets/dashboard_bg.png";
 import ReceiveImg from "../assets/receive.png";
 import Button from "../components/Button";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import CopyImg from "../assets/copy.png";
+import { toast } from "react-toastify";
+import { useAuth } from "../context/AuthContext";
 
 const Receive = () => {
+  //   const username = useSelector((state) => state.user.username);
+  const username = localStorage.getItem("username");
+
+  console.log(username);
+
+  const [isCopied, setIsCopied] = useState(false);
+  // const { user } = useAuth();
+
+  const handleCopy = () => {
+    const textToCopy = document.querySelector(".copy");
+    if (textToCopy) {
+      navigator.clipboard.writeText(textToCopy.innerText);
+      setIsCopied(true);
+      toast.success("Copied");
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    }
+  };
   return (
     <div
       style={{
@@ -25,6 +48,18 @@ const Receive = () => {
           <h1 className="mr-auto" style={{ fontSize: "1.3rem" }}>
             Your BlazPay ID
           </h1>
+          <div className="flex flex-row items-center justify-between w-full p-2 pl-1 pr-1 border border-orange-700 rounded-lg">
+            <h1 className="text-white copy">{username}</h1>
+
+            <img
+              //   onClick={handleCopyClick}
+              style={{ color: isCopied ? "green" : "red" }}
+              onClick={handleCopy}
+              className="w-5"
+              src={CopyImg}
+              alt=""
+            />
+          </div>
         </div>
       </div>
     </div>

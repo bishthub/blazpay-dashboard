@@ -11,12 +11,20 @@ const Block2 = () => {
     <div className="flex flex-row items-center justify-center w-full gap-8 p-5 ">
       <div className="flex flex-row w-full gap-8">
         <div className="flex flex-col gap-8">
-          <ManageFunds />
-          <Jackpot />
+          <Link className="w-full" to="/manage-funds">
+            <ManageFunds />
+          </Link>
+          <Link className="w-full" to="/jackpot">
+            <Jackpot />
+          </Link>
         </div>
         <div className="flex flex-col gap-8">
-          <Refer />
-          <Spin />
+          <Link className="w-full" to="refer">
+            <Refer />
+          </Link>
+          <Link className="w-full" to="/spin">
+            <Spin />
+          </Link>
         </div>
       </div>
       <Link className="w-full" to="/leaderboard">

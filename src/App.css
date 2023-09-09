@@ -22,3 +22,19 @@
 svg{
   color:orange
 }
+
+.Toastify__toast {
+  color: red !important; /* Change text color to red */
+  /* Add any other styles you want for all toasts */
+}
+
+
+
+html::-webkit-scrollbar{
+  display: none;
+}
+
+html{
+  scrollbar-width: none;
+}
+

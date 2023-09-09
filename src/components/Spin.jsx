@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 const Spin = () => {
   return (
-    <Link className="w-full" to="/spin">
+    <div className="h-full">
       <img
         className="transition-transform transform scale-100 hover:scale-110"
         src={spin}
         alt=""
       />
-    </Link>
+    </div>
   );
 };
 

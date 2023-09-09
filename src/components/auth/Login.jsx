@@ -4,6 +4,7 @@ import logo from "../../assets/logo_blazpay.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { loginRedux } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -33,19 +34,30 @@ const LoginForm = () => {
 
         if (response.ok) {
           const token = await response.text();
-          console.log("Received token:", token); // Add this line to see the received token
+          console.log("Received token:", token);
 
           // dispatch(loginRedux(token));
 
-          navigate("/");
+          const serverUsername = email;
+
+          console.log(serverUsername);
+
+          localStorage.setItem("token", token);
+          localStorage.setItem("username", serverUsername);
+
+          dispatch(loginRedux({ token, username: serverUsername }));
+          toast.success("Login Successfully");
+
+          navigate("/manage-funds/receive");
         } else {
-          console.error("Login failed");
+          toast.error("Login Failed");
         }
       } catch (error) {
         console.error("Error during login:", error);
+        toast.error("Login Failed");
       }
     } else {
-      alert("Please enter both email and password");
+      toast.error("Please enter both email and password");
     }
   };
 
