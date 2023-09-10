@@ -31,7 +31,7 @@ function BaseRoute() {
   const { isAuthenticated } = useSelector((state) => state.root);
   return (
     <>
-      <ToastContainer />
+      <ToastContainer autoClose={2000} theme="dark" />
       {/* <AuthProvider> */}
       <Routes>
         {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}

@@ -164,9 +164,9 @@ const LoginForm = () => {
 
           const serverUsername = email;
 
-          localStorage.setItem("token", token);
-          localStorage.setItem("username", serverUsername);
-          localStorage.setItem("loginTime", new Date().getTime()); // Store the login time
+          // localStorage.setItem("token", token);
+          // localStorage.setItem("username", serverUsername);
+          // localStorage.setItem("loginTime", new Date().getTime()); // Store the login time
 
           dispatch(loginRedux({ token, username: serverUsername }));
           toast.success("Login Successfully");

@@ -9,8 +9,8 @@ import { toast } from "react-toastify";
 import { useAuth } from "../context/AuthContext";
 
 const Receive = () => {
-  //   const username = useSelector((state) => state.user.username);
-  const username = localStorage.getItem("username");
+  const username = useSelector((state) => state.user.username);
+  // const username = localStorage.getItem("username");
 
   console.log(username);
 
