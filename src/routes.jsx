@@ -24,34 +24,124 @@ import { useDispatch, useSelector } from "react-redux";
 import Send from "./pages/Send";
 import ManageFunds from "./pages/ManageFunds";
 import Token from "./pages/Token";
+import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 
 // const BaseRoute = () => (
 function BaseRoute() {
+  const { isAuthenticated } = useSelector((state) => state.root);
   return (
     <>
       <ToastContainer />
       {/* <AuthProvider> */}
       <Routes>
+        {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}
+        >
+          
+        </Route> */}
         <Route exact path="/user/login" element={<LoginForm />} />
-        <Route exact path="/" element={<Home />} />
-        <Route exact path="/t" element={<Token />} />
-        <Route path="/storefront" element={<StoreFront />} />
-        <Route path="/leaderboard" element={<LeaderBoard />} />
-        <Route path="/spin" element={<Spinner />} />
-        <Route path="/manage-funds" element={<ManageFunds />} />
-        <Route path="/manage-funds/swap" element={<Swap />} />
-        <Route path="/manage-funds/request" element={<Request />} />
-        <Route path="/manage-funds/receive" element={<Receive />} />
-        <Route path="/manage-funds/send" element={<Send />} />
+        <Route
+          exact
+          path="/"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route element={<Token />} />
+        <Route
+          path="/storefront"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <StoreFront />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/leaderboard"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <LeaderBoard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/spin"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Spinner />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manage-funds"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ManageFunds />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manage-funds/swap"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Swap />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manage-funds/request"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Request />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manage-funds/receive"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Receive />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/manage-funds/send"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Send />
+            </ProtectedRoute>
+          }
+        />
 
         <Route exact path="/user/register" element={<RegisterForm />} />
-        <Route exact path="/user/login" element={<LoginForm />} />
-        <Route exact path="/user/profile" element={<UserProfile />} />
-        <Route exact path="/user/my-items" element={<MyItems />} />
+
+        <Route
+          exact
+          path="/user/profile"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <UserProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/user/my-items"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <MyItems />
+            </ProtectedRoute>
+          }
+        />
         <Route
           exact
           path="/user/transactions"
-          element={<RecentTransaction />}
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <RecentTransaction />
+            </ProtectedRoute>
+          }
         />
         <Route exact path="/user/password" element={<Password />} />
         <Route exact path="/user/username" element={<UsernameForm />} />
