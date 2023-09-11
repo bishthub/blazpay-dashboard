@@ -25,6 +25,7 @@ import Send from "./pages/Send";
 import ManageFunds from "./pages/ManageFunds";
 import Token from "./pages/Token";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
+import MyEntryPass from "./pages/MyEntryPass";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -140,6 +141,15 @@ function BaseRoute() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <RecentTransaction />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/user/mypass"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <MyEntryPass />
             </ProtectedRoute>
           }
         />
