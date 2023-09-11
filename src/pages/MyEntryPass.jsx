@@ -21,7 +21,7 @@ const MyEntryPass = () => {
         <img
           src={ellipse}
           alt=""
-          className="absolute w-1/4 h-full r-0 blur-3xl"
+          className="absolute w-1/4 h-full blur-3xl"
           style={{ zIndex: "-2" }}
         />
         <h1 className="w-full mr-auto" style={{ fontSize: "1.5rem" }}>
