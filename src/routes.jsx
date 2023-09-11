@@ -26,6 +26,7 @@ import ManageFunds from "./pages/ManageFunds";
 import Token from "./pages/Token";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import MyEntryPass from "./pages/MyEntryPass";
+import GetTokens from "./pages/GetTokens";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -111,6 +112,14 @@ function BaseRoute() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <Send />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/get-tokens"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <GetTokens />
             </ProtectedRoute>
           }
         />

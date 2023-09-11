@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import bgImage from "../assets/dashboard_bg.png";
 import EntryImg from "../assets/entry.png";
+import ellipse from "../assets/ellipsenew.png";
 
 const MyEntryPass = () => {
   return (
@@ -16,7 +17,13 @@ const MyEntryPass = () => {
       }}
     >
       <Navbar />
-      <div className="flex flex-col items-center justify-center w-full gap-5 px-10 backdrop-blur-lg ">
+      <div className="relative flex flex-col items-center justify-center w-full gap-5 px-10 backdrop-blur-lg ">
+        <img
+          src={ellipse}
+          alt=""
+          className="absolute w-1/4 h-full r-0 blur-3xl"
+          style={{ zIndex: "-2" }}
+        />
         <h1 className="w-full mr-auto" style={{ fontSize: "1.5rem" }}>
           My Entry passes
         </h1>
