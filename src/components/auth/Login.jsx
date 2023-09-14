@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { loginRedux } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
@@ -19,64 +20,76 @@ const LoginForm = () => {
     setPassword(event.target.value);
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (email && password) {
+  //     try {
+  //       const response = await fetch("http://localhost:3000/api/login", {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({ username: email, password }),
+  //       });
+
+  //       if (response.ok) {
+  //         const token = await response.text();
+
+  //         console.log("Received token:", token);
+  //         dispatch({ type: "login" });
+
+  //         const serverUsername = email;
+
+  //         localStorage.setItem("token", token);
+  //         localStorage.setItem("username", serverUsername);
+  //         // localStorage.setItem("loginTime", new Date().getTime()); // Store the login time
+
+  //         dispatch(loginRedux({ token, username: serverUsername }));
+  //         toast.success("Login Successfully");
+
+  //         navigate("/");
+  //       } else {
+  //         toast.error("Login Failed");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error during login:", error);
+  //       toast.error("Login Failed");
+  //     }
+  //   } else {
+  //     toast.error("Please enter both email and password");
+  //   }
+  // };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (email && password) {
-      try {
-        const response = await fetch("http://localhost:3000/api/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username: email, password }),
-        });
+    try {
+      const response = await axios.post("http://localhost:3000/api/login", {
+        username: email,
+        password,
+      });
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("id");
 
-        if (response.ok) {
-          const token = await response.text();
-          console.log("Received token:", token);
-          dispatch({ type: "login" });
+      const { token, user } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("id", user._id);
+      localStorage.setItem("username", email);
 
-          const serverUsername = email;
+      dispatch(loginRedux({ token, username: email }));
 
-          // localStorage.setItem("token", token);
-          // localStorage.setItem("username", serverUsername);
-          // localStorage.setItem("loginTime", new Date().getTime()); // Store the login time
-
-          dispatch(loginRedux({ token, username: serverUsername }));
-          toast.success("Login Successfully");
-
-          navigate("/");
-        } else {
-          toast.error("Login Failed");
-        }
-      } catch (error) {
-        console.error("Error during login:", error);
-        toast.error("Login Failed");
-      }
-    } else {
-      toast.error("Please enter both email and password");
+      toast.success("Login Successfully");
+      navigate("/");
+    } catch (error) {
+      console.error(
+        "Login Unsuccessfully:",
+        error.response ? error.response.data : error.message
+      );
+      toast.error("Login Unsuccessfully");
     }
   };
-
-  // Function to check and clear the login session
-  const clearSession = () => {
-    const loginTime = localStorage.getItem("loginTime");
-    if (loginTime) {
-      const currentTime = new Date().getTime();
-      const sessionDuration = 24 * 60 * 60 * 1000; // 24 hrs in milliseconds
-      if (currentTime - loginTime >= sessionDuration) {
-        // Session has expired, clear username from localStorage
-        localStorage.removeItem("username");
-      }
-    }
-  };
-
-  // Call clearSession when the page loads
-  window.addEventListener("load", clearSession);
-
-  // Call clearSession when the user leaves the page (unload event)
-  window.addEventListener("unload", clearSession);
 
   return (
     <div

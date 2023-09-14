@@ -2,10 +2,6 @@ import React from "react";
 import Img from "../assets/img_1.png";
 
 const Card = ({ img, title }) => {
-  //   console.log(img, title);
-
-  console.log(Img);
-
   return (
     <div className="flex flex-col items-center justify-center w-full gap-3 pt-10 pb-10 border border-orange-500 rounded-lg ">
       <img
