@@ -3,7 +3,7 @@ import Img from "../assets/img_1.png";
 
 const Card = ({ img, title }) => {
   return (
-    <div className="flex flex-col items-center justify-center w-3/4 gap-1 py-2 border border-orange-500 rounded-lg ">
+    <div className="flex flex-col items-center justify-center w-3/4 gap-1 py-4 border border-orange-500 rounded-lg ">
       <img
         className="w-1/2 transition-transform transform scale-100 hover:scale-110"
         src={img}

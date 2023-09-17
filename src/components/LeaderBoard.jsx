@@ -21,7 +21,11 @@ const LeaderBoard = ({ expand }) => {
   // }, []);
 
   return (
-    <div className="flex flex-col w-full h-full gap-5 p-2 bg-gray-800">
+    <div
+      className={`flex flex-col ${
+        expand ? "w-4" : "w-full"
+      }w-full h-full gap-5 p-2 bg-gray-800`}
+    >
       <h1 style={{ fontSize: "2rem" }}>Leader Board</h1>
       <div className="flex flex-col items-center justify-center w-full p-2">
         <div className="flex flex-row items-center justify-around w-full gap-2">

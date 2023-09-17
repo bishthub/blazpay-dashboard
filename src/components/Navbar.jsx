@@ -10,6 +10,7 @@ import setting from "../assets/setting.png";
 import profile from "../assets/profile.png";
 import entrylogo from "../assets/entrylogo.png";
 import items from "../assets/items.png";
+import { FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
@@ -59,38 +60,51 @@ const Navbar = () => {
 
           <div
             className="  bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg flex  flex-row   items-center justify-between p-1 relative w-full h-full"
-            // style={{ width: "15rem", height: "2.5rem" }}
+            style={{ width: "15rem", height: "2.5rem" }}
           >
             <span
               onClick={handleProfile}
-              className="absolute flex-1 w-8 h-8 bg-white rounded-full left-1"
+              className="absolute flex-1 w-8 h-8 bg-white rounded-full left-1 "
             ></span>
             {click ? (
               <div
-                className="absolute flex flex-col items-center justify-center w-full gap-3 p-2
-                ..00 bg-gray-700 rounded-lg top-full"
+                className="absolute flex flex-col items-center justify-center w-full gap-3 p-2 -ml-1 bg-gray-700 rounded-lg top-full"
                 style={{ zIndex: "99999999" }}
               >
-                <div className="flex flex-row items-center justify-around w-full">
-                  <img src={profile} alt="" />
+                <Link className="w-full mr-2 " to="/user/profile">
+                  <div className="flex flex-row items-center justify-around w-full ">
+                    <img src={profile} alt="" />
 
-                  <h1 className="w-full text-center">Profile</h1>
-                </div>
+                    <h1 className="w-full text-center">Profile</h1>
+                  </div>
+                </Link>
                 <div className="flex flex-row items-center justify-around w-full">
                   <img src={setting} alt="" />
                   <h1 className="w-full text-center">Setting</h1>
                 </div>
-                <div className="flex flex-row items-center justify-around w-full">
-                  <img src={items} alt="" />
-                  <h1 className="w-full text-center">My Items</h1>
-                </div>
-                <div className="flex flex-row items-center justify-around w-full">
-                  <img src={entrylogo} alt="" />
-                  <h1 className="w-full text-center">My Entry Passes</h1>
-                </div>
-                <div className="flex flex-row items-center justify-around w-full">
-                  <h1>ok</h1>
-                  <h1 className="w-full text-center">Recent Transactions</h1>
+                <Link className="w-full" to="/user/my-items">
+                  <div className="flex flex-row items-center justify-around w-full">
+                    <img src={items} alt="" />
+                    <h1 className="w-full text-center">My Items</h1>
+                  </div>
+                </Link>
+                <Link className="w-full" to="/user/mypass">
+                  <div className="flex flex-row items-center justify-around w-full">
+                    <img src={entrylogo} alt="" />
+                    <h1 className="w-full text-center">My Entry Passes</h1>
+                  </div>
+                </Link>
+                <Link className="w-full" to="/user/transactions">
+                  <div className="flex flex-row items-center justify-around w-full">
+                    <h1>ok</h1>
+                    <h1 className="w-full text-center">Recent Transactions</h1>
+                  </div>
+                </Link>
+                <div
+                  onClick={handleProfile}
+                  className="flex items-center justify-center w-1/4 h-8 m-auto bg-black rounded-full"
+                >
+                  <FaTimes />
                 </div>
               </div>
             ) : (

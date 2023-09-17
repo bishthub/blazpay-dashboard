@@ -39,7 +39,7 @@ const Receive = () => {
       </div>
       <div className="flex flex-col items-center justify-center w-full gap-3 pl-5 pr-5">
         <h1 className="mr-auto" style={{ fontSize: "1.3rem" }}>
-          0 Your BlazPay ID
+          Your BlazPay ID
         </h1>
         <div className="flex flex-row items-center justify-between w-full p-2 pl-1 pr-1 border border-orange-700 rounded-lg">
           <h1 className="text-white copy">{username}</h1>

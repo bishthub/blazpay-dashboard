@@ -18,15 +18,17 @@ const RecentTransaction = () => {
       className="w-full overflow-y-auto scrollbar-hide "
     >
       <Navbar />
+
       <div
-        className="flex flex-col items-center justify-center gap-5 w-3/4 opacity-50 m-auto mb-3"
+        className="flex flex-col items-center justify-center w-3/4 gap-5 m-auto mb-3 opacity-50"
         style={{ backgroundColor: "#444444" }}
       >
-        <h1 className="mr-auto font-bold pl-10" style={{ fontSize: "1.5rem" }}>
+        <h1 className="pl-10 mr-auto font-bold" style={{ fontSize: "1.5rem" }}>
           Recent Transactions
         </h1>
-        <div className="flex flex-col items-center justify-between gap-3 w-full ">
-          <div className="flex flex-row items-center justify-center gap-3 w-full font-semibold">
+
+        <div className="flex flex-col items-center justify-between w-full gap-3 ">
+          <div className="flex flex-row items-center justify-center w-full gap-3 font-semibold">
             <h1 className="w-full text-center">Actions</h1>
             <h1 className="w-full text-center">Chain</h1>
             <h1 className="w-full text-center">User ID</h1>
@@ -35,7 +37,7 @@ const RecentTransaction = () => {
 
           {Data.map((item) => {
             return (
-              <div className="flex flex-row items-center justify-center gap-3 w-full">
+              <div className="flex flex-row items-center justify-center w-full gap-3">
                 <h1 className="w-full text-center">{item.action}</h1>
                 <div className="flex flex-row items-center justify-center w-full gap-2 text-center">
                   <img

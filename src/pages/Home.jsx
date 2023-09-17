@@ -7,12 +7,12 @@ import Block2 from "../components/Block2";
 const Home = () => {
   return (
     <div
+      className="w-full h-screen"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         color: "white",
-        height: "100vh",
       }}
     >
       <Navbar />

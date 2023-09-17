@@ -17,7 +17,7 @@ const Send = () => {
     //   className="relative flex justify-center w-full "
     // >
     <div
-      className="relative flex flex-col items-center justify-center w-full h-full gap-3 m-auto bg-black border-2 border-orange-700 "
+      className="relative flex flex-col items-center justify-center w-full h-full gap-3 m-auto bg-black border-2 border-t-4 border-l-4 border-r-4 border-orange-700"
       style={{ width: "25rem", height: "20rem" }}
     >
       <div className="absolute top-0 flex flex-row items-center justify-center w-full gap-1 p-2 text-black bg-white rounded-lg">

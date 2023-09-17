@@ -20,7 +20,7 @@ const Block2 = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center w-full gap-8 p-3 ">
+    <div className="flex flex-row items-center justify-center w-full gap-8 px-3 pt-8">
       <div className="flex flex-row w-full gap-8">
         <div className="flex flex-col gap-8">
           <div className="w-full" onClick={() => openOverlay(<ManageFunds />)}>
