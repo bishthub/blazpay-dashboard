@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import LeaderData from "../LeaderBoard.json";
 
-const LeaderBoard = () => {
+const LeaderBoard = ({ expand }) => {
   const location = useLocation();
 
   const [inner, setInner] = useState(false);
@@ -11,19 +11,18 @@ const LeaderBoard = () => {
 
   // Get the top 4 leaders for the home page or all leaders for "/top-leader" route
   const leadersToShow =
-    location.pathname === "/leaderboard" ? sortedData : sortedData.slice(0, 4);
+    // location.pathname === "/leaderboard" ? sortedData : sortedData.slice(0, 4);
+    expand ? sortedData : sortedData.slice(0, 4);
 
-  useEffect(() => {
-    if (location.pathname === "/leaderboard") {
-      setInner(true);
-    }
-  }, []);
-
-  console.log(inner);
+  // useEffect(() => {
+  //   if (location.pathname === "/leaderboard") {
+  //     setInner(true);
+  //   }
+  // }, []);
 
   return (
-    <div className="flex flex-col w-full h-full gap-5 p-5 bg-gray-800">
-      <h1 style={{ fontSize: "4rem" }}>Leader Board</h1>
+    <div className="flex flex-col w-full h-full gap-5 p-2 bg-gray-800">
+      <h1 style={{ fontSize: "2rem" }}>Leader Board</h1>
       <div className="flex flex-col items-center justify-center w-full p-2">
         <div className="flex flex-row items-center justify-around w-full gap-2">
           <div className="w-full text-center">#</div>

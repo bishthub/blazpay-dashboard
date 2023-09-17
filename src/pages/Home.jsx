@@ -12,10 +12,12 @@ const Home = () => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         color: "white",
+        height: "100vh",
       }}
     >
       <Navbar />
       <StoreFront />
+
       <Block2 />
     </div>
   );

@@ -27,6 +27,7 @@ import Token from "./pages/Token";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import MyEntryPass from "./pages/MyEntryPass";
 import GetTokens from "./pages/GetTokens";
+import CartSidebar from "./components/CartSidebar";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -50,6 +51,15 @@ function BaseRoute() {
             </ProtectedRoute>
           }
         />
+        {/* <Route
+          exact
+          path="/cart"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <CartSidebar />
+            </ProtectedRoute>
+          }
+        /> */}
         <Route element={<Token />} />
         <Route
           path="/storefront"

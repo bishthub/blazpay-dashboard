@@ -19,7 +19,7 @@ const MyItems = () => {
         <h1 className="mr-auto w-100" style={{ fontSize: "1.5rem" }}>
           My Items
         </h1>
-        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-100 ">
+        <div className="grid w-full grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
           {Data.map((item, idx) => {
             return (
               <Profilecards

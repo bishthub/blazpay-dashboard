@@ -113,10 +113,16 @@ import data from "../StoreFont.json";
 import Card from "./Card";
 import bgImage from "../assets/dashboard_bg.png";
 import { Link, useLocation } from "react-router-dom";
+import CartSidebar from "./CartSidebar";
 
 const StoreFront = () => {
   const location = useLocation();
   const [inner, setInner] = useState(false);
+  const [isCart, setIsCart] = useState(false);
+
+  const handleCart = () => {
+    setIsCart(!isCart);
+  };
 
   useEffect(() => {
     if (location.pathname === "/storefront") {
@@ -129,7 +135,7 @@ const StoreFront = () => {
   return (
     <div>
       <div className="w-full p-3 " style={{ backgroundColor: "#171717" }}>
-        <div className="flex items-center justify-between w-full p-1 pl-2 pr-2 flex-column">
+        <div className="relative flex flex-row items-center justify-between w-full p-1 pl-2 pr-2">
           <div className="flex flex-row items-center justify-center gap-8">
             <p>StoreFront</p>
             {location.pathname === "/" && (
@@ -143,7 +149,14 @@ const StoreFront = () => {
             )}
           </div>
           <div className="bg-gradient-to-r from-[#FF3503] to-yellow-500 flex items-center justify-center rounded-lg">
-            <img className="w-12" src={Cart} alt="" />
+            <img
+              onClick={handleCart}
+              className="w-12 "
+              src={Cart}
+              alt=""
+              // style={{ zIndex: "999" }}
+            />
+            {isCart ? <CartSidebar isCart={isCart} /> : <></>}
           </div>
         </div>
         <div className="grid grid-cols-4 gap-4">
