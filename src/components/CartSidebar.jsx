@@ -24,10 +24,6 @@ const CartSidebar = ({ setIsCart, isCart }) => {
       <div className="flex flex-col justify-center h-full">
         <div className="flex flex-row items-center justify-between w-full px-4 py-2">
           <h1 className="text-white">Cart</h1>
-          <FaTimes
-            onClick={handleClick}
-            style={{ fontSize: "3rem", color: "white", zIndex: "9999" }}
-          />
         </div>
         {/* Your content goes here */}
       </div>

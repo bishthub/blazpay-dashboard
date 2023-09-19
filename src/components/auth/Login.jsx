@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import bgImage from "../../assets/dashboard_bg.png";
 import logo from "../../assets/logo_blazpay.svg";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,10 +6,12 @@ import { loginRedux } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
+// import axiosInstance from "./AxiosInstance";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -20,46 +22,19 @@ const LoginForm = () => {
     setPassword(event.target.value);
   };
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   if (email && password) {
-  //     try {
-  //       const response = await fetch("http://localhost:3000/api/login", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ username: email, password }),
-  //       });
-
-  //       if (response.ok) {
-  //         const token = await response.text();
-
-  //         console.log("Received token:", token);
-  //         dispatch({ type: "login" });
-
-  //         const serverUsername = email;
-
-  //         localStorage.setItem("token", token);
-  //         localStorage.setItem("username", serverUsername);
-  //         // localStorage.setItem("loginTime", new Date().getTime()); // Store the login time
-
-  //         dispatch(loginRedux({ token, username: serverUsername }));
-  //         toast.success("Login Successfully");
-
-  //         navigate("/");
-  //       } else {
-  //         toast.error("Login Failed");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error during login:", error);
-  //       toast.error("Login Failed");
-  //     }
-  //   } else {
-  //     toast.error("Please enter both email and password");
-  //   }
-  // };
+  // useEffect(() => {
+  //   axiosInstance
+  //     .get("api/login")
+  //     .then((response) => {
+  //       // Handle a successful response here
+  //       setData(response.data);
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       // Handle errors, including token expiry
+  //       setError(error.message);
+  //     });
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

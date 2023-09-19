@@ -28,6 +28,7 @@ import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import MyEntryPass from "./pages/MyEntryPass";
 import GetTokens from "./pages/GetTokens";
 import CartSidebar from "./components/CartSidebar";
+import ProfileEdit from "./components/ProfileEdit";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -130,6 +131,14 @@ function BaseRoute() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <GetTokens />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/profile/edit"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProfileEdit />
             </ProtectedRoute>
           }
         />
