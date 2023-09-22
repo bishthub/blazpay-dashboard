@@ -22,36 +22,27 @@ const LoginForm = () => {
     setPassword(event.target.value);
   };
 
-  // useEffect(() => {
-  //   axiosInstance
-  //     .get("api/login")
-  //     .then((response) => {
-  //       // Handle a successful response here
-  //       setData(response.data);
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       // Handle errors, including token expiry
-  //       setError(error.message);
-  //     });
-  // }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const response = await axios.post("http://localhost:3000/api/login", {
-        username: email,
+        loginField: email,
         password,
       });
+
       localStorage.removeItem("token");
       localStorage.removeItem("username");
       localStorage.removeItem("id");
+      localStorage.removeItem("tokenExpiration");
 
       const { token, user } = response.data;
+
+      const tokenExpiration = Date.now() + 30 * 60 * 1000;
       localStorage.setItem("token", token);
       localStorage.setItem("id", user._id);
       localStorage.setItem("username", email);
+      localStorage.setItem("tokenExpiration", tokenExpiration);
 
       dispatch(loginRedux({ token, username: email }));
 

@@ -5,16 +5,18 @@ import App from "./App.jsx";
 import "./index.css";
 import { Provider } from "react-redux";
 import { store } from "./redux/index";
-import { handleWindowClose } from "./Window/WindowCloseListner";
+import { AuthProvider } from "./context/AuthContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
+    {/* <AuthProvider> */}
     {/* <PersistGate loading={null} persistor={persistor}> */}
     <Router>
       <React.StrictMode>
         <App />
       </React.StrictMode>
     </Router>
+    {/* </AuthProvider> */}
     {/* </PersistGate> */}
   </Provider>
 );

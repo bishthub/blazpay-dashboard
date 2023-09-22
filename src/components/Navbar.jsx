@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../assets/logo_blazpay.png";
 import Fire from "../assets/fire.png";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,9 +11,12 @@ import profile from "../assets/profile.png";
 import entrylogo from "../assets/entrylogo.png";
 import items from "../assets/items.png";
 import { FaTimes } from "react-icons/fa";
+import loginSignupImage from "../assets/login-animation.gif";
+import axios from "axios";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
+  const [profileData, setProfileData] = useState([]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const HandleLogout = (e) => {
@@ -31,6 +34,20 @@ const Navbar = () => {
   const handleProfile = () => {
     setClick(!click);
   };
+  const id = localStorage.getItem("id");
+  async function ProfileUpdate() {
+    const datas = await axios.get(
+      `http://localhost:3000/api/user/profile/${id}`
+    );
+    setProfileData(datas.data);
+  }
+
+  useEffect(() => {
+    ProfileUpdate();
+
+    console.log(profileData);
+  }, []);
+
   return (
     <nav
       className="flex items-center justify-center w-full shadow font-bvmp "
@@ -47,7 +64,7 @@ const Navbar = () => {
           </button>
 
           <div
-            className="relative flex flex-row items-center justify-center bg-white rounded-lg "
+            className="relative flex flex-row items-center justify-center bg-white rounded-full "
             style={{ width: "10rem", height: "2.5rem" }}
           >
             <img
@@ -59,13 +76,20 @@ const Navbar = () => {
           </div>
 
           <div
-            className="  bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg flex  flex-row   items-center justify-between p-1 relative w-full h-full"
-            style={{ width: "15rem", height: "2.5rem" }}
+            className="  bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg flex  flex-row   items-center justify-between p-1 relative w-60 h-12"
+            // style={{ width: "15rem", height: "3rem" }}
           >
-            <span
+            <div
               onClick={handleProfile}
-              className="absolute flex-1 w-8 h-8 bg-white rounded-full left-1 "
-            ></span>
+              className="absolute flex-1 w-10 h-10 bg-white rounded-full left-1 "
+            >
+              <img
+                src={
+                  profileData?.img_url ? profileData?.img_url : loginSignupImage
+                }
+                className="w-full h-full rounded-full"
+              />
+            </div>
             {click ? (
               <div
                 className="absolute flex flex-col items-center justify-center w-full gap-3 p-2 -ml-1 bg-gray-700 rounded-lg top-full"

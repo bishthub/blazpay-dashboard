@@ -8,7 +8,7 @@ import linkedin from "../assets/linkedin.png";
 import discord from "../assets/discord.png";
 import telegram from "../assets/telegram.png";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -24,7 +24,7 @@ const UserProfile = () => {
   const [data, setData] = useState({
     img_url: "",
   });
-
+  const navigate = useNavigate();
   const username = localStorage.getItem("username");
 
   const handleEditClick = () => {
@@ -91,7 +91,6 @@ const UserProfile = () => {
 
     try {
       const token = localStorage.getItem("token");
-      console.log("anmol" + token);
 
       const headers = {
         Authorization: `Bearer ${token}`,
@@ -110,7 +109,7 @@ const UserProfile = () => {
         // Profile update was successful
 
         toast.success("Profile updated successfully!");
-        navigate("/user/profile");
+        navigate("/");
       } else {
         // Handle other response statuses or errors here
 
@@ -139,20 +138,11 @@ const UserProfile = () => {
           <div className="flex flex-row gap-10 mr-auto w-100">
             <div className="flex flex-col items-center justify-center gap-3 w-100">
               <h1 style={{ fontSize: "1.5rem" }}>Profile</h1>
-              {/* <div className="flex flex-col items-center justify-center">
-                <div className="w-20 h-20 bg-white rounded-full ">
-                  
 
-                </div>
-                <input className="" type="file" />
-              </div> */}
-
-              {/* <div className="flex flex-col items-center justify-center">
-          
-                <div className="w-20 h-20 overflow-hidden bg-white rounded-full"></div>
-                <input type="file" placeholder="image" />
-              </div> */}
-              <form onSubmit={handleSubmit}>
+              <form
+                className="flex flex-col items-center"
+                onSubmit={handleSubmit}
+              >
                 <div className="relative w-20 h-20 m-auto overflow-hidden rounded-full shadow-md drop-shadow-md ">
                   <img
                     src={
@@ -165,7 +155,7 @@ const UserProfile = () => {
 
                   <label htmlFor="profileImage">
                     <div className="absolute bottom-0 w-full text-center bg-opacity-50 cursor-pointer h-1/3 bg-slate-500">
-                      <p className="p-1 text-sm text-white">Upload</p>
+                      <p className="p-1 text-sm text-white">Edit</p>
                     </div>
                     <input
                       type={"file"}
@@ -176,7 +166,9 @@ const UserProfile = () => {
                     />
                   </label>
                 </div>
-                <button type="submit">Upload</button>
+                <button className="w-full" type="submit">
+                  Upload
+                </button>
               </form>
             </div>
             <div className="flex flex-col items-center justify-center gap-3 w-100">

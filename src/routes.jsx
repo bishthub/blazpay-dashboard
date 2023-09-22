@@ -33,6 +33,7 @@ import ProfileEdit from "./components/ProfileEdit";
 // const BaseRoute = () => (
 function BaseRoute() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
   return (
     <>
       <ToastContainer autoClose={2000} theme="dark" />
