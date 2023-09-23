@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Route, useNavigate } from "react-router-dom";
 import { Routes } from "react-router-dom";
 import LoginForm from "./components/auth/Login";
 import RegisterForm from "./components/auth/Register/Register";
@@ -18,7 +18,7 @@ import RecentTransaction from "./pages/RecentTransaction";
 import Swap from "./pages/Swap";
 import Request from "./pages/Request";
 import Receive from "./pages/Receive";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import Send from "./pages/Send";
@@ -29,20 +29,37 @@ import MyEntryPass from "./pages/MyEntryPass";
 import GetTokens from "./pages/GetTokens";
 import CartSidebar from "./components/CartSidebar";
 import ProfileEdit from "./components/ProfileEdit";
+import { logoutRedux } from "./redux/userSlice";
 
 // const BaseRoute = () => (
 function BaseRoute() {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const navigate = useNavigate();
+
+  const dispatch = useDispatch();
+
+  // Add state to track session expiration
+
+  // useEffect(() => {
+  //   const h = Number(localStorage.getItem("tokenExpiration"));
+
+  //   console.log(h);
+  //   if (Date.now() >= Number(localStorage.getItem("tokenExpiration"))) {
+  //     toast.warning("Session Expired");
+  //     dispatch(logoutRedux());
+
+  //     localStorage.removeItem("token");
+  //     localStorage.removeItem("username");
+  //     localStorage.removeItem("id");
+  //     navigate("/user/login");
+  //   }
+  // }, );
 
   return (
     <>
       <ToastContainer autoClose={2000} theme="dark" />
       {/* <AuthProvider> */}
       <Routes>
-        {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}
-        >
-          
-        </Route> */}
         <Route exact path="/user/login" element={<LoginForm />} />
         <Route
           exact
@@ -53,15 +70,7 @@ function BaseRoute() {
             </ProtectedRoute>
           }
         />
-        {/* <Route
-          exact
-          path="/cart"
-          element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
-              <CartSidebar />
-            </ProtectedRoute>
-          }
-        /> */}
+
         <Route element={<Token />} />
         <Route
           path="/storefront"

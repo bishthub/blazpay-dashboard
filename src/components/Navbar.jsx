@@ -13,10 +13,12 @@ import items from "../assets/items.png";
 import { FaTimes } from "react-icons/fa";
 import loginSignupImage from "../assets/login-animation.gif";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [profileData, setProfileData] = useState([]);
+  const [tokenCount, setTokenCount] = useState("0");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const HandleLogout = (e) => {
@@ -30,6 +32,7 @@ const Navbar = () => {
     navigate("/user/login");
   };
   const username = useSelector((state) => state.user.username);
+  const token = localStorage.getItem("token");
 
   const handleProfile = () => {
     setClick(!click);
@@ -42,8 +45,30 @@ const Navbar = () => {
     setProfileData(datas.data);
   }
 
+  const TokensUpdate = async () => {
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const tokenData = await axios.get("http://localhost:3000/api/wallet", {
+        headers: headers,
+      });
+
+      if (tokenData.status === 200) {
+        console.log(tokenData.data);
+        setTokenCount(tokenData.data.totalTokens);
+      } else {
+        console.log("something went Wrong");
+      }
+    } catch (Err) {
+      toast.error(Err);
+    }
+  };
+
   useEffect(() => {
     ProfileUpdate();
+    TokensUpdate();
 
     console.log(profileData);
   }, []);
@@ -72,7 +97,7 @@ const Navbar = () => {
               style={{ width: "6rem" }}
               src={Fire}
             />
-            <div className="text-black">657</div>
+            <div className="text-black">{tokenCount}</div>
           </div>
 
           <div

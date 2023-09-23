@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import bgImage from "../../assets/dashboard_bg.png";
 import logo from "../../assets/logo_blazpay.svg";
 import { Link, useNavigate } from "react-router-dom";
-import { loginRedux } from "../../redux/userSlice";
+import { loginRedux, logoutRedux } from "../../redux/userSlice";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -38,7 +38,7 @@ const LoginForm = () => {
 
       const { token, user } = response.data;
 
-      const tokenExpiration = Date.now() + 30 * 60 * 1000;
+      const tokenExpiration = Date.now() + 1 * 60 * 1000;
       localStorage.setItem("token", token);
       localStorage.setItem("id", user._id);
       localStorage.setItem("username", email);
@@ -56,6 +56,21 @@ const LoginForm = () => {
       toast.error("Login Unsuccessfully");
     }
   };
+
+  // useEffect(() => {
+  //   const h = Number(localStorage.getItem("tokenExpiration"));
+
+  //   console.log(h);
+  //   if (Date.now() >= Number(localStorage.getItem("tokenExpiration"))) {
+  //     toast.warning("Session Expired");
+  //     dispatch(logoutRedux());
+
+  //     localStorage.removeItem("token");
+  //     localStorage.removeItem("username");
+  //     localStorage.removeItem("id");
+  //     navigate("/user/login");
+  //   }
+  // });
 
   return (
     <div
