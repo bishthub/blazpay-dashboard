@@ -42,13 +42,17 @@ const Block2 = () => {
           </div>
         </div>
       </div>
-      <div
-        className="w-full h-full"
-        onClick={() => openOverlay(<LeaderBoard expand={true} />)}
+      <Link
+        to="/leaderboard"
+        className="w-full"
+        // onClick={() =>
+        //   openOverlay(
+        //     <LeaderBoard style={{ OverflowY: "scroll" }} expand={true} />
+        //   )
+        // }
       >
-        {" "}
         <LeaderBoard />
-      </div>
+      </Link>
 
       {overlayContent && (
         <Overlay onClose={closeOverlay}>{overlayContent}</Overlay>

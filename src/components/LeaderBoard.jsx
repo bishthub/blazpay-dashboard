@@ -11,20 +11,22 @@ const LeaderBoard = ({ expand }) => {
 
   // Get the top 4 leaders for the home page or all leaders for "/top-leader" route
   const leadersToShow =
-    // location.pathname === "/leaderboard" ? sortedData : sortedData.slice(0, 4);
-    expand ? sortedData : sortedData.slice(0, 4);
+    location.pathname === "/leaderboard" ? sortedData : sortedData.slice(0, 4);
+  // expand ? sortedData : sortedData.slice(0, 4);
 
-  // useEffect(() => {
-  //   if (location.pathname === "/leaderboard") {
-  //     setInner(true);
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (location.pathname === "/leaderboard") {
+      setInner(true);
+    }
+  }, []);
 
   return (
     <div
-      className={`flex flex-col ${
-        expand ? "w-4" : "w-full"
-      }w-full h-full gap-5 p-2 bg-gray-800`}
+      className={`flex flex-col ${expand ? "w-4" : "w-full"} ${
+        inner ? "h-screen" : "h-full"
+      } ${
+        inner ? "overflow-y-scroll " : "overflow-none"
+      }  gap-5 p-2 bg-gray-800`}
     >
       <h1 style={{ fontSize: "2rem" }}>Leader Board</h1>
       <div className="flex flex-col items-center justify-center w-full p-2">

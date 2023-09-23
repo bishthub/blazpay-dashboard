@@ -26,6 +26,7 @@ const UserProfile = () => {
   });
   const navigate = useNavigate();
   const username = localStorage.getItem("username");
+  const [bio, setBio] = useState("");
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -63,6 +64,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     ProfileUpdate();
+    console.log(profileData?.bio);
   }, []);
 
   const handleOnChange = (e) => {
@@ -85,6 +87,7 @@ const UserProfile = () => {
       };
     });
   };
+  const token = localStorage.getItem("token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,7 +100,7 @@ const UserProfile = () => {
         "Content-Type": "application/json",
       };
 
-      const response = await axios.put(
+      const response = await axios.post(
         "http://localhost:3000/api/user/profile",
         data,
         {
@@ -106,18 +109,46 @@ const UserProfile = () => {
       );
 
       if (response.status === 200) {
-        // Profile update was successful
-
         toast.success("Profile updated successfully!");
         navigate("/");
       } else {
-        // Handle other response statuses or errors here
-
         toast.error("Profile update failed.");
       }
     } catch (error) {
       console.log(error);
       toast.error(error);
+    }
+  };
+
+  const handleBioChange = (e) => {
+    setBio(e.target.value);
+  };
+
+  const handleBioSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const response = await axios.put(
+        "http://localhost:3000/api/user/profile",
+        { bio },
+        {
+          headers: headers,
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Bio updated successfully!");
+        navigate("/");
+      } else {
+        toast.error("Profile update failed.");
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -173,7 +204,7 @@ const UserProfile = () => {
             </div>
             <div className="flex flex-col items-center justify-center gap-3 w-100">
               <h1 style={{ fontSize: "1.5rem" }}>{username}</h1>
-              <div className="flex items-center justify-center gap-3">
+              {/* <div className="flex items-center justify-center gap-3">
                 {isEditing ? (
                   <input
                     type="text"
@@ -192,19 +223,43 @@ const UserProfile = () => {
                   <h1 style={{ fontSize: "1.5rem" }}>{name}</h1>
                 )}
                 {renderEditButton()}
-              </div>
+              </div> */}
             </div>
           </div>
 
-          <div className="flex flex-col gap-5 w-100">
-            <h1 style={{ fontSize: "1.5rems" }}>Bio</h1>
-            <textarea
-              rows="5"
-              cols="70"
-              name="message"
-              placeholder="Add Bio...."
-              className="p-4 text-gray-700 rounded-lg"
-            ></textarea>
+          <div className="flex flex-col gap-5 w-full">
+            <h1 style={{ fontSize: "1.5rem" }}>Bio</h1>
+
+            {profileData?.bio ? (
+              <div className="flex  flex-col gap-3  ">
+                <div className="text-black  bg-white w-full rounded-lg flex items-center">
+                  {profileData?.bio}
+                </div>
+                <div className="">
+                  <button className="flex w-12 items-center justify-center  p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg m-auto">
+                    Edit
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleBioSubmit}>
+                <textarea
+                  rows="5"
+                  cols="70"
+                  name="message"
+                  placeholder="Add Bio...."
+                  className="p-4 text-gray-700 rounded-lg"
+                  value={bio}
+                  onChange={handleBioChange}
+                ></textarea>
+                <button
+                  type="submit"
+                  className="flex items-center justify-center w-full h-10 p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg text-white py-2 px-4 "
+                >
+                  Save Bio
+                </button>
+              </form>
+            )}
           </div>
         </div>
         <div className="flex flex-col items-center justify-center gap-4 rounded w-100">
