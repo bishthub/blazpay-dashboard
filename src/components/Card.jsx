@@ -3,29 +3,29 @@ import Img from "../assets/img_1.png";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/cartSlice";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Card = ({ img, title, prodId }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleAddToCart = async () => {
-    // Dispatch the addToCart action with product information
     dispatch(addToCart({ prodId, title }));
 
     try {
-      const token = localStorage.getItem("token"); // Get the token from localStorage
+      const token = localStorage.getItem("token");
 
       if (!token) {
-        // Handle authentication error, show a message to the user, or redirect to login
         console.error("Authentication failed");
         return;
       }
 
-      // Replace 'productId' and 'quantity' with the actual values you want to send to the server
-      const productId = prodId; // Replace with the actual productId
-      const quantity = 1; // Replace with the desired quantity
+      const productId = prodId;
+      const quantity = 1;
 
       const response = await axios.post(
-        "http://localhost:3000/api/cart",
+        "http://localhost:3000/api/cart/",
         { productId, quantity }, // Send the productId and quantity in the request body
         {
           headers: {
@@ -42,10 +42,11 @@ const Card = ({ img, title, prodId }) => {
       }
 
       const cartData = response.data; // Assuming the server responds with updated cart data
-      console.log("Cart updated:", cartData);
+      toast.success("Added to Cart");
       // You can update your UI to reflect the updated cart state
     } catch (error) {
-      console.error("Error:", error);
+      toast.error("Session Ended");
+      navigate("/user/login");
     }
   };
 

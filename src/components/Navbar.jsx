@@ -56,7 +56,6 @@ const Navbar = () => {
       });
 
       if (tokenData.status === 200) {
-        console.log(tokenData.data);
         setTokenCount(tokenData.data.totalTokens);
       } else {
         console.log("something went Wrong");
@@ -69,8 +68,6 @@ const Navbar = () => {
   useEffect(() => {
     ProfileUpdate();
     TokensUpdate();
-
-    console.log(profileData);
   }, []);
 
   return (
@@ -101,13 +98,11 @@ const Navbar = () => {
           </div>
 
           <div
-            className="  bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg flex  flex-row   items-center justify-between p-1 relative w-60 h-12"
+            className="  bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg flex  flex-row   items-center justify-between p-1 relative w-60 h-12 cursor-pointer"
             // style={{ width: "15rem", height: "3rem" }}
+            onClick={handleProfile}
           >
-            <div
-              onClick={handleProfile}
-              className="absolute flex-1 w-10 h-10 bg-white rounded-full left-1 "
-            >
+            <div className="absolute flex-1 w-10 h-10 bg-white rounded-full left-1 ">
               <img
                 src={
                   profileData?.img_url ? profileData?.img_url : loginSignupImage

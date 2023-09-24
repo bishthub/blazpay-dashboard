@@ -6,33 +6,42 @@ import bgImage from "../assets/dashboard_bg.png";
 import { Link, useLocation } from "react-router-dom";
 import CartSidebar from "./CartSidebar";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const StoreFront = () => {
   const location = useLocation();
   const [inner, setInner] = useState(false);
 
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [products, setProducts] = useState([]);
   const cartItems = useSelector((state) => state.cart);
 
   const handleCart = () => {
     setIsCartOpen(!isCartOpen);
   };
 
-  // const addToCart = (item) => {
-  //   setCartItems([...cartItems, item]);
-  // };
-
-  // const removeFromCart = (itemId) => {
-  //   const updatedCartItems = cartItems.filter((item) => item.id !== itemId);
-  //   setCartItems(updatedCartItems);
-  // };
   useEffect(() => {
     if (location.pathname === "/storefront") {
       setInner(true);
     }
   }, [location]);
 
-  const displayedData = inner ? data : data.slice(0, 4);
+  async function FetchProd() {
+    try {
+      const Prod = await axios.get("http://localhost:3000/api/product/all");
+      setProducts(Prod.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    FetchProd();
+  }, []);
+  useEffect(() => {
+    console.log(products);
+  }, [products]);
+
+  const displayedData = inner ? products : products.slice(0, 4);
 
   return (
     <div>
@@ -62,11 +71,12 @@ const StoreFront = () => {
           </div>
         </div>
         <div className="grid grid-cols-4 gap-4">
-          {displayedData?.map((item, idx) => (
+          {products?.map((item, idx) => (
             <Card
               key={idx}
-              img={`/src/assets/` + item.imgSrc}
+              img={item.img}
               title={item.title}
+              prodId={item._id}
             />
           ))}
         </div>
