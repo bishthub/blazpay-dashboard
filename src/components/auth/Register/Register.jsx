@@ -131,12 +131,14 @@ import logo from "../../../assets/logo_blazpay.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { loginRedux } from "../../../redux/userSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
   const [username, setUsername] = useState("");
+  const [mobile, setMobile] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -151,6 +153,9 @@ const RegisterForm = () => {
   };
   const handleUserNameChange = (e) => {
     setUsername(e.target.value);
+  };
+  const handleMobileChange = (e) => {
+    setMobile(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -173,12 +178,13 @@ const RegisterForm = () => {
             username: usernameWithDomain,
             email,
             password,
+            mobileNumber: mobile,
           }),
         });
 
         if (response.ok) {
-          // Registration successful
-          // dispatch(registerRedux()); // You may want to dispatch some action to handle registration state in Redux
+          toast.success("Registered Successfully");
+
           navigate("/user/login"); // Redirect to login page after successful registration
         } else {
           // Handle registration failure (e.g., duplicate username or email)
@@ -227,7 +233,19 @@ const RegisterForm = () => {
               />
             </div>
 
-            <iv className="flex flex-col items-center justify-center w-full h-10 p-2 mb-4 bg-white rounded-lg">
+            <div className="flex flex-col items-center justify-center w-full h-10 p-2 mb-4 bg-white rounded-lg">
+              <input
+                type="text"
+                id="mobile"
+                className="w-full text-sm text-left text-black placeholder-gray-700 border border-none rounded-lg focus:outline-none"
+                placeholder="Enter Mobile Number"
+                value={mobile}
+                onChange={handleMobileChange}
+                required
+              />
+            </div>
+
+            <div className="flex flex-col items-center justify-center w-full h-10 p-2 mb-4 bg-white rounded-lg">
               <input
                 type="password"
                 id="password"
@@ -237,9 +255,9 @@ const RegisterForm = () => {
                 onChange={handlePasswordChange}
                 required
               />
-            </iv>
+            </div>
 
-            <iv className="flex flex-col items-center justify-center w-full h-10 p-2 mb-4 bg-white rounded-lg">
+            <div className="flex flex-col items-center justify-center w-full h-10 p-2 mb-4 bg-white rounded-lg">
               <input
                 type="password"
                 id="password"
@@ -249,8 +267,8 @@ const RegisterForm = () => {
                 onChange={handleRePasswordChange}
                 required
               />
-            </iv>
-            <iv className="flex flex-row items-center justify-center w-full h-10 gap-2 p-2 mb-4 bg-white rounded-lg">
+            </div>
+            <div className="flex flex-row items-center justify-center w-full h-10 gap-2 p-2 mb-4 bg-white rounded-lg">
               <input
                 type="text"
                 id="text"
@@ -261,7 +279,7 @@ const RegisterForm = () => {
                 required
               />
               <h1 className="w-1/3 font-extrabold text-black ">@Blazpay</h1>
-            </iv>
+            </div>
 
             <div className="flex flex-col items-center">
               <button
