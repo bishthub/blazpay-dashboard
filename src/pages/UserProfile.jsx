@@ -7,6 +7,8 @@ import twitter from "../assets/twitter.png";
 import linkedin from "../assets/linkedin.png";
 import discord from "../assets/discord.png";
 import telegram from "../assets/telegram.png";
+
+import polygon from "../assets/polygon.png";
 import Button from "../components/Button";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -20,6 +22,7 @@ const UserProfile = () => {
   const [name, setName] = useState("Name Surname");
   const [profileData, setProfileData] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [walletAddress, setWalletAddress] = useState([]);
 
   const [data, setData] = useState({
     img_url: "",
@@ -152,6 +155,33 @@ const UserProfile = () => {
     }
   };
 
+  async function WalletChains() {
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const ChainData = await axios.get("http://localhost:3000/api/wallet", {
+        headers: headers,
+      });
+
+      if (ChainData.status === 200) {
+        setWalletAddress(ChainData.data);
+      } else {
+        toast.warning("Session Expired");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    WalletChains();
+  });
+  useEffect(() => {
+    console.log(walletAddress);
+  }, []);
   return (
     <div
       style={{
@@ -296,26 +326,38 @@ const UserProfile = () => {
               )}
             </div>
           </div>
+
           <div className="flex flex-col items-center justify-center gap-4 rounded w-100">
             <h1 className="mr-auto w-100" style={{ fontSize: "1.5rem" }}>
               Your Addresses
             </h1>
-            <div
-              className="flex flex-row items-center justify-center p-2 bg-white rounded-lg "
-              style={{ width: "25rem" }}
-            >
-              <img
-                className="pr-3 mr-auto border-r border-black border-solid"
-                src={insta}
-                alt=""
-              />
-              {/* {profileData?.insta ? (
+            {walletAddress?.chains?.map((res, idx) => {
+              return (
+                <>
+                  <div
+                    className="flex flex-row items-center justify-center p-2 bg-white rounded-lg "
+                    style={{ width: "25rem" }}
+                  >
+                    <h1 className="text-black">{res.chainName}</h1>
+                    <img
+                      className="pr-3 w-12 mr-auto border-r border-black border-solid"
+                      src={polygon}
+                      alt=""
+                    />
+
+                    {/* {profileData?.insta ? (
                 <div className="mr-auto text-black ">{profileData?.insta}</div>
               ) : (
                 <div className="mr-auto text-black "></div>
               )} */}
-              <div></div>
-            </div>
+                    <div className="text-black text-center">
+                      {res.walletAddress}
+                    </div>
+                  </div>
+                </>
+              );
+            })}
+
             <div
               className="flex flex-row items-center justify-center p-2 bg-white rounded-lg "
               style={{ width: "25rem" }}
