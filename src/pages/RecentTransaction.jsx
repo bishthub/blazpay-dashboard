@@ -21,9 +21,12 @@ const RecentTransaction = () => {
 
       <div
         className="flex flex-col items-center justify-center w-3/4 gap-5 m-auto mb-3 opacity-50"
-        style={{ backgroundColor: "#444444" }}
+        style={{ backgroundColor: "#444444", zIndex: "-1" }}
       >
-        <h1 className="pl-10 mr-auto font-bold" style={{ fontSize: "1.5rem" }}>
+        <h1
+          className="pl-10 mr-auto font-bold"
+          style={{ fontSize: "1.5rem", zIndex: "999" }}
+        >
           Recent Transactions
         </h1>
 

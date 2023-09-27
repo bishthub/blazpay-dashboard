@@ -33,7 +33,8 @@ import { logoutRedux } from "./redux/userSlice";
 
 // const BaseRoute = () => (
 function BaseRoute() {
-  const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  // const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const isAuthenticated = localStorage.getItem("isAuthenticated");
   const navigate = useNavigate();
 
   const dispatch = useDispatch();

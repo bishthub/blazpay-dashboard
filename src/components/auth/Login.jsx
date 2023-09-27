@@ -35,14 +35,17 @@ const LoginForm = () => {
       localStorage.removeItem("username");
       localStorage.removeItem("id");
       localStorage.removeItem("tokenExpiration");
+      localStorage.setItem("isAuthenticated", "false");
 
       const { token, user } = response.data;
 
       const tokenExpiration = Date.now() + 1 * 60 * 1000;
+
       localStorage.setItem("token", token);
       localStorage.setItem("id", user._id);
       localStorage.setItem("username", email);
       localStorage.setItem("tokenExpiration", tokenExpiration);
+      localStorage.setItem("isAuthenticated", "true");
 
       dispatch(loginRedux({ token, username: email }));
 

@@ -29,9 +29,11 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("id");
+    localStorage.setItem("isAuthenticated", "false");
     navigate("/user/login");
   };
-  const username = useSelector((state) => state.user.username);
+  // const username = useSelector((state) => state.user.username);
+  const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
 
   const handleProfile = () => {
@@ -58,7 +60,14 @@ const Navbar = () => {
       if (tokenData.status === 200) {
         setTokenCount(tokenData.data.totalTokens);
       } else {
-        console.log("something went Wrong");
+        toast.warning("Session Expired");
+        dispatch(logoutRedux());
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        localStorage.removeItem("id");
+        localStorage.setItem("isAuthenticated", "false");
+        navigate("/user/login");
       }
     } catch (Err) {
       toast.error(Err);
