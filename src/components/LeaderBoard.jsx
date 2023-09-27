@@ -168,7 +168,9 @@ const LeaderBoard = ({ expand }) => {
               >
                 <div className="w-full text-center">{idx + 1}</div>
                 <div className="w-full text-center">{data.username}</div>
-                <div className="w-full text-center">{data.tokens}</div>
+                <div className="w-full text-center">
+                  {data.tokens ? data.tokens : 0}
+                </div>
               </div>
             );
           })}
