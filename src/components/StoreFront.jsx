@@ -72,17 +72,14 @@ const StoreFront = () => {
 
   useEffect(() => {
     FetchCartProds();
-  }, []);
-  useEffect(() => {
-    console.log(cartItems);
   }, [cartItems]);
 
   const displayedData = inner ? products : products.slice(0, 4);
 
   return (
     <div>
-      <div className="w-full p-3  " style={{ backgroundColor: "#171717" }}>
-        <div className=" flex flex-row items-center justify-between w-full p-1 pl-2 pr-2 ">
+      <div className="w-full p-3 " style={{ backgroundColor: "#171717" }}>
+        <div className="flex flex-row items-center justify-between w-full p-1 pl-2 pr-2 ">
           <div className="flex flex-row items-center justify-center gap-8">
             <p>StoreFront</p>
             {location.pathname === "/" && (
@@ -109,7 +106,7 @@ const StoreFront = () => {
                 className="flex flex-col  items-center absolute top-0 right-0 w-[350px] h-[100vh] bg-slate-600"
                 style={{ overflowY: "scroll" }}
               >
-                <div className="w-full flex flex-row justify-between items-center  border-b-2 border-white mt-8 p-2 ">
+                <div className="flex flex-row items-center justify-between w-full p-2 mt-8 border-b-2 border-white ">
                   <h1 className="text-2xl">Cart</h1>
                   <div className="text-2xl cursor-pointer" onClick={handleCart}>
                     <IoMdCloseCircleOutline />
@@ -118,20 +115,20 @@ const StoreFront = () => {
 
                 {cartItems.length !== 0 ? (
                   <>
-                    <div className="w-full flex flex-row justify-between mt-8 p-2">
+                    <div className="flex flex-row justify-between w-full p-2 mt-8">
                       <h1 className="w-full text-center">
                         {cartItems.length} Items
                       </h1>
                       <h1 className="w-full text-center">Qty</h1>
 
-                      <h1 className="cursor-pointer w-full text-center">
+                      <h1 className="w-full text-center cursor-pointer">
                         Clear All
                       </h1>
                     </div>
                     <div className="w-full">
                       {cartItems.map((item, index) => (
                         <div
-                          className="w-full flex flex-row justify-between items-center p-4 border-b-2 border-white"
+                          className="flex flex-row items-center justify-between w-full p-4 border-b-2 border-white"
                           key={index}
                         >
                           <div className="w-full text-center">
@@ -147,18 +144,18 @@ const StoreFront = () => {
                       ))}
                     </div>
 
-                    <div className="w-full flex flex-row justify-between items-center p-6 border-b-2 border-white">
+                    <div className="flex flex-row items-center justify-between w-full p-6 border-b-2 border-white">
                       <h1 className="w-full text-center">Total Price</h1>
-                      <h1 className="text-center w-full text-orange-700 font-bold">
+                      <h1 className="w-full font-bold text-center text-orange-700">
                         {totalPrice} Eth
                       </h1>
                     </div>
-                    <div className="w-full flex flex-row justify-between items-center p-6 border-b-2 border-white">
+                    <div className="flex flex-row items-center justify-between w-full p-6 border-b-2 border-white">
                       <h1 className="w-full text-center">Payment Method</h1>
                       <h1 className="w-full text-center">Crypto</h1>
                     </div>
 
-                    <div className="w-full flex flex-row justify-between items-center p-2">
+                    <div className="flex flex-row items-center justify-between w-full p-2">
                       <button className="w-full h-[40px] rounded-lg bg-black flex justify-center items-center">
                         Complete Purchase
                       </button>

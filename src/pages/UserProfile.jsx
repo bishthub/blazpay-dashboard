@@ -23,6 +23,7 @@ const UserProfile = () => {
   const [profileData, setProfileData] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [walletAddress, setWalletAddress] = useState([]);
+  const [edit, setEdit] = useState(true);
 
   const [data, setData] = useState({
     img_url: "",
@@ -145,7 +146,8 @@ const UserProfile = () => {
       );
 
       if (response.status === 200) {
-        toast.success("Bio updated successfully!");
+        // toast.success("Bio updated successfully!");
+        console.log("Session Expired Photo in ProfilePAge");
         navigate("/");
       } else {
         toast.error("Profile update failed.");
@@ -169,10 +171,12 @@ const UserProfile = () => {
       if (ChainData.status === 200) {
         setWalletAddress(ChainData.data);
       } else {
-        toast.warning("Session Expired");
+        console.log("Error in getting the chain data in profile page");
       }
     } catch (err) {
-      console.log(err);
+      // toast.warning("Session Expired");
+      console.log("session Expired get wallet address in profile Page");
+      // navigate("/user/login");
     }
   }
 
@@ -182,6 +186,10 @@ const UserProfile = () => {
   useEffect(() => {
     console.log(walletAddress);
   }, []);
+
+  const HandleEdit = () => {
+    setEdit(!edit);
+  };
   return (
     <div
       style={{
@@ -194,48 +202,38 @@ const UserProfile = () => {
     >
       <Navbar />
       <div className="w-full  h-[80vh]">
-        <div
-          className=" w-4/5 p-5 flex h-full flex-row items-center justify-around m-auto backdrop-blur-md bg-gray-600 opacity-70
-         "
-        >
-          <div className="flex flex-col items-center justify-center gap-5 w-full">
-            {/* <div className="flex flex-row gap-2  w-full items-center justify-center"> */}
-            <div className="flex flex-col items-center justify-center gap-3 w-full">
+        <div className="flex flex-row items-center justify-around w-4/5 h-full p-5 m-auto bg-gray-600 backdrop-blur-md opacity-90">
+          <div className="flex flex-col items-center justify-center w-full gap-5">
+            {/* <div className="flex flex-row items-center justify-center w-full gap-2"> */}
+            <div className="flex flex-col items-center justify-center w-full gap-3">
               <h1 className="w-full" style={{ fontSize: "1.5rem" }}>
                 Profile
               </h1>
 
               <form
-                className="flex w-full flex-col justify-center "
+                className="flex flex-col justify-center w-full gap-5"
                 // onSubmit={handleSubmit}
               >
-                <div className="flex flex-row justify-center items-center">
-                  <div className="relative w-28 h-28 overflow-hidden rounded-full shadow-md drop-shadow-md ">
+                <div className="flex flex-row items-center justify-center w-full ">
+                  <div className="relative flex flex-row items-center w-full gap-5 overflow-hidden ">
                     <img
                       src={
                         profileData?.img_url
                           ? profileData?.img_url
                           : loginSignupImage
                       }
-                      className="w-full h-full"
+                      className="w-20 h-20 rounded-full"
                     />
 
-                    <label htmlFor="profileImage">
-                      <div className="absolute bottom-0 w-full text-center bg-opacity-50 cursor-pointer h-1/3 bg-slate-500">
-                        <p className="p-1 text-sm text-white">Edit</p>
-                      </div>
-                      <input
-                        type={"file"}
-                        id="profileImage"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={handleUploadProfileImage}
-                      />
-                    </label>
+                    <h1 style={{ fontSize: "1.5rem" }} className="mr-auto">
+                      {username}
+                    </h1>
                   </div>
 
-                  <div className="flex flex-col items-center justify-center gap-3 w-full ">
-                    <h1 style={{ fontSize: "1.5rem" }}>{username}</h1>
+                  <div className="flex flex-col items-center justify-center w-full gap-3 ">
+                    {/* <h1 style={{ fontSize: "1.5rem" }} className="mr-auto">
+                      {username}
+                    </h1> */}
                     {/* <div className="flex items-center justify-center gap-3">
                 {isEditing ? (
                   <input
@@ -258,7 +256,7 @@ const UserProfile = () => {
               </div> */}
                   </div>
                 </div>
-                {/* <div className="relative w-28 h-28 overflow-hidden rounded-full shadow-md drop-shadow-md ">
+                {/* <div className="relative overflow-hidden rounded-full shadow-md w-28 h-28 drop-shadow-md ">
                   <img
                     src={
                       profileData?.img_url
@@ -281,7 +279,47 @@ const UserProfile = () => {
                     />
                   </label>
                 </div> */}
-                <div className="w-28 mr-auto">
+
+                {/* {edit ? (
+                  <label htmlFor="profileImage">
+                    <div
+                      className="w-20 text-center bg-opacity-50 cursor-pointer h-1/3 bg-slate-500"
+                      // onClick={HandleEdit}
+                    >
+                      <p className="p-1 text-sm text-white">Edit</p>
+                    </div>
+                    <input
+                      type={"file"}
+                      id="profileImage"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleUploadProfileImage}
+                    />
+                  </label>
+                ) : (
+                  <div
+                    className="w-20 mr-auto bg-opacity-50 cursor-pointer bg-slate-500"
+                    onClick={HandleEdit}
+                  >
+                    <button className="w-full " type="submit">
+                      Upload
+                    </button>
+                  </div>
+                )} */}
+                <label htmlFor="profileImage">
+                  <div className="w-20 text-center bg-opacity-50 cursor-pointer h-1/3 bg-slate-500">
+                    <p className="p-1 text-sm text-white">Edit</p>
+                  </div>
+                  <input
+                    type={"file"}
+                    id="profileImage"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleUploadProfileImage}
+                  />
+                </label>
+
+                <div className="w-20 mr-auto bg-opacity-50 cursor-pointer bg-slate-500">
                   <button className="w-full " type="submit">
                     Upload
                   </button>
@@ -291,12 +329,12 @@ const UserProfile = () => {
 
             {/* </div> */}
 
-            <div className="flex flex-col gap-5 w-full">
+            <div className="flex flex-col w-full gap-5">
               <h1 style={{ fontSize: "1.5rem" }}>Bio</h1>
 
               {profileData?.bio ? (
-                <div className="flex justify-start items-start  flex-col gap-3  ">
-                  <div className="text-white w-full rounded-lg flex items-center">
+                <div className="flex flex-col items-start justify-start gap-3 ">
+                  <div className="flex items-center w-full text-white rounded-lg">
                     {profileData?.bio}
                   </div>
                   <div className="">
@@ -335,29 +373,31 @@ const UserProfile = () => {
               return (
                 <>
                   <div
-                    className="flex flex-row items-center justify-center p-2 bg-white rounded-lg "
+                    className="flex flex-row items-center justify-center py-2 bg-white rounded-lg "
                     style={{ width: "25rem" }}
                   >
-                    <h1 className="text-black">{res.chainName}</h1>
-                    <img
-                      className="pr-3 w-12 mr-auto border-r border-black border-solid"
-                      src={polygon}
-                      alt=""
-                    />
+                    <div className="flex flex-row items-center justify-center w-1/3 gap-2 border-r border-black border-solid">
+                      <h1 className="text-black ">{res.chainName}</h1>
+                      {res.chainName == "Matic" ? (
+                        <img className="w-8 " src={polygon} alt="" />
+                      ) : (
+                        <></>
+                      )}
+                    </div>
 
                     {/* {profileData?.insta ? (
                 <div className="mr-auto text-black ">{profileData?.insta}</div>
               ) : (
                 <div className="mr-auto text-black "></div>
               )} */}
-                    <div className="text-black text-center">
+                    <div className="w-full text-center text-black">
                       {res.walletAddress}
                     </div>
                   </div>
                 </>
               );
             })}
-
+            {/* 
             <div
               className="flex flex-row items-center justify-center p-2 bg-white rounded-lg "
               style={{ width: "25rem" }}
@@ -366,18 +406,18 @@ const UserProfile = () => {
                 className="pr-3 mr-auto border-r border-black border-solid"
                 src={twitter}
                 alt=""
-              />
+              /> */}
 
-              {/* {profileData?.twitter ? (
+            {/* {profileData?.twitter ? (
                 <div className="mr-auto text-black ">
                   {profileData?.twitter}
                 </div>
               ) : (
                 <div className="mr-auto text-black "></div>
               )} */}
-              <div></div>
-            </div>
-            <div
+            <div></div>
+          </div>
+          {/* <div
               className="flex flex-row items-center justify-center p-2 bg-white rounded-lg "
               style={{ width: "25rem" }}
             >
@@ -387,13 +427,13 @@ const UserProfile = () => {
                 alt=""
               />
 
-              {/* {profileData?.linkedin ? (
+              {profileData?.linkedin ? (
                 <div className="mr-auto text-black ">
                   {profileData?.linkedin}
                 </div>
               ) : (
                 <div className="mr-auto text-black "></div>
-              )} */}
+              )}
               <div></div>
             </div>
             <div
@@ -406,13 +446,13 @@ const UserProfile = () => {
                 alt=""
               />
 
-              {/* {profileData?.discord ? (
+              {profileData?.discord ? (
                 <div className="mr-auto text-black ">
                   {profileData?.discord}
                 </div>
               ) : (
                 <div className="mr-auto text-black "></div>
-              )} */}
+              )}
               <div></div>
             </div>
             <div
@@ -425,19 +465,19 @@ const UserProfile = () => {
                 alt=""
               />
 
-              {/* {profileData?.telegram ? (
+              {profileData?.telegram ? (
                 <div className="mr-auto text-black ">
                   {profileData?.telegram}
                 </div>
               ) : (
                 <div className="mr-auto text-black "></div>
-              )} */}
+              )}
               <div></div>
             </div>
-            {/* <Link to="/user/profile/edit" className="w-full">
+            <Link to="/user/profile/edit" className="w-full">
               <Button name={"Edit"} />
             </Link> */}
-          </div>
+          {/* </div> */}
         </div>
       </div>
     </div>

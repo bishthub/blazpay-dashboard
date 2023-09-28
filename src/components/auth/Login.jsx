@@ -39,7 +39,7 @@ const LoginForm = () => {
 
       const { token, user } = response.data;
 
-      const tokenExpiration = Date.now() + 1 * 60 * 1000;
+      const tokenExpiration = Date.now() + 30 * 60 * 1000;
 
       localStorage.setItem("token", token);
       localStorage.setItem("id", user._id);

@@ -29,6 +29,7 @@ const Navbar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("id");
+    localStorage.removeItem("tokenExpiration");
     localStorage.setItem("isAuthenticated", "false");
     navigate("/user/login");
   };
@@ -60,24 +61,31 @@ const Navbar = () => {
       if (tokenData.status === 200) {
         setTokenCount(tokenData.data.totalTokens);
       } else {
-        toast.warning("Session Expired");
-        dispatch(logoutRedux());
-
-        localStorage.removeItem("token");
-        localStorage.removeItem("username");
-        localStorage.removeItem("id");
-        localStorage.setItem("isAuthenticated", "false");
-        navigate("/user/login");
+        console.log("Some Error has occurred");
       }
     } catch (Err) {
-      toast.error(Err);
+      console.log(Err);
     }
   };
 
   useEffect(() => {
+    const tokenExpiration = localStorage.getItem("tokenExpiration");
+    if (tokenExpiration && Date.now() >= Number(tokenExpiration)) {
+      toast.warning("Session Expired");
+      dispatch(logoutRedux());
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("id");
+      localStorage.removeItem("tokenExpiration");
+      localStorage.setItem("isAuthenticated", "false");
+      navigate("/user/login");
+    }
+  }, []);
+
+  useEffect(() => {
     ProfileUpdate();
     TokensUpdate();
-  }, []);
+  }, [profileData]);
 
   return (
     <nav
