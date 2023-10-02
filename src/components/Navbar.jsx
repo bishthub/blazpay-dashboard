@@ -85,7 +85,7 @@ const Navbar = () => {
   useEffect(() => {
     ProfileUpdate();
     TokensUpdate();
-  }, [profileData]);
+  }, []);
 
   return (
     <nav

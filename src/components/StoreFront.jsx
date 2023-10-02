@@ -29,37 +29,70 @@ const StoreFront = () => {
     }
   }, [location]);
 
-  async function FetchProd() {
-    try {
-      const Prod = await axios.get("http://localhost:3000/api/product/all");
-      setProducts(Prod.data);
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  // async function FetchProd() {
+  //   try {
+  //     const Prod = await axios.get("http://localhost:3000/api/product/all");
+  //     setProducts(Prod.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
 
-  useEffect(() => {
-    FetchProd();
-  }, [products]);
   // useEffect(() => {
-  //   console.log(products);
+  //   FetchProd();
   // }, [products]);
 
-  async function FetchCartProds() {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:3000/api/cart", {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  // async function FetchCartProds() {
+  //   try {
+  //     const token = localStorage.getItem("token");
+  //     const response = await axios.get("http://localhost:3000/api/cart", {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
 
-      setCartItems(response.data.items);
-    } catch (err) {
-      toast.warning(err);
+  //     setCartItems(response.data.items);
+  //   } catch (err) {
+  //     toast.warning(err);
+  //   }
+  // }
+  // useEffect(() => {
+  //   FetchCartProds();
+  // }, [cartItems]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const Prod = await axios.get("http://localhost:3000/api/product/all");
+        setProducts(Prod.data);
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }
+
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    async function fetchCartProducts() {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get("http://localhost:3000/api/cart", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        setCartItems(...cartItems, response.data.items);
+      } catch (err) {
+        toast.warning(err);
+      }
+    }
+
+    fetchCartProducts();
+  }, []);
 
   const totalPrice = cartItems.reduce((total, item) => {
     if (item.productId) {
@@ -67,10 +100,6 @@ const StoreFront = () => {
     }
     return total;
   }, 0);
-
-  useEffect(() => {
-    FetchCartProds();
-  }, [cartItems]);
 
   const displayedData = inner ? products : products.slice(0, 4);
 
