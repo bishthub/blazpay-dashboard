@@ -139,10 +139,12 @@ const Navbar = () => {
                     <h1 className="w-full text-center">Profile</h1>
                   </div>
                 </Link>
-                <div className="flex flex-row items-center justify-around w-full">
-                  <img src={setting} alt="" />
-                  <h1 className="w-full text-center">Setting</h1>
-                </div>
+                <Link className="w-full mr-2 " to="/user/wallet">
+                  <div className="flex flex-row items-center justify-around w-full">
+                    <img src={setting} alt="" />
+                    <h1 className="w-full text-center">Settings</h1>
+                  </div>
+                </Link>
                 <Link className="w-full" to="/user/my-items">
                   <div className="flex flex-row items-center justify-around w-full">
                     <img src={items} alt="" />

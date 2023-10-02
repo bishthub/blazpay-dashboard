@@ -40,7 +40,7 @@ const StoreFront = () => {
 
   useEffect(() => {
     FetchProd();
-  }, []);
+  }, [products]);
   // useEffect(() => {
   //   console.log(products);
   // }, [products]);
@@ -56,8 +56,6 @@ const StoreFront = () => {
       });
 
       setCartItems(response.data.items);
-
-      console.log(cartItems);
     } catch (err) {
       toast.warning(err);
     }
@@ -99,7 +97,6 @@ const StoreFront = () => {
               src={Cart}
               alt=""
               title="cart"
-              // style={{ zIndex: "999" }}
             />
             {isCartOpen ? (
               <div

@@ -26,24 +26,22 @@ const Card = ({ img, title, prodId }) => {
 
       const response = await axios.post(
         "http://localhost:3000/api/cart/",
-        { productId, quantity }, // Send the productId and quantity in the request body
+        { productId, quantity },
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Attach the token in the Authorization header
+            Authorization: `Bearer ${token}`,
           },
         }
       );
 
       if (response.status !== 200) {
-        // Handle error responses from the server
         console.error("Error:", response.data.message);
         return;
       }
 
-      const cartData = response.data; // Assuming the server responds with updated cart data
+      const cartData = response.data;
       toast.success("Added to Cart");
-      // You can update your UI to reflect the updated cart state
     } catch (error) {
       toast.error("Session Ended");
       navigate("/user/login");
