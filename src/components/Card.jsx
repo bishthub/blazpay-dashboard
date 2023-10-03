@@ -55,7 +55,7 @@ const Card = ({ img, title, prodId }) => {
         src={img}
         alt=""
       />
-      <div className="flex flex-row justify-around w-1/2">
+      <div className="flex flex-col items-center justify-around w-1/2">
         <h2>{title}</h2>
         <button
           onClick={handleAddToCart}

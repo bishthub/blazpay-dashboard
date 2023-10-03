@@ -27,9 +27,10 @@ import Token from "./pages/Token";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
 import MyEntryPass from "./pages/MyEntryPass";
 import GetTokens from "./pages/GetTokens";
-import CartSidebar from "./components/CartSidebar";
+
 import ProfileEdit from "./components/ProfileEdit";
 import { logoutRedux } from "./redux/userSlice";
+import Notification from "./pages/Notification";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -145,6 +146,14 @@ function BaseRoute() {
             </ProtectedRoute>
           }
         />
+        {/* <Route
+          path="/user/notification"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Notification />
+            </ProtectedRoute>
+          }
+        /> */}
         <Route
           path="/user/profile/edit"
           element={

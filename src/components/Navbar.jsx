@@ -14,11 +14,15 @@ import { FaTimes } from "react-icons/fa";
 import loginSignupImage from "../assets/login-animation.gif";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { IoIosNotifications } from "react-icons/io";
+import { AiOutlineTransaction } from "react-icons/ai";
+import Notification from "../pages/Notification";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [profileData, setProfileData] = useState([]);
   const [tokenCount, setTokenCount] = useState("0");
+  const [notif, setNotif] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const HandleLogout = (e) => {
@@ -87,9 +91,12 @@ const Navbar = () => {
     TokensUpdate();
   }, []);
 
+  const handleNotification = () => {
+    setNotif(!notif);
+  };
   return (
     <nav
-      className="flex items-center justify-center w-full shadow font-bvmp "
+      className="relative flex items-center justify-center w-full shadow font-bvmp "
       style={{ height: "10vh" }}
     >
       <div className="flex items-center justify-between w-full p-1 flex-column">
@@ -134,35 +141,48 @@ const Navbar = () => {
               >
                 <Link className="w-full mr-2 " to="/user/profile">
                   <div className="flex flex-row items-center justify-around w-full ">
-                    <img src={profile} alt="" />
+                    <img className="w-6" src={profile} alt="" />
 
                     <h1 className="w-full text-center">Profile</h1>
                   </div>
                 </Link>
                 <Link className="w-full mr-2 " to="/user/wallet">
                   <div className="flex flex-row items-center justify-around w-full">
-                    <img src={setting} alt="" />
+                    <img className="w-6" src={setting} alt="" />
                     <h1 className="w-full text-center">Settings</h1>
                   </div>
                 </Link>
                 <Link className="w-full" to="/user/my-items">
                   <div className="flex flex-row items-center justify-around w-full">
-                    <img src={items} alt="" />
+                    <img className="w-6" src={items} alt="" />
                     <h1 className="w-full text-center">My Items</h1>
                   </div>
                 </Link>
                 <Link className="w-full" to="/user/mypass">
                   <div className="flex flex-row items-center justify-around w-full">
-                    <img src={entrylogo} alt="" />
+                    <img className="w-6" src={entrylogo} alt="" />
                     <h1 className="w-full text-center">My Entry Passes</h1>
                   </div>
                 </Link>
                 <Link className="w-full" to="/user/transactions">
                   <div className="flex flex-row items-center justify-around w-full">
-                    <h1>ok</h1>
+                    <h1>
+                      <AiOutlineTransaction className="text-2xl" />
+                    </h1>
                     <h1 className="w-full text-center">Recent Transactions</h1>
                   </div>
                 </Link>
+
+                <div
+                  className="flex flex-row items-center justify-around w-full"
+                  onClick={handleNotification}
+                >
+                  <h1>
+                    <IoIosNotifications className="text-2xl" />
+                  </h1>
+                  <h1 className="w-full text-center">Notifications</h1>
+                </div>
+
                 <div
                   onClick={handleProfile}
                   className="flex items-center justify-center w-1/4 h-8 m-auto bg-black rounded-full"
@@ -180,6 +200,13 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+      {!click && notif ? (
+        <div className="absolute top-0 right-0 " style={{ zIndex: "9999" }}>
+          <Notification handleNotification={handleNotification} />
+        </div>
+      ) : (
+        <></>
+      )}
     </nav>
   );
 };

@@ -4,7 +4,7 @@ import data from "../StoreFont.json";
 import Card from "./Card";
 import bgImage from "../assets/dashboard_bg.png";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import CartSidebar from "./CartSidebar";
+
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { IoMdCloseCircleOutline } from "react-icons/io";
@@ -28,38 +28,6 @@ const StoreFront = () => {
       setInner(true);
     }
   }, [location]);
-
-  // async function FetchProd() {
-  //   try {
-  //     const Prod = await axios.get("http://localhost:3000/api/product/all");
-  //     setProducts(Prod.data);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   FetchProd();
-  // }, [products]);
-
-  // async function FetchCartProds() {
-  //   try {
-  //     const token = localStorage.getItem("token");
-  //     const response = await axios.get("http://localhost:3000/api/cart", {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-
-  //     setCartItems(response.data.items);
-  //   } catch (err) {
-  //     toast.warning(err);
-  //   }
-  // }
-  // useEffect(() => {
-  //   FetchCartProds();
-  // }, [cartItems]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -130,7 +98,7 @@ const StoreFront = () => {
             {isCartOpen ? (
               <div
                 className="flex flex-col  items-center absolute top-0 right-0 w-[350px] h-[100vh] bg-slate-600"
-                style={{ overflowY: "scroll" }}
+                style={{ overflowY: "scroll", zIndex: "999" }}
               >
                 <div className="flex flex-row items-center justify-between w-full p-2 mt-8 border-b-2 border-white ">
                   <h1 className="text-2xl">Cart</h1>
