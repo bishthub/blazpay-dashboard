@@ -8,34 +8,50 @@ import axios from "axios";
 const Send = () => {
   const [walletAddress, setWalletAddress] = useState([]);
   const token = localStorage.getItem("token");
-  const WalletChains = useCallback(async () => {
-    try {
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
-      const ChainData = await axios.get("http://localhost:3000/api/wallet", {
-        headers: headers,
-      });
-      if (ChainData.status === 200) {
-        setWalletAddress(ChainData.data);
-        console.log(walletAddress);
-      } else {
-        console.log("Error in getting the chain data in profile page");
-      }
-    } catch (err) {
-      setLoading(false);
-      console.log("Session Expired get wallet address in profile Page");
-    }
-  }, [token]);
+  const [formData, setFormData] = useState({
+    username: "",
+    chain: "",
+    tokens: 0,
+  });
 
-  useEffect(() => {
-    WalletChains();
-  }, [WalletChains]);
+  const [message, setMessage] = useState(""); // To display success/error messages
 
-  useEffect(() => {
-    console.log(walletAddress);
-  }, [walletAddress]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // const WalletChains = useCallback(async () => {
+  //   try {
+  //     const headers = {
+  //       Authorization: `Bearer ${token}`,
+  //       "Content-Type": "application/json",
+  //     };
+  //     const ChainData = await axios.get("http://localhost:3000/api/wallet", {
+  //       headers: headers,
+  //     });
+  //     if (ChainData.status === 200) {
+  //       setWalletAddress(ChainData.data);
+  //       console.log(walletAddress);
+  //     } else {
+  //       console.log("Error in getting the chain data in profile page");
+  //     }
+  //   } catch (err) {
+  //     setLoading(false);
+  //     console.log("Session Expired get wallet address in profile Page");
+  //   }
+  // }, [token]);
+
+  // useEffect(() => {
+  //   WalletChains();
+  // }, [WalletChains]);
+
+  // useEffect(() => {
+  //   console.log(walletAddress);
+  // }, [walletAddress]);
   return (
     <div
       className="relative flex flex-col items-center justify-center w-full h-full gap-3 m-auto bg-black border-2 border-t-4 border-l-4 border-r-4 border-orange-700"
@@ -53,7 +69,7 @@ const Send = () => {
           </h1>
           <div className="w-full h-10 p-2 border-2 border-orange-700 rounded-sm">
             {" "}
-            <select
+            {/* <select
               // value={selectedWallet}
               // onChange={handleSelectChange}
               className="w-full text-center bg-transparent border-none focus:outline-none"
@@ -64,7 +80,7 @@ const Send = () => {
                   {val.chainName}
                 </option>
               ))}
-            </select>
+            </select> */}
             <input
               type="text"
               className="w-full text-center bg-transparent border-none focus:outline-none"
@@ -96,6 +112,7 @@ const Send = () => {
                 className="w-full bg-transparent border-none focus:outline-none"
                 value={formData.tokens}
                 onChange={handleChange}
+                inputMode="numeric"
               />
             </div>
           </div>
