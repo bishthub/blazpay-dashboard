@@ -5,8 +5,37 @@ import { useNavigate, Link } from "react-router-dom";
 import { ethers } from "ethers";
 
 const WalletConnect = () => {
-  const navigate = useNavigate();
   const [isConnected, setIsConnected] = useState(false);
+  const [accountAddress, setAccountAddress] = useState(null);
+
+  const connectWallet = async () => {
+    try {
+      // Request access to the user's MetaMask wallet
+      const provider = new ethers.providers.Web3Provider(window.Ethereum);
+      const accounts = await provider.send("eth_requestAccounts", []);
+
+      if (accounts.length > 0) {
+        setIsConnected(true);
+        setAccountAddress(accounts[0]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    // Check if MetaMask is installed and connected
+    if (window.ethereum) {
+      window.ethereum.on("accountsChanged", (accounts) => {
+        if (accounts.length === 0) {
+          setIsConnected(false);
+          setAccountAddress(null);
+        }
+      });
+    }
+  }, []);
+
+  const navigate = useNavigate();
   const [walletAddress, setWalletAddress] = useState("");
 
   // const handleConnectWallet = async () => {
@@ -138,8 +167,10 @@ const WalletConnect = () => {
             <div className="flex flex-col items-center justify-center mb-6">
               {!isConnected ? (
                 <>
+                  <button onClick={connectWallet}></button>
+
                   <button
-                    onClick={handleConnectWallet}
+                    onClick={connectWallet}
                     className="min-w-[50%] md:w-[45%] py-1 px-3 rounded-2xl hover:bg-gradient"
                     style={{
                       background:
@@ -147,7 +178,7 @@ const WalletConnect = () => {
                       color: "white",
                     }}
                   >
-                    Connect Wallet
+                    {isConnected ? "Wallet Connected" : "Connect Wallet"}
                   </button>
                 </>
               ) : (
