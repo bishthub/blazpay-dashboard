@@ -1,11 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import bgImage from "../assets/dashboard_bg.png";
-import Data from "../RecentTransaction.json";
-import Img from "../assets/polygon.png";
+// import Data from "../RecentTransaction.json";
+// import Img from "../assets/polygon.png";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const RecentTransaction = () => {
-  console.log(Img);
+  const [recentTrans, setRecentTrans] = useState([]);
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
+  async function fetchRecent() {
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+      const recentData = await axios.get(
+        "http://localhost:3000/api/transaction/get-transactions",
+        {
+          headers: headers,
+        }
+      );
+
+      if (recentData.status === 200) {
+        setRecentTrans(recentData.data);
+      } else {
+        toast.warning("Session Expired");
+        navigate("/user/login");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    fetchRecent();
+  }, []);
+
+  useEffect(() => {
+    console.log(recentTrans);
+  });
   return (
     <div
       style={{
@@ -20,8 +56,8 @@ const RecentTransaction = () => {
       <Navbar />
 
       <div
-        className="flex flex-col items-center justify-center w-3/4 gap-5 m-auto mb-3 opacity-50"
-        style={{ backgroundColor: "#444444", zIndex: "-1" }}
+        className="flex flex-col items-center justify-center w-3/4 gap-5 m-auto mb-3 bg-gray-600 backdrop-blur-md opacity-90"
+        // style={{ backgroundColor: "#444444", zIndex: "-1" }}
       >
         <h1
           className="pl-10 mr-auto font-bold"
@@ -31,30 +67,32 @@ const RecentTransaction = () => {
         </h1>
 
         <div className="flex flex-col items-center justify-between w-full gap-3 ">
-          <div className="flex flex-row items-center justify-center w-full gap-3 font-semibold">
+          <div className="flex flex-row items-center justify-center w-full gap-3 font-semibold font-bold">
             <h1 className="w-full text-center">Actions</h1>
             <h1 className="w-full text-center">Chain</h1>
             <h1 className="w-full text-center">User ID</h1>
-            <h1 className="w-full text-center">Asset</h1>
+            <h1 className="w-full text-center">Qty</h1>
           </div>
 
-          {Data.map((item) => {
+          {recentTrans.map((item, idx) => {
             return (
-              <div className="flex flex-row items-center justify-center w-full gap-3">
-                <h1 className="w-full text-center">{item.action}</h1>
-                <div className="flex flex-row items-center justify-center w-full gap-2 text-center">
-                  <img
+              <div
+                key={idx}
+                className="flex flex-row items-center justify-center w-full gap-3"
+              >
+                <h1 className="w-full text-center">{item.moduleName}</h1>
+
+                {/* <img
                     className="w-10"
                     src={`/src/assets/` + item.chainImg}
                     alt=""
-                  />
-                  <h1>{item.chainName}</h1>
-                </div>
-                <h1 className="w-full text-center">{item.userId}</h1>
-                <div className="flex flex-col items-center justify-center w-full">
-                  <h1>{item.assetCrypto}</h1>
-                  <h1>{item.assetUsd}</h1>
-                </div>
+                  /> */}
+
+                <h1 className="w-full text-center">{item.chain}</h1>
+
+                <h1 className="w-full text-center ">{item._id}</h1>
+
+                <h1 className="w-full text-center">{item.amount}</h1>
               </div>
             );
           })}

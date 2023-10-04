@@ -97,7 +97,7 @@ const Navbar = () => {
   return (
     <nav
       className="relative flex items-center justify-center w-full shadow font-bvmp "
-      style={{ height: "10vh" }}
+      // style={{ height: "10vh" }}
     >
       <div className="flex items-center justify-between w-full p-1 flex-column">
         <Link to="/" className="w-full">

@@ -73,8 +73,8 @@ const StoreFront = () => {
 
   return (
     <div>
-      <div className="w-full p-3 " style={{ backgroundColor: "#171717" }}>
-        <div className="flex flex-row items-center justify-between w-full p-1 pl-2 pr-2 ">
+      <div className="w-full " style={{ backgroundColor: "#171717" }}>
+        <div className="flex flex-row items-center justify-between w-full pl-2 pr-2 ">
           <div className="flex flex-row items-center justify-center gap-8">
             <p>StoreFront</p>
             {location.pathname === "/" && (

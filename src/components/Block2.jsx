@@ -20,23 +20,29 @@ const Block2 = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center w-full gap-8 px-3 pt-8">
-      <div className="flex flex-row w-full gap-8">
-        <div className="flex flex-col gap-8">
-          <div className="w-full" onClick={() => openOverlay(<ManageFunds />)}>
+    <div className="flex flex-row items-center justify-center w-full gap-2 px-3 pt-8">
+      <div className="flex flex-row w-full h-full gap-8">
+        <div className="flex flex-col items-center justify-between">
+          <div
+            className="h-full w-ful"
+            onClick={() => openOverlay(<ManageFunds />)}
+          >
             <ManageFund />
           </div>
-          <div className="w-full" onClick={() => openOverlay(<Jackpot />)}>
+          <div
+            className="w-full h-full"
+            onClick={() => openOverlay(<Jackpot />)}
+          >
             <Jackpot />
           </div>
         </div>
-        <div className="flex flex-col gap-8">
-          <div className="w-full" onClick={() => openOverlay(<Refer />)}>
+        <div className="flex flex-col items-center justify-between">
+          <div className="w-full h-full" onClick={() => openOverlay(<Refer />)}>
             {" "}
             <Refer />
           </div>
 
-          <div className="w-full" onClick={() => openOverlay(<Spin />)}>
+          <div className="w-full h-full" onClick={() => openOverlay(<Spin />)}>
             {" "}
             <Spin />
           </div>
@@ -44,7 +50,7 @@ const Block2 = () => {
       </div>
       <Link
         to="/leaderboard"
-        className="w-full"
+        className="w-full h-full"
         // onClick={() =>
         //   openOverlay(
         //     <LeaderBoard style={{ OverflowY: "scroll" }} expand={true} />
