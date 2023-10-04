@@ -140,6 +140,9 @@ const Send = () => {
                 onChange={handleChain}
                 required
               >
+                <option className="text-black" value="">
+                  Select Chain
+                </option>
                 {walletAddress?.chains?.map((el, idx) => (
                   <option className="text-black" key={idx} value={el.chainName}>
                     {el.chainName}

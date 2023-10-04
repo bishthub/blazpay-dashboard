@@ -8,6 +8,8 @@ import { RiLoginBoxLine } from "react-icons/ri";
 import { RiLogoutBoxLine } from "react-icons/ri";
 import { PiArrowCircleDownRightDuotone } from "react-icons/pi";
 import { PiArrowCircleUpRightDuotone } from "react-icons/pi";
+import { PiArrowSquareUpRightFill } from "react-icons/pi";
+import { PiArrowSquareDownLeftFill } from "react-icons/pi";
 
 const RecentTransaction = () => {
   const [recentTrans, setRecentTrans] = useState([]);
@@ -82,11 +84,11 @@ const RecentTransaction = () => {
                 <div className="flex items-center justify-center text-xl ">
                   {item.transfer === "out" ? (
                     <div className="text-2xl">
-                      <PiArrowCircleUpRightDuotone className="text-green-500 " />
+                      <PiArrowSquareUpRightFill className="text-green-500 " />
                     </div>
                   ) : (
                     <div className="text-2xl" style={{ color: "green" }}>
-                      <PiArrowCircleDownRightDuotone />
+                      <PiArrowSquareDownLeftFill />
                     </div>
                   )}
                 </div>
