@@ -71,6 +71,8 @@ const Send = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(username, tokens, chain);
+
     try {
       const headers = {
         Authorization: `Bearer ${token}`,
@@ -97,6 +99,7 @@ const Send = () => {
         navigate("/user/login");
       }
     } catch (err) {
+      console.log("kyoooo");
       console.log(err);
     }
   };
@@ -118,51 +121,24 @@ const Send = () => {
           </h1>
           <div className="w-full h-10 p-2 border-2 border-orange-700 rounded-sm">
             {" "}
-            {/* <select
-              // value={selectedWallet}
-              // onChange={handleSelectChange}
-              className="w-full text-center bg-transparent border-none focus:outline-none"
-            >
-              <option value="">Select Wallet Address</option>
-              {walletAddress.chains.map((val, idx) => (
-                <option key={idx} value={val.chainName}>
-                  {val.chainName}
-                </option>
-              ))}
-            </select> */}
             <input
               type="text"
               className="w-full text-center bg-transparent border-none focus:outline-none"
               placeholder="Username"
               value={username}
               onChange={handleUsername}
+              required
             />
           </div>
 
-          {/* <div className="flex flex-row items-center justify-between w-full gap-3 text-gray-800">
-          <h1 className="text-gray-500">Network fees</h1>
-          <h1 className="text-gray-500">0.005 ETH</h1>
-        </div> */}
-          {/* <TokenInput /> */}
           <div className="flex flex-row w-full h-10 p-2 border border-orange-700 rounded-lg">
             <div className="flex flex-row items-center justify-around w-3/4 border-r-2 border-orange-700 m-r-2">
-              {/* <h1>img</h1> */}
-              {/* <h1 className="pr-3">ETH</h1>
-              <div className="flex items-center justify-center h-5 p-2 text-xs border border-orange-700 rounded-lg">
-                Etherium
-              </div> */}
-
-              {/* <select className=" bg-transparent" name="Chain" id="">
-                {walletAddress?.chains?.map((el, idx) => {
-                  return <option className="text-black">{el.chainName}</option>;
-                })}
-              </select> */}
-
               <select
                 className="bg-transparent"
                 name="chain"
                 value={chain} // Set the selected value to the chain in formData
                 onChange={handleChain}
+                required
               >
                 {walletAddress?.chains?.map((el, idx) => (
                   <option className="text-black" key={idx} value={el.chainName}>
@@ -172,23 +148,18 @@ const Send = () => {
               </select>
             </div>
             <div className="w-1/4">
-              {/* <input
-                type="text"
-                className="w-full bg-transparent border-none focus:outline-none"
-              /> */}
-
               <input
                 type="number"
                 name="tokens"
                 className="w-full bg-transparent border-none focus:outline-none"
                 value={tokens}
                 onChange={handleToken}
+                required
               />
             </div>
           </div>
         </div>
         <div className="flex items-center justify-center w-full pl-5 pr-5 mt-3">
-          {/* <Button name={"Transfer"} /> */}
           <button
             className="flex items-center justify-center w-full h-10 p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg"
             type="submit"
