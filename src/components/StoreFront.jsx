@@ -72,7 +72,7 @@ const StoreFront = () => {
   const displayedData = inner ? products : products.slice(0, 4);
 
   return (
-    <div>
+    <div className="w-full">
       <div className="w-full " style={{ backgroundColor: "#171717" }}>
         <div className="flex flex-row items-center justify-between w-full pl-2 pr-2 ">
           <div className="flex flex-row items-center justify-center gap-8">

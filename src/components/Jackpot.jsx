@@ -3,9 +3,9 @@ import jackpot from "../assets/jackpot.png";
 
 const Jackpot = () => {
   return (
-    <div className="h-full">
+    <div className="w-full h-full">
       <img
-        className="transition-transform transform scale-100 hover:scale-110"
+        className="w-full h-full transition-transform transform scale-100 hover:scale-110"
         src={jackpot}
         alt=""
       />

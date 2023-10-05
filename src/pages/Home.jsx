@@ -7,7 +7,7 @@ import Block2 from "../components/Block2";
 const Home = () => {
   return (
     <div
-      className="w-full h-screen"
+      className="w-full min-h-screen px-1 py-3"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",

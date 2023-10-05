@@ -7,6 +7,7 @@ import Refer from "./Refer";
 import Spin from "./Spin";
 import { Link } from "react-router-dom";
 import Overlay from "./Overlay";
+import PlayGames from "./PlayGames";
 
 const Block2 = () => {
   const [overlayContent, setOverlayContent] = useState(null);
@@ -20,46 +21,26 @@ const Block2 = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center w-full gap-2 px-3 pt-8">
-      <div className="flex flex-row w-full h-full gap-8">
-        <div className="flex flex-col items-center justify-between">
-          <div
-            className="h-full w-ful"
-            onClick={() => openOverlay(<ManageFunds />)}
-          >
-            <ManageFund />
-          </div>
-          <div
-            className="w-full h-full"
-            onClick={() => openOverlay(<Jackpot />)}
-          >
-            <Jackpot />
-          </div>
+    <div className="flex flex-row items-start justify-start flex-1 w-full gap-2 px-3 pt-8">
+      <div className="grid w-1/2 grid-cols-2 grid-rows-2 gap-2">
+        <div onClick={() => openOverlay(<ManageFunds />)}>
+          <ManageFund />
         </div>
-        <div className="flex flex-col items-center justify-between">
-          <div className="w-full h-full" onClick={() => openOverlay(<Refer />)}>
-            {" "}
-            <Refer />
-          </div>
-
-          <div className="w-full h-full" onClick={() => openOverlay(<Spin />)}>
-            {" "}
-            <Spin />
-          </div>
+        <div onClick={() => openOverlay(<Jackpot />)}>
+          <Jackpot />
+        </div>
+        <div onClick={() => openOverlay(<Refer />)}>
+          <Refer />
+        </div>
+        <div onClick={() => openOverlay(<Spin />)}>
+          <PlayGames />
         </div>
       </div>
-      <Link
-        to="/leaderboard"
-        className="w-full h-full"
-        // onClick={() =>
-        //   openOverlay(
-        //     <LeaderBoard style={{ OverflowY: "scroll" }} expand={true} />
-        //   )
-        // }
-      >
-        <LeaderBoard />
-      </Link>
-
+      <div className="w-1/2">
+        <Link to="/leaderboard">
+          <LeaderBoard />
+        </Link>
+      </div>
       {overlayContent && (
         <Overlay onClose={closeOverlay}>{overlayContent}</Overlay>
       )}
