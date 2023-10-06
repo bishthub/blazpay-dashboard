@@ -8,6 +8,7 @@ import Spin from "./Spin";
 import { Link } from "react-router-dom";
 import Overlay from "./Overlay";
 import PlayGames from "./PlayGames";
+import PlayGamesMain from "../pages/PlayGamesMain";
 
 const Block2 = () => {
   const [overlayContent, setOverlayContent] = useState(null);
@@ -32,9 +33,19 @@ const Block2 = () => {
         <div onClick={() => openOverlay(<Refer />)}>
           <Refer />
         </div>
-        <div onClick={() => openOverlay(<Spin />)}>
+        {/* <div onClick={() => openOverlay(<Spin />)}>
+          <PlayGames />
+        </div> */}
+
+        <div onClick={() => openOverlay(<PlayGamesMain />)}>
           <PlayGames />
         </div>
+
+        {/* <Link className="w-full" to="/user/playgames">
+          <div className="w-full">
+            <PlayGames />
+          </div>
+        </Link> */}
       </div>
       <div className="w-1/2">
         <Link to="/leaderboard">

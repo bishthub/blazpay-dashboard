@@ -106,13 +106,13 @@ const Send = () => {
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center w-full h-full gap-3 m-auto bg-black border-2 border-t-4 border-l-4 border-r-4 border-orange-700"
+      className="relative flex flex-col items-center justify-center w-full h-full gap-3 m-auto bg-black border-2 border-t-4 border-l-4 border-r-4 border-orange-700 "
       style={{ width: "25rem", height: "20rem" }}
     >
       <form className="w-full" onSubmit={handleSubmit}>
         <div className="absolute top-0 flex flex-row items-center justify-center w-full gap-1 p-2 text-black bg-white rounded-lg">
           <img className="w-8" src={SendImg} alt=" " />
-          <h1 className="text-black text-bold">Send</h1>
+          <h1 className="font-bold text-black">Send</h1>
         </div>
 
         <div className="flex flex-col items-center justify-center w-full gap-3 pl-5 pr-5">

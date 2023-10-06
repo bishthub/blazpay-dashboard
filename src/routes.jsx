@@ -31,6 +31,8 @@ import GetTokens from "./pages/GetTokens";
 import ProfileEdit from "./components/ProfileEdit";
 import { logoutRedux } from "./redux/userSlice";
 import Notification from "./pages/Notification";
+import PlayGamesMain from "./pages/PlayGamesMain";
+import SpinMain from "./components/SpinMain";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -143,6 +145,14 @@ function BaseRoute() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <GetTokens />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/spin"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <SpinMain />
             </ProtectedRoute>
           }
         />
