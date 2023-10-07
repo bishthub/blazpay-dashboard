@@ -41,6 +41,23 @@ const StoreFront = () => {
 
     fetchProducts();
   }, []);
+  const handleClearCart = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete("http://localhost:3000/api/cart", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setCartItems([]);
+      console.log("Cart cleared successfully");
+      await fetchCartProducts();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     async function fetchCartProducts() {
@@ -115,7 +132,10 @@ const StoreFront = () => {
                       </h1>
                       <h1 className="w-full text-center">Qty</h1>
 
-                      <h1 className="w-full text-center cursor-pointer">
+                      <h1
+                        className="w-full text-center cursor-pointer"
+                        onClick={handleClearCart}
+                      >
                         Clear All
                       </h1>
                     </div>

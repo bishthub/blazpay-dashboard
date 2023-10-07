@@ -96,11 +96,13 @@ const PlayGamesMain = () => {
         <h1 className="font-bold">Choose game To Play</h1>
       </div>
       <div className="flex flex-col items-center justify-center w-full gap-3 pl-5 pr-5">
-        <img
-          className="transition-transform transform scale-100 hover:scale-110"
-          src={jackpotImg}
-          alt="jackpot"
-        />
+        <Link className="w-full " to="/user/jackpot">
+          <img
+            className="m-auto transition-transform transform scale-100 hover:scale-110"
+            src={jackpotImg}
+            alt="jackpot"
+          />
+        </Link>
         <Link className="w-full " to="/user/spin">
           <img
             className="m-auto transition-transform transform scale-100 hover:scale-110"

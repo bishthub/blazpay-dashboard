@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Spin = () => {
   return (
-    <div className="h-full">
+    <div className="h-full cursor-pointer">
       <img
         className="transition-transform transform scale-100 hover:scale-110"
         src={spin}

@@ -40,7 +40,27 @@ const Send = () => {
     setChain(e.target.value);
   };
 
-  const WalletChains = useCallback(async () => {
+  // const WalletChains = useCallback(async () => {
+  //   try {
+  //     const headers = {
+  //       Authorization: `Bearer ${token}`,
+  //       "Content-Type": "application/json",
+  //     };
+  //     const ChainData = await axios.get("http://localhost:3000/api/wallet", {
+  //       headers: headers,
+  //     });
+  //     if (ChainData.status === 200) {
+  //       setWalletAddress(ChainData.data);
+  //     } else {
+  //       navigate("/user/login");
+  //     }
+  //   } catch (err) {
+  //     // setLoading(false);
+  //     console.log("Session Expired get wallet address in profile Page");
+  //   }
+  // }, []);
+
+  async function fetchChain() {
     try {
       const headers = {
         Authorization: `Bearer ${token}`,
@@ -52,21 +72,26 @@ const Send = () => {
       if (ChainData.status === 200) {
         setWalletAddress(ChainData.data);
       } else {
-        console.log("Session Expired");
+        navigate("/user/login");
       }
     } catch (err) {
       // setLoading(false);
       console.log("Session Expired get wallet address in profile Page");
     }
-  }, [token]);
+  }
 
   useEffect(() => {
-    WalletChains();
-  }, []);
+    fetchChain();
+  });
 
-  useEffect(() => {
-    console.log(walletAddress);
-  }, [walletAddress]);
+  // useEffect(() => {
+  //   WalletChains();
+  // }, [chain]);
+  // useEffect(() => {
+  //   if (chain.length == 0) {
+  //     navigate("/user/login");
+  //   }
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

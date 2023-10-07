@@ -33,6 +33,8 @@ import { logoutRedux } from "./redux/userSlice";
 import Notification from "./pages/Notification";
 import PlayGamesMain from "./pages/PlayGamesMain";
 import SpinMain from "./components/SpinMain";
+import SpinningWheel from "./components/SpinningWheel";
+import SlotMachine from "./pages/SlotMachine";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -152,7 +154,17 @@ function BaseRoute() {
           path="/user/spin"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
+              {/* <SpinMain /> */}
               <SpinMain />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/jackpot"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              {/* <SpinMain /> */}
+              <SlotMachine />
             </ProtectedRoute>
           }
         />
