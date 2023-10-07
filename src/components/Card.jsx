@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-const Card = ({ img, title, prodId }) => {
+const Card = ({ img, title, prodId, fetchCartProducts }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,8 +42,9 @@ const Card = ({ img, title, prodId }) => {
 
       const cartData = response.data;
       toast.success("Added to Cart");
+      await fetchCartProducts();
     } catch (error) {
-      toast.error("Session Ended");
+      toast.error("Session TimeOut");
       navigate("/user/login");
     }
   };

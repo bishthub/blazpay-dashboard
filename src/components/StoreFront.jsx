@@ -59,23 +59,22 @@ const StoreFront = () => {
     }
   };
 
-  useEffect(() => {
-    async function fetchCartProducts() {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:3000/api/cart", {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  async function fetchCartProducts() {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:3000/api/cart", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        setCartItems(...cartItems, response.data.items);
-      } catch (err) {
-        toast.warning(err);
-      }
+      setCartItems(response.data.items);
+    } catch (err) {
+      toast.warning(err);
     }
-
+  }
+  useEffect(() => {
     fetchCartProducts();
   }, []);
 
@@ -191,6 +190,7 @@ const StoreFront = () => {
               img={item.img}
               title={item.title}
               prodId={item._id}
+              fetchCartProducts={fetchCartProducts}
             />
           ))}
         </div>
