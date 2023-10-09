@@ -146,6 +146,7 @@ const Navbar = () => {
                     <h1 className="w-full text-center">Profile</h1>
                   </div>
                 </Link>
+                {/* <Link className="w-full mr-2 " to="/user/walletconnect"> */}
                 <Link className="w-full mr-2 " to="/user/wallet">
                   <div className="flex flex-row items-center justify-around w-full">
                     <img className="w-6" src={setting} alt="" />

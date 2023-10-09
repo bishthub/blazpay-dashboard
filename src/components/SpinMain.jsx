@@ -163,16 +163,6 @@ const SpinMain = () => {
           />
         </div>
       </div>
-
-      <div className="flex items-center justify-center w-full">
-        <button
-          className="px-4 py-2 mt-4 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
-          onClick={spinWheel}
-          disabled={isSpinning}
-        >
-          Spin
-        </button>
-      </div>
     </div>
   );
 };

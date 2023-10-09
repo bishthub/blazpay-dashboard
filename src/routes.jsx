@@ -35,6 +35,7 @@ import PlayGamesMain from "./pages/PlayGamesMain";
 import SpinMain from "./components/SpinMain";
 import SpinningWheel from "./components/SpinningWheel";
 import SlotMachine from "./pages/SlotMachine";
+import ConnectWallet from "./components/ConnectWallet";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -165,6 +166,15 @@ function BaseRoute() {
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               {/* <SpinMain /> */}
               <SlotMachine />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/walletconnect"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              {/* <SpinMain /> */}
+              <ConnectWallet />
             </ProtectedRoute>
           }
         />
