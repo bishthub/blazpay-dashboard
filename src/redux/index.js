@@ -4,6 +4,7 @@ import { authReducer } from "./AuthReducer";
 import { authSlice } from "./AuthSlice";
 import profileSliceReducer from "./ProfileSlice";
 import cartReducer from "./cartSlice";
+import winnerReducer from "./WinnerSlice";
 export const store = configureStore({
   reducer: {
     user: userSliceReducer,
@@ -11,5 +12,6 @@ export const store = configureStore({
     root: authReducer,
     auth: authSlice.reducer,
     cart: cartReducer,
+    winner: winnerReducer,
   },
 });

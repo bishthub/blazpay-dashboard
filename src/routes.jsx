@@ -31,11 +31,12 @@ import GetTokens from "./pages/GetTokens";
 import ProfileEdit from "./components/ProfileEdit";
 import { logoutRedux } from "./redux/userSlice";
 import Notification from "./pages/Notification";
-import PlayGamesMain from "./pages/PlayGamesMain";
-import SpinMain from "./components/SpinMain";
-import SpinningWheel from "./components/SpinningWheel";
+
 import SlotMachine from "./pages/SlotMachine";
 import ConnectWallet from "./components/ConnectWallet";
+
+import SpinMain from "./components/Wheel/SpinMain";
+import SpinWin from "./components/Wheel/SpinWin";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -119,6 +120,7 @@ function BaseRoute() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/manage-funds/request"
           element={
@@ -155,8 +157,16 @@ function BaseRoute() {
           path="/user/spin"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
-              {/* <SpinMain /> */}
+              {/* <SpinJackpot /> */}
               <SpinMain />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/user/spin/win"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <SpinWin />
             </ProtectedRoute>
           }
         />
