@@ -8,7 +8,7 @@ const SpinWin = () => {
   const winner = useSelector((state) => state.winner);
   return (
     <div
-      className="flex flex-col items-center justify-center  w-full min-h-screen px-1 relative "
+      className="relative flex flex-col items-center justify-center w-full min-h-screen px-1 "
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
@@ -20,11 +20,11 @@ const SpinWin = () => {
         <Navbar />
       </div>
 
-      <div className="flex justify-center items-center w-full h-full relative">
-        <img className=" " src={blackcircle} alt="circle" />
-        <h1 className="absolute font-bold text-5xl flex justify-center items-center flex-col ">
+      <div className="relative flex items-center justify-center w-full h-full">
+        <img className="" src={blackcircle} alt="circle" />
+        <h1 className="absolute flex flex-col items-center justify-center text-5xl font-bold ">
           <span
-            className="font-semi-bold text-2xl"
+            className="text-2xl font-semi-bold"
             style={{ color: "red", textShadow: "0 0 10px golden" }}
           >
             You Won

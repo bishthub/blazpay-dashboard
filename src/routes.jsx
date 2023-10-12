@@ -37,6 +37,7 @@ import ConnectWallet from "./components/ConnectWallet";
 
 import SpinMain from "./components/Wheel/SpinMain";
 import SpinWin from "./components/Wheel/SpinWin";
+import Mynft from "./components/Mynft";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -213,6 +214,15 @@ function BaseRoute() {
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <UserProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          exact
+          path="/user/profile/my-nft/:id"
+          element={
+            <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <Mynft />
             </ProtectedRoute>
           }
         />

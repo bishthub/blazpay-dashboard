@@ -8,9 +8,13 @@ import Navbar from "../components/Navbar";
 import Edit from "../assets/edit.png";
 import polygon from "../assets/polygon.png";
 import loginSignupImage from "../assets/login-animation.gif";
+import { ethers } from "ethers";
+import { useDispatch } from "react-redux";
+import { setWallet } from "../redux/WalletAddressReducer";
 
 const UserProfile = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const id = localStorage.getItem("id");
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username");
@@ -21,168 +25,14 @@ const UserProfile = () => {
   const [profileData, setProfileData] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [walletAddress, setWalletAddress] = useState([]);
+  const [metawalletAddress, setMetaWalletAddress] = useState(null);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
   const [edit, setEdit] = useState(true);
   const [bio, setBio] = useState("");
 
   const [data, setData] = useState({
     img_url: "",
   });
-
-  // const handleEditClick = () => {
-  //   setIsEditing(!isEditing);
-  // };
-
-  // // const ProfileUpdate = useCallback(async () => {
-  // //   try {
-  // //     setLoading(true);
-  // //     const datas = await axios.get(
-  // //       `http://localhost:3000/api/user/profile/${id}`
-  // //     );
-  // //     if (datas.status === 200) {
-  // //       setProfileData(datas.data);
-  // //     } else {
-  // //       console.log("Something went wrong");
-  // //     }
-  // //   } catch (err) {
-  // //     toast.warning("Session Expired");
-  // //     navigate("/user/login");
-  // //   } finally {
-  // //     setLoading(false);
-  // //   }
-  // // }, [id, navigate]);
-  // const ProfileUpdate = useMemo(() => {
-  //   return async () => {
-  //     setLoading(true); // Set loading to true when you start fetching data
-  //     const datas = await axios.get(
-  //       `http://localhost:3000/api/user/profile/${id}`
-  //     );
-
-  //     if (datas.status === 200) {
-  //       setProfileData(datas.data);
-  //     } else {
-  //       console.log("Something went wrong");
-  //     }
-  //   };
-  // }, [id, navigate]);
-
-  // useEffect(() => {
-  //   ProfileUpdate();
-  // }, [ProfileUpdate, id]);
-
-  // const renderEditButton = () => {
-  //   return isEditing ? (
-  //     <button className="w-4 h-4 cursor-pointer" onClick={handleEditClick}>
-  //       Done
-  //     </button>
-  //   ) : (
-  //     <img
-  //       className="w-4 h-4 cursor-pointer"
-  //       src={Edit}
-  //       alt=""
-  //       onClick={handleEditClick}
-  //     />
-  //   );
-  // };
-
-  // const handleOnChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setData((prev) => ({
-  //     ...prev,
-  //     [name]: value,
-  //   }));
-  // };
-
-  // const handleUploadProfileImage = async (e) => {
-  //   const imageData = await ImagetoBase64(e.target.files[0]);
-  //   setData((prev) => ({
-  //     ...prev,
-  //     img_url: imageData,
-  //   }));
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const headers = {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     };
-  //     const response = await axios.post(
-  //       "http://localhost:3000/api/user/profile",
-  //       data,
-  //       {
-  //         headers: headers,
-  //       }
-  //     );
-  //     if (response.status === 200) {
-  //       toast.success("Profile updated successfully!");
-  //       navigate("/");
-  //     } else {
-  //       toast.error("Profile update failed.");
-  //     }
-  //   } catch (error) {
-  //     toast.error(error);
-  //   }
-  // };
-
-  // const handleBioChange = (e) => {
-  //   setBio(e.target.value);
-  // };
-
-  // const handleBioSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const headers = {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     };
-  //     const response = await axios.put(
-  //       "http://localhost:3000/api/user/profile",
-  //       { bio },
-  //       {
-  //         headers: headers,
-  //       }
-  //     );
-  //     if (response.status === 200) {
-  //       console.log("Session Expired Photo in ProfilePage");
-  //       navigate("/");
-  //     } else {
-  //       toast.error("Profile update failed.");
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
-  // const WalletChains = useCallback(async () => {
-  //   try {
-  //     setLoading(true);
-  //     const headers = {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     };
-  //     const ChainData = await axios.get("http://localhost:3000/api/wallet", {
-  //       headers: headers,
-  //     });
-  //     if (ChainData.status === 200) {
-  //       setLoading(false);
-  //       setWalletAddress(ChainData.data);
-  //     } else {
-  //       setLoading(false);
-  //       console.log("Error in getting the chain data in profile page");
-  //     }
-  //   } catch (err) {
-  //     setLoading(false);
-  //     console.log("Session Expired get wallet address in profile Page");
-  //   }
-  // }, [token]);
-  // useEffect(() => {
-  //   ProfileUpdate();
-  // }, [ProfileUpdate, id]);
-
-  // useEffect(() => {
-  //   WalletChains();
-  // }, [WalletChains]);
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -235,39 +85,6 @@ const UserProfile = () => {
       [name]: value,
     }));
   };
-
-  // const handleUploadProfileImage = async (e) => {
-  //   const imageData = await ImagetoBase64(e.target.files[0]);
-  //   setData((prev) => ({
-  //     ...prev,
-  //     imageData,
-  //   }));
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const headers = {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     };
-  //     const response = await axios.post(
-  //       "http://localhost:3000/api/user/profile",
-  //       { img_url: data },
-  //       {
-  //         headers: headers,
-  //       }
-  //     );
-  //     if (response.status === 200) {
-  //       toast.success("Profile updated successfully!");
-  //       navigate("/");
-  //     } else {
-  //       toast.error("Profile update failed.");
-  //     }
-  //   } catch (error) {
-  //     toast.error(error);
-  //   }
-  // };
 
   const handleUploadProfileImage = async (e) => {
     const data = await ImagetoBase64(e.target.files[0]);
@@ -372,12 +189,34 @@ const UserProfile = () => {
     WalletChains();
   }, [ProfileUpdate, WalletChains, id]);
 
-  useEffect(() => {
-    console.log(walletAddress);
-  }, [walletAddress]);
-
   const HandleEdit = () => {
     setEdit(!edit);
+  };
+
+  const connectWallet = async () => {
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+
+        setMetaWalletAddress(address);
+        setButtonDisabled(false);
+        console.log("Connected to MetaMask");
+        console.log(metawalletAddress);
+
+        await dispatch(setWallet(metawalletAddress));
+
+        if (metawalletAddress != null) {
+          navigate(`/user/profile/my-nft/${metawalletAddress}`);
+        }
+      } catch (error) {
+        toast.error("MetaMask connection failed:", error);
+      }
+    } else {
+      toast.error("MetaMask is not installed.");
+    }
   };
 
   return (
@@ -529,6 +368,14 @@ const UserProfile = () => {
               ) : (
                 <h1>No Addresses</h1>
               )}
+
+              <button
+                onClick={connectWallet}
+                className="flex items-center justify-center w-28 h-10 p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg"
+                type="submit"
+              >
+                My Nft
+              </button>
 
               <div></div>
             </div>
