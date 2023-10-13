@@ -15,8 +15,8 @@ const MyItems = () => {
       }}
     >
       <Navbar />
-      <div className="flex flex-col items-center justify-center gap-5 p-3 w-100">
-        <h1 className="mr-auto w-100" style={{ fontSize: "1.5rem" }}>
+      <div className="flex flex-col items-center justify-center w-full gap-5 p-3">
+        <h1 className="w-full mr-auto" style={{ fontSize: "1.5rem" }}>
           My Items
         </h1>
         <div className="grid w-full grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">

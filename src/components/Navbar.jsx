@@ -18,11 +18,15 @@ import { IoIosNotifications } from "react-icons/io";
 import { AiOutlineTransaction } from "react-icons/ai";
 import Notification from "../pages/Notification";
 
+import { setWallet } from "../redux/WalletAddressReducer";
+import { ethers } from "ethers";
+
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [profileData, setProfileData] = useState([]);
   const [tokenCount, setTokenCount] = useState("0");
   const [notif, setNotif] = useState(false);
+  const [metawalletAddress, setMetaWalletAddress] = useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const HandleLogout = (e) => {
@@ -94,6 +98,33 @@ const Navbar = () => {
   const handleNotification = () => {
     setNotif(!notif);
   };
+
+  const connectWallet = async () => {
+    if (typeof window.ethereum !== "undefined") {
+      try {
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const address = await signer.getAddress();
+
+        setMetaWalletAddress(address);
+
+        console.log("Connected to MetaMask");
+        console.log(metawalletAddress);
+
+        await dispatch(setWallet(metawalletAddress));
+
+        if (metawalletAddress != null) {
+          navigate(`/user/profile/my-nft/${metawalletAddress}`);
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error("MetaMask connection failed:", error);
+      }
+    } else {
+      toast.error("MetaMask is not installed.");
+    }
+  };
   return (
     <nav
       className="relative flex items-center justify-center w-full shadow font-bvmp "
@@ -153,12 +184,16 @@ const Navbar = () => {
                     <h1 className="w-full text-center">Settings</h1>
                   </div>
                 </Link>
-                <Link className="w-full" to="/user/my-items">
-                  <div className="flex flex-row items-center justify-around w-full">
-                    <img className="w-6" src={items} alt="" />
-                    <h1 className="w-full text-center">My Items</h1>
-                  </div>
-                </Link>
+                {/* <Link className="w-full" to="/user/my-items"> */}
+
+                <div
+                  onClick={connectWallet}
+                  className="flex flex-row items-center justify-around w-full"
+                >
+                  <img className="w-6" src={items} alt="" />
+                  <h1 className="w-full text-center">My Items</h1>
+                </div>
+                {/* </Link> */}
                 <Link className="w-full" to="/user/mypass">
                   <div className="flex flex-row items-center justify-around w-full">
                     <img className="w-6" src={entrylogo} alt="" />

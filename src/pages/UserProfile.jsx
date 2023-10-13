@@ -193,31 +193,31 @@ const UserProfile = () => {
     setEdit(!edit);
   };
 
-  const connectWallet = async () => {
-    if (typeof window.ethereum !== "undefined") {
-      try {
-        await window.ethereum.request({ method: "eth_requestAccounts" });
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const address = await signer.getAddress();
+  // const connectWallet = async () => {
+  //   if (typeof window.ethereum !== "undefined") {
+  //     try {
+  //       await window.ethereum.request({ method: "eth_requestAccounts" });
+  //       const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //       const signer = provider.getSigner();
+  //       const address = await signer.getAddress();
 
-        setMetaWalletAddress(address);
-        setButtonDisabled(false);
-        console.log("Connected to MetaMask");
-        console.log(metawalletAddress);
+  //       setMetaWalletAddress(address);
+  //       setButtonDisabled(false);
+  //       console.log("Connected to MetaMask");
+  //       console.log(metawalletAddress);
 
-        await dispatch(setWallet(metawalletAddress));
+  //       await dispatch(setWallet(metawalletAddress));
 
-        if (metawalletAddress != null) {
-          navigate(`/user/profile/my-nft/${metawalletAddress}`);
-        }
-      } catch (error) {
-        toast.error("MetaMask connection failed:", error);
-      }
-    } else {
-      toast.error("MetaMask is not installed.");
-    }
-  };
+  //       if (metawalletAddress != null) {
+  //         navigate(`/user/profile/my-nft/${metawalletAddress}`);
+  //       }
+  //     } catch (error) {
+  //       toast.error("MetaMask connection failed:", error);
+  //     }
+  //   } else {
+  //     toast.error("MetaMask is not installed.");
+  //   }
+  // };
 
   return (
     <div
@@ -245,7 +245,7 @@ const UserProfile = () => {
                   className="flex flex-col items-center justify-center w-full gap-5"
                   onSubmit={handleSubmit}
                 >
-                  <div className=" flex flex-row items-center justify-center w-full ">
+                  <div className="flex flex-row items-center justify-center w-full ">
                     <div className="relative flex flex-row items-center justify-center w-full gap-5 overflow-hidden ">
                       <div className="">
                         <img
@@ -258,8 +258,8 @@ const UserProfile = () => {
                         />
 
                         <label htmlFor="profileImage">
-                          <div className="absolute bottom-0 w-20 text-center bg-opacity-50 cursor-pointer h-1/3 rounded-lg  bg-slate-200">
-                            <p className="p-1 text-sm text-black font-bold">
+                          <div className="absolute bottom-0 w-20 text-center bg-opacity-50 rounded-lg cursor-pointer h-1/3 bg-slate-200">
+                            <p className="p-1 text-sm font-bold text-black">
                               Edit
                             </p>
                           </div>
@@ -281,7 +281,7 @@ const UserProfile = () => {
 
                   <div className="w-20 mr-auto bg-opacity-50 cursor-pointer rounded-xl bg-slate-200">
                     <button
-                      className="w-full text-black font-bold  "
+                      className="w-full font-bold text-black "
                       type="submit"
                     >
                       Upload
@@ -311,7 +311,7 @@ const UserProfile = () => {
                       cols=""
                       name="message"
                       placeholder="Add Bio...."
-                      className="p-4 text-gray-700 rounded-lg w-full"
+                      className="w-full p-4 text-gray-700 rounded-lg"
                       value={bio}
                       onChange={handleBioChange}
                     ></textarea>
@@ -326,9 +326,9 @@ const UserProfile = () => {
               </div>
             </div>
 
-            <div className="flex w-full flex-col items-center  h-full gap-4">
+            <div className="flex flex-col items-center w-full h-full gap-4">
               <h1
-                className=" w-full text-center"
+                className="w-full text-center "
                 style={{ fontSize: "1.5rem" }}
               >
                 Your Addresses
@@ -340,7 +340,7 @@ const UserProfile = () => {
                     return (
                       <>
                         <div
-                          className="flex w-full flex-row items-center justify-center py-2 bg-white rounded-lg "
+                          className="flex flex-row items-center justify-center w-full py-2 bg-white rounded-lg "
                           style={{ width: "25rem" }}
                         >
                           <div className="flex flex-row items-center justify-center w-1/3 gap-2 border-r border-black border-solid">
@@ -369,13 +369,13 @@ const UserProfile = () => {
                 <h1>No Addresses</h1>
               )}
 
-              <button
-                onClick={connectWallet}
+              {/* <button
+                // onClick={connectWallet}
                 className="flex items-center justify-center w-28 h-10 p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg"
                 type="submit"
               >
                 My Nft
-              </button>
+              </button> */}
 
               <div></div>
             </div>

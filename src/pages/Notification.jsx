@@ -28,9 +28,9 @@ const Notification = ({ handleNotification }) => {
         setLoading(false);
         setNotifications(notiData.data);
       } else {
-        setLoading(false);
         toast.warning("Session Expired");
         navigate("/user/login");
+        setLoading(false);
       }
     } catch (err) {
       setLoading(false);
