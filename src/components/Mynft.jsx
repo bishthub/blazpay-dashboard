@@ -9,11 +9,13 @@ const Mynft = () => {
   const { id } = useParams();
   const [details, setDetails] = useState("");
 
+  const ids = "0xca1257ade6f4fa6c6834fdc42e030be6c0f5a813";
+
   useEffect(() => {
     async function MetaWalletDetails() {
       try {
         const data = await axios.get(
-          `http://localhost:3000/api/nftScan/get-user-data/${id}`
+          `http://localhost:3000/api/nftScan/get-user-data/${ids}`
         );
 
         if (data.status === 200) {

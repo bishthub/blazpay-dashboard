@@ -98,34 +98,36 @@ const Request = () => {
             />
           </div>
         </div>
-        <div className="flex flex-row w-full h-10 p-2 border border-orange-700 rounded-lg">
-          <div className="flex flex-row items-center justify-around w-3/4 border-r-2 border-orange-700 m-r-2">
-            <select
-              className="bg-transparent"
-              name="chain"
-              value={data.chain}
-              onChange={handleChange}
-              required
-            >
-              <option className="text-black" value="">
-                Select Chain
-              </option>
-              {chains?.map((el, idx) => (
-                <option className="text-black" key={idx} value={el}>
-                  {el}
+        <div className="flex flex-col items-center justify-center w-full gap-3 pl-5 pr-5 mt-3 mb-3 ">
+          <div className="flex flex-row w-full h-10 p-2 border border-orange-700 rounded-lg">
+            <div className="flex flex-row items-center justify-around w-3/4 border-r-2 border-orange-700 m-r-2">
+              <select
+                className="bg-transparent"
+                name="chain"
+                value={data.chain}
+                onChange={handleChange}
+                required
+              >
+                <option className="text-black" value="">
+                  Select Chain
                 </option>
-              ))}
-            </select>
-          </div>
-          <div className="w-1/4">
-            <input
-              type="number"
-              name="tokens"
-              className="w-full bg-transparent border-none focus:outline-none"
-              value={data.tokens}
-              onChange={handleChange}
-              required
-            />
+                {chains?.map((el, idx) => (
+                  <option className="text-black" key={idx} value={el}>
+                    {el}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="w-1/4">
+              <input
+                type="number"
+                name="tokens"
+                className="w-full bg-transparent border-none focus:outline-none"
+                value={data.tokens}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
         </div>
         <div className="flex items-center justify-center w-full pl-5 pr-5">
