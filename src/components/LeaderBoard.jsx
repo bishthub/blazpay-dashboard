@@ -38,10 +38,6 @@ const LeaderBoard = ({ expand }) => {
     fetchLeaderData();
   }, []);
 
-  useEffect(() => {
-    console.log(leaderboardData);
-  }, [leaderboardData]); // Log leaderboardData when it changes
-
   const sortedData = [...leaderboardData].sort((a, b) => a.rank - b.rank);
 
   const leadersToShow =
