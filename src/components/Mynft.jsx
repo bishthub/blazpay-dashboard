@@ -97,6 +97,8 @@ const Mynft = () => {
 
       if (datas.status === 200) {
         setDetails(datas.data);
+        console.log(details);
+        console.log(datas.data);
       } else {
         console.log("error");
       }
@@ -136,7 +138,7 @@ const Mynft = () => {
             My Items
           </h1>
           <div className="grid w-full grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
-            {filteredItems.map((item, idx) => {
+            {details.content.map((item, idx) => {
               return (
                 <Profilecards
                   key={idx}

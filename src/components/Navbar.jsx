@@ -27,6 +27,7 @@ const Navbar = () => {
   const [tokenCount, setTokenCount] = useState("0");
   const [notif, setNotif] = useState(false);
   const [metawalletAddress, setMetaWalletAddress] = useState(null);
+  const [walletConnected, setWalletConnected] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const HandleLogout = (e) => {
@@ -99,6 +100,39 @@ const Navbar = () => {
     setNotif(!notif);
   };
 
+  // const connectWallet = async () => {
+  //   if (metawalletAddress == null) {
+  //     if (typeof window.ethereum !== "undefined") {
+  //       try {
+  //         await window.ethereum.request({ method: "eth_requestAccounts" });
+  //         const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //         const signer = provider.getSigner();
+  //         const address = await signer.getAddress();
+
+  //         setMetaWalletAddress(address);
+  //         setWalletConnected(true);
+
+  //         console.log("Connected to MetaMask");
+  //         toast.success("Wallet Connected");
+  //         console.log(metawalletAddress);
+
+  //         await dispatch(setWallet(metawalletAddress));
+
+  //         if (metawalletAddress != null) {
+  //           navigate(`/user/profile/my-nft/${metawalletAddress}`);
+  //         }
+  //       } catch (error) {
+  //         console.log(error);
+  //         toast.error("MetaMask connection failed:", error);
+  //       }
+  //     } else {
+  //       toast.error("MetaMask is not installed.");
+  //     }
+  //   } else {
+  //     navigate(`/user/profile/my-nft/${metawalletAddress}`);
+  //   }
+  // };
+
   const connectWallet = async () => {
     if (typeof window.ethereum !== "undefined") {
       try {
@@ -108,15 +142,13 @@ const Navbar = () => {
         const address = await signer.getAddress();
 
         setMetaWalletAddress(address);
-
-        console.log("Connected to MetaMask");
-        console.log(metawalletAddress);
-
         await dispatch(setWallet(metawalletAddress));
 
-        if (metawalletAddress != null) {
-          navigate(`/user/profile/my-nft/${metawalletAddress}`);
-        }
+        // Set walletConnected to true when the wallet is connected
+        setWalletConnected(true);
+
+        toast.success("Connected To Wallet");
+        navigate(`/user/profile/my-nft/${metawalletAddress}`);
       } catch (error) {
         console.log(error);
         toast.error("MetaMask connection failed:", error);
@@ -187,7 +219,12 @@ const Navbar = () => {
                 {/* <Link className="w-full" to="/user/my-items"> */}
 
                 <div
-                  onClick={connectWallet}
+                  // onClick={connectWallet}
+                  onClick={
+                    walletConnected
+                      ? () => navigate(`/user/profile/my-items`)
+                      : connectWallet
+                  }
                   className="flex flex-row items-center justify-around w-full"
                 >
                   <img className="w-6" src={items} alt="" />
