@@ -15,9 +15,9 @@ const SpinMain = () => {
   const [result, setResult] = useState("");
   const segments = [
     "Better Luck Next Time",
-    "5",
-    "Better Luck Next Time",
     "100",
+    "Better Luck Next Time",
+    "250",
     "Better Luck Next Time",
     "500",
     "Better Luck Next Time",
