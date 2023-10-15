@@ -142,13 +142,13 @@ const Navbar = () => {
         const address = await signer.getAddress();
 
         setMetaWalletAddress(address);
-        await dispatch(setWallet(metawalletAddress));
+        console.log(metawalletAddress);
+        dispatch(setWallet(metawalletAddress));
 
         // Set walletConnected to true when the wallet is connected
         setWalletConnected(true);
 
-        toast.success("Connected To Wallet");
-        navigate(`/user/profile/my-nft/${metawalletAddress}`);
+        // navigate(`/user/profile/my-nft/${metawalletAddress}`);
       } catch (error) {
         console.log(error);
         toast.error("MetaMask connection failed:", error);
@@ -157,6 +157,21 @@ const Navbar = () => {
       toast.error("MetaMask is not installed.");
     }
   };
+
+  const logoutWallet = async () => {
+    // Set walletConnected to false when the wallet is disconnected
+    setWalletConnected(false);
+
+    // Disconnect from MetaMask
+    await window.ethereum.request({ method: "eth_disconnectAccounts" });
+
+    // Clear the metaWalletAddress state variable
+    setMetaWalletAddress(null);
+
+    // Navigate to the login page
+    navigate("/");
+  };
+
   return (
     <nav
       className="relative flex items-center justify-center w-full shadow font-bvmp "
@@ -221,8 +236,11 @@ const Navbar = () => {
                 <div
                   // onClick={connectWallet}
                   onClick={
-                    walletConnected
-                      ? () => navigate(`/user/profile/my-items`)
+                    metawalletAddress != null
+                      ? () =>
+                          navigate(
+                            `/user/profile/my-items/${metawalletAddress}`
+                          )
                       : connectWallet
                   }
                   className="flex flex-row items-center justify-around w-full"
@@ -254,6 +272,15 @@ const Navbar = () => {
                     <IoIosNotifications className="text-2xl" />
                   </h1>
                   <h1 className="w-full text-center">Notifications</h1>
+                </div>
+                <div
+                  className="flex flex-row items-center justify-around w-full"
+                  onClick={logoutWallet}
+                >
+                  <h1>
+                    <IoIosNotifications className="text-2xl" />
+                  </h1>
+                  <h1 className="w-full text-center">Log Out</h1>
                 </div>
 
                 <div

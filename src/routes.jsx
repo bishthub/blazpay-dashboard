@@ -219,7 +219,7 @@ function BaseRoute() {
         />
         <Route
           exact
-          path="/user/profile/my-nft/:id"
+          path="/user/profile/my-items/:id"
           element={
             <ProtectedRoute isAuthenticated={isAuthenticated}>
               <Mynft />

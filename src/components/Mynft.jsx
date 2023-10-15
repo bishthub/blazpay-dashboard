@@ -12,24 +12,42 @@ const Mynft = () => {
   const { id } = useParams();
 
   const ids = "0xca1257ade6f4fa6c6834fdc42e030be6c0f5a813";
+
   async function MetaWalletDetails() {
     try {
+      // localStorage.setItem(ids);
+      // const localData = localStorage.getItem(ids);
+
+      // if (localData) {
+      //   setDetails(JSON.parse(localData));
+      //   return;
+      // }
+
+      // const datas = await axios.get(
+      //   `http://localhost:3000/api/nftScan/get-user-data/${ids}`
+      // );
+
+      // if (datas.status === 200) {
+      //   setDetails(datas.data);
+      //   localStorage.setItem(ids, JSON.stringify(datas.data));
+      // } else {
+      //   console.log("error");
+      // }
+
       const localData = localStorage.getItem(ids);
 
       if (localData) {
         setDetails(JSON.parse(localData));
-        return;
-      }
-
-      const datas = await axios.get(
-        `http://localhost:3000/api/nftScan/get-user-data/${ids}`
-      );
-
-      if (datas.status === 200) {
-        setDetails(datas.data);
-        localStorage.setItem(ids, JSON.stringify(datas.data));
       } else {
-        console.log("error");
+        const datas = await axios.get(
+          `http://localhost:3000/api/nftScan/get-user-data/${ids}`
+        );
+        if (datas.status === 200) {
+          setDetails(datas.data);
+          localStorage.setItem(ids, JSON.stringify(datas.data));
+        } else {
+          console.log("error");
+        }
       }
     } catch (err) {
       console.log(err);
