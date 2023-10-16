@@ -156,39 +156,6 @@ const SpinMain = () => {
 
   const [canSpin, setCanSpin] = useState(null);
 
-  useEffect(() => {
-    async function checkCanSpin() {
-      try {
-        // Replace with the actual URL of your backend API
-
-        const token = localStorage.getItem("token");
-
-        const headers = {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        };
-        // Replace with the actual URL of your backend API
-
-        // Make the request with the configured headers
-        const response = await axios.get(
-          "http://localhost:3000/api/jackpot/can-spin",
-          {
-            headers: headers,
-          }
-        );
-
-        if (response.status === 200) {
-          setCanSpin(true);
-        } else if (response.status === 400) {
-          setCanSpin(false);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    checkCanSpin();
-  }, []);
   const segments = ["", "", "", "", "", "", "", ""];
   const segColors = [
     "#892b00",
@@ -227,6 +194,41 @@ const SpinMain = () => {
       // Add any other actions you want to perform
     }
   };
+  useEffect(() => {
+    async function checkCanSpin() {
+      try {
+        // Replace with the actual URL of your backend API
+
+        const token = localStorage.getItem("token");
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        };
+        // Replace with the actual URL of your backend API
+
+        // Make the request with the configured headers
+        const response = await axios.get(
+          "http://localhost:3000/api/jackpot/can-spin",
+          {
+            headers: headers,
+          }
+        );
+
+        if (response.status === 200) {
+          setCanSpin(true);
+        } else if (response.status === 400) {
+          setCanSpin(false);
+          console.log("spin over");
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    checkCanSpin();
+    console.log("clicked");
+  }, [result]);
 
   return (
     <div
@@ -271,7 +273,7 @@ const SpinMain = () => {
                 primaryColor="black"
                 contrastColor="white"
                 buttonText="Start"
-                isOnlyOnce={true}
+                isOnlyOnce={false}
                 size={290}
                 upDuration={200}
                 downDuration={600}

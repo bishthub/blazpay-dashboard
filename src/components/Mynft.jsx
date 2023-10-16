@@ -84,6 +84,9 @@ const Mynft = () => {
   };
 
   const handleOpenTransferModal = (tokenId, contractAdd) => {
+    console.log(contractAdd);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     setSelectedTokenId(tokenId);
     setSelectedContractAdd(contractAdd);
     setTransferModalOpen(true);
@@ -152,6 +155,7 @@ const Mynft = () => {
         onClose={handleCloseTransferModal}
         onTransfer={handleTransferNFT}
         tokenId={selectedTokenId}
+        contractAdd={selectedContractAdd}
       />
       <div className="flex flex-col items-center justify-center w-full">
         {/* <SearchBar items={details.content} onFilter={handleFilter} /> */}
@@ -168,7 +172,10 @@ const Mynft = () => {
                   name={item.contract_name}
                   t_id={item.token_id}
                   onClick={() =>
-                    handleOpenTransferModal(item.token_id, item.contractAddress)
+                    handleOpenTransferModal(
+                      item.token_id,
+                      item?.contract_address
+                    )
                   } // Handling click event
                 />
               );
