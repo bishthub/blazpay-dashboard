@@ -151,8 +151,44 @@ import { useNavigate } from "react-router-dom";
 const SpinMain = () => {
   const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState("");
-  const [canSpin, setCanSpin] = useState(false);
+
   const navigate = useNavigate();
+
+  const [canSpin, setCanSpin] = useState(null);
+
+  useEffect(() => {
+    async function checkCanSpin() {
+      try {
+        // Replace with the actual URL of your backend API
+
+        const token = localStorage.getItem("token");
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        };
+        // Replace with the actual URL of your backend API
+
+        // Make the request with the configured headers
+        const response = await axios.get(
+          "http://localhost:3000/api/jackpot/can-spin",
+          {
+            headers: headers,
+          }
+        );
+
+        if (response.status === 200) {
+          setCanSpin(true);
+        } else if (response.status === 400) {
+          setCanSpin(false);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    checkCanSpin();
+  }, []);
   const segments = ["", "", "", "", "", "", "", ""];
   const segColors = [
     "#892b00",
@@ -164,35 +200,6 @@ const SpinMain = () => {
     "#892b00",
     "#f9b728",
   ];
-
-  useEffect(() => {
-    async function canSpin() {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/api/jackpot/can-spin"
-        );
-
-        if (response.status === 200) {
-          setCanSpin(true);
-          console.log("ok");
-        }
-        if (response.status === 400) {
-          // console.log(response.data);
-          toast.warning("Spins Over");
-          navigate("/");
-        } else {
-          navigate("/user/login");
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    }
-    canSpin();
-  }, []);
-
-  useEffect(() => {
-    console.log(canSpin);
-  }, []);
 
   const generateRandomNumber = () => {
     return Math.floor(Math.random() * 100000) + 1;
@@ -232,46 +239,50 @@ const SpinMain = () => {
       }}
     >
       <Navbar />
-
-      <div className="flex flex-row items-center justify-center w-full gap-10">
-        <h1 className="text-3xl font-extrabold">Chances of Winning</h1>
-        <div className="flex flex-row items-center justify-center gap-10">
-          <h1 className="text-xl font-bold text-yellow-500">10000</h1>
-          <h1 className="text-xl font-bold text-green-800">5000</h1>
-          <h1 className="text-xl font-bold text-yellow-500">1000</h1>
-          <h1 className="text-xl font-bold text-green-800">500</h1>
-          <h1 className="text-xl font-bold text-yellow-500">250</h1>
-          <h1 className="text-xl font-bold text-green-800">100</h1>
-        </div>
-      </div>
-
-      {result && (
-        <div className="flex items-center justify-center w-full mt-5 mb-5">
-          <div className="rounded-lg ">
-            <h1 className="text-4xl font-bold text-center">{result}</h1>
+      {canSpin ? (
+        <>
+          {" "}
+          <div className="flex flex-row items-center justify-center w-full gap-10">
+            <h1 className="text-3xl font-extrabold">Chances of Winning</h1>
+            <div className="flex flex-row items-center justify-center gap-10">
+              <h1 className="text-xl font-bold text-yellow-500">10000</h1>
+              <h1 className="text-xl font-bold text-green-800">5000</h1>
+              <h1 className="text-xl font-bold text-yellow-500">1000</h1>
+              <h1 className="text-xl font-bold text-green-800">500</h1>
+              <h1 className="text-xl font-bold text-yellow-500">250</h1>
+              <h1 className="text-xl font-bold text-green-800">100</h1>
+            </div>
           </div>
-        </div>
+          {result && (
+            <div className="flex items-center justify-center w-full mt-5 mb-5">
+              <div className="rounded-lg ">
+                <h1 className="text-4xl font-bold text-center">{result}</h1>
+              </div>
+            </div>
+          )}
+          <div className="flex items-center justify-center w-full ">
+            <div className="w-1/2 ">
+              <WheelComponent
+                segments={segments}
+                segColors={segColors}
+                winningSegment="MM"
+                onFinished={(winner) => onFinished(winner)}
+                // onFinished={onFinished}
+                primaryColor="black"
+                contrastColor="white"
+                buttonText="Start"
+                isOnlyOnce={true}
+                size={290}
+                upDuration={200}
+                downDuration={600}
+                fontFamily="Helvetica"
+              />
+            </div>
+          </div>
+        </>
+      ) : (
+        <h1 className="w-full font-extrabold text-center">You Cant Spin </h1>
       )}
-
-      <div className="flex items-center justify-center w-full ">
-        <div className="w-1/2 ">
-          <WheelComponent
-            segments={segments}
-            segColors={segColors}
-            winningSegment="MM"
-            onFinished={(winner) => onFinished(winner)}
-            // onFinished={onFinished}
-            primaryColor="black"
-            contrastColor="white"
-            buttonText="Start"
-            isOnlyOnce={false}
-            size={290}
-            upDuration={200}
-            downDuration={600}
-            fontFamily="Helvetica"
-          />
-        </div>
-      </div>
     </div>
   );
 };
