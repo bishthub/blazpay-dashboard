@@ -232,7 +232,7 @@ const SpinMain = () => {
 
   return (
     <div
-      className="flex flex-col items-center justify-center w-full min-h-full px-1 "
+      className="flex relative flex-col items-center  w-full min-h-screen px-1 "
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",

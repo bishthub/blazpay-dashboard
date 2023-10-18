@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { toast } from "react-toastify";
+import Navbar from "./Navbar";
 
 const StoreFront = () => {
   const location = useLocation();
@@ -88,8 +89,12 @@ const StoreFront = () => {
   const displayedData = inner ? products : products.slice(0, 4);
 
   return (
-    <div className="w-full">
-      <div className="w-full " style={{ backgroundColor: "#171717" }}>
+    <div className={inner ? "min-h-screen" : "min-h-full"}>
+      <div
+        className={inner ? "min-h-screen w-full" : "min-h-full w-full"}
+        style={{ backgroundColor: "#171717" }}
+      >
+        {inner ? <Navbar /> : <></>}
         <div className="flex flex-row items-center justify-between w-full px-2 py-2 ">
           <div className="flex flex-row items-center justify-center gap-8">
             <p>StoreFront</p>

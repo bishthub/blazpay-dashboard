@@ -4,6 +4,8 @@ import jackpotlogo from "../assets/jackpotlogo.png";
 
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import axios from "axios";
+import { local } from "d3";
 
 const SlotMachine = ({ id, owned, close, expires }) => {
   const [spin, setSpin] = useState(false);
@@ -15,6 +17,8 @@ const SlotMachine = ({ id, owned, close, expires }) => {
   const [realBet, setRealBet] = useState();
   const [jackpot, setJackpot] = useState(0);
   const [balance, setBalance] = useState(100000);
+
+  const [jackpotData, setJackpotData] = useState({ result: [], reward: 0 });
 
   useEffect(() => {
     win();
@@ -149,12 +153,12 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     } else if (spin && ring3 == undefined) {
       return (
         <>
-          <div className="ringMoving">🍓</div>
-          <div className="ringMoving">🍇</div>
-          <div className="ringMoving">🍊</div>
-          <div className="ringMoving">🍋</div>
-          <div className="ringMoving">🍍</div>
-          <div className="ringMoving">🥭</div>
+          <div className="ringMoving"></div>
+          <div className="ringMoving"></div>
+          <div className="ringMoving"></div>
+          <div className="ringMoving"></div>
+          <div className="ringMoving"></div>
+          <div className="ringMoving"></div>
         </>
       );
     } else if (ring3 >= 1 && ring3 <= 50) {
@@ -340,6 +344,31 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     }
   }
 
+  const jackpotSpinner = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await axios.post(
+        "http://localhost:3000/api/jackpot/jackpotItemsSpinner",
+        {},
+        { headers: headers }
+      );
+
+      if (response.status === 200) {
+        console.log(response.data);
+        setJackpotData(response.data);
+
+        console.log(jackpotData.result);
+      } else {
+        console.log("Something went wrong with the API request.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
   return (
     <div
       className="relative flex flex-col items-center justify-center w-full min-h-screen px-1"
@@ -361,31 +390,16 @@ const SlotMachine = ({ id, owned, close, expires }) => {
           <div className="row">{row2()}</div>
           <div className="row">{row3()}</div>
         </div>
-        {/* <h1 className="price">{premio()}</h1> */}
+        <h1 className="price">{premio()}</h1>
         <div className="slotFoot">
-          {/* <input
-          value={input}
-          type="number"
-          onChange={(e) => numChecker(e)}
-          className="betInput"
-          placeholder="0€"
-        ></input> */}
           <button
             className="spinButton bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg"
             onClick={() => play()}
+            // onClick={jackpotSpinner}
           >
             Spin
           </button>
         </div>
-        {/* <h1 className="price">
-        {"Available cash: " + Math.round(balance * 100) / 100 + "€"}
-      </h1> */}
-        {/* <button
-        onClick={() => setBalance(balance + 1000)}
-        className="buyMoreButton"
-      >
-        Add 1000 €
-      </button> */}
       </div>
     </div>
   );
