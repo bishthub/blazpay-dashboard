@@ -4,8 +4,8 @@ import jackpotlogo from "../assets/jackpotlogo.png";
 
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { local } from "d3";
 
 const SlotMachine = ({ id, owned, close, expires }) => {
   const [spin, setSpin] = useState(false);
@@ -15,11 +15,11 @@ const SlotMachine = ({ id, owned, close, expires }) => {
   const [price, setPrice] = useState();
   const [input, setInput] = useState();
   const [realBet, setRealBet] = useState();
-  const [jackpot, setJackpot] = useState(0);
+  const [jackpot, setJackpot] = useState(1000);
   const [balance, setBalance] = useState(100000);
-
-  const [jackpotData, setJackpotData] = useState({ result: [], reward: 0 });
-
+  const navigate = useNavigate();
+  const [canSpin, setCanSpin] = useState(true);
+  const [toggle, setToggle] = useState(true);
   useEffect(() => {
     win();
   }, [ring3]);
@@ -28,55 +28,85 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     if (!spin) {
       return (
         <>
-          <div className="ringEnd">🍓</div>
+          {/* <div className="ringEnd">🍓</div>
           <div className="ringEnd">🍇</div>
           <div className="ringEnd">🍊</div>
-          <div className="ringEnd">🥭</div>
+          <div className="ringEnd">🥭</div> */}
+
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
         </>
       );
     } else if (spin && ring1 == undefined) {
       return (
         <>
-          <div className="ringMoving">🍓</div>
+          {/* <div className="ringMoving">🍓</div>
           <div className="ringMoving">🍇</div>
           <div className="ringMoving">🍊</div>
-          <div className="ringMoving">🥭</div>
+          <div className="ringMoving">🥭</div> */}
+
+          <div className="ringMoving text-black">1</div>
+          <div className="ringMoving text-black">2</div>
+          <div className="ringMoving text-black">3</div>
+          <div className="ringMoving text-black">4</div>
         </>
       );
     } else if (ring1 >= 1 && ring1 <= 50) {
       return (
         <>
-          <div className="ringEnd">🍓</div>
+          {/* <div className="ringEnd">🍓</div>
           <div className="ringEnd">🍇</div>
           <div className="ringEnd">🍊</div>
-          <div className="ringEnd">🥭</div>
+          <div className="ringEnd">🥭</div> */}
+
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
         </>
       );
     } else if (ring1 > 50 && ring1 <= 75) {
       return (
         <>
-          <div className="ringEnd">🍇</div>
+          {/* <div className="ringEnd">🍇</div>
           <div className="ringEnd">🍊</div>
           <div className="ringEnd">🥭</div>
-          <div className="ringEnd">🍓</div>
+          <div className="ringEnd">🍓</div> */}
+
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
         </>
       );
     } else if (ring1 > 75 && ring1 <= 95) {
       return (
         <>
-          <div className="ringEnd">🍊</div>
+          {/* <div className="ringEnd">🍊</div>
           <div className="ringEnd">🥭</div>
           <div className="ringEnd">🍓</div>
-          <div className="ringEnd">🍇</div>
+          <div className="ringEnd">🍇</div> */}
+
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
         </>
       );
     } else if (ring1 > 95 && ring1 <= 100) {
       return (
         <>
-          <div className="ringEnd">🥭</div>
+          {/* <div className="ringEnd">🥭</div>
           <div className="ringEnd">🍓</div>
           <div className="ringEnd">🍇</div>
-          <div className="ringEnd">🍊</div>
+          <div className="ringEnd">🍊</div> */}
+
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
         </>
       );
     }
@@ -86,55 +116,83 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     if (!spin) {
       return (
         <>
-          <div className="ringEnd">🥭</div>
+          {/* <div className="ringEnd">🥭</div>
           <div className="ringEnd">🍓</div>
           <div className="ringEnd">🍇</div>
-          <div className="ringEnd">🍊</div>
+          <div className="ringEnd">🍊</div> */}
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
         </>
       );
     } else if (spin && ring2 == undefined) {
       return (
         <>
-          <div className="ringMoving">🍓</div>
+          {/* <div className="ringMoving">🍓</div>
           <div className="ringMoving">🍇</div>
           <div className="ringMoving">🍊</div>
-          <div className="ringMoving">🥭</div>
+          <div className="ringMoving">🥭</div> */}
+
+          <div className="ringMoving text-black">1</div>
+          <div className="ringMoving text-black">2</div>
+          <div className="ringMoving text-black">3</div>
+          <div className="ringMoving text-black">4</div>
         </>
       );
     } else if (ring2 >= 1 && ring2 <= 50) {
       return (
         <>
-          <div className="ringEnd">🍓</div>
+          {/* <div className="ringEnd">🍓</div>
           <div className="ringEnd">🍇</div>
           <div className="ringEnd">🍊</div>
-          <div className="ringEnd">🥭</div>
+          <div className="ringEnd">🥭</div> */}
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
         </>
       );
     } else if (ring2 > 50 && ring2 <= 75) {
       return (
         <>
-          <div className="ringEnd">🍇</div>
+          {/* <div className="ringEnd">🍇</div>
           <div className="ringEnd">🍊</div>
           <div className="ringEnd">🥭</div>
-          <div className="ringEnd">🍓</div>
+          <div className="ringEnd">🍓</div> */}
+
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
         </>
       );
     } else if (ring2 > 75 && ring2 <= 95) {
       return (
         <>
-          <div className="ringEnd">🍊</div>
+          {/* <div className="ringEnd">🍊</div>
           <div className="ringEnd">🥭</div>
           <div className="ringEnd">🍓</div>
-          <div className="ringEnd">🍇</div>
+          <div className="ringEnd">🍇</div> */}
+
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
         </>
       );
     } else if (ring2 > 95 && ring2 <= 100) {
       return (
         <>
-          <div className="ringEnd">🥭</div>
+          {/* <div className="ringEnd">🥭</div>
           <div className="ringEnd">🍓</div>
           <div className="ringEnd">🍇</div>
-          <div className="ringEnd">🍊</div>
+          <div className="ringEnd">🍊</div> */}
+
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
         </>
       );
     }
@@ -144,76 +202,133 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     if (!spin) {
       return (
         <>
-          <div className="ringEnd">🥭</div>
+          {/* <div className="ringEnd">🥭</div>
           <div className="ringEnd">🍓</div>
           <div className="ringEnd">🍇</div>
-          <div className="ringEnd">🍊</div>
+          <div className="ringEnd">🍊</div> */}
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
         </>
       );
     } else if (spin && ring3 == undefined) {
       return (
         <>
-          <div className="ringMoving"></div>
-          <div className="ringMoving"></div>
-          <div className="ringMoving"></div>
-          <div className="ringMoving"></div>
-          <div className="ringMoving"></div>
-          <div className="ringMoving"></div>
+          {/* <div className="ringMoving">🍓</div>
+          <div className="ringMoving">🍇</div>
+          <div className="ringMoving">🍊</div>
+          <div className="ringMoving">🍋</div>
+          <div className="ringMoving">🍍</div>
+          <div className="ringMoving">🥭</div> */}
+
+          <div className="ringMoving text-black">1</div>
+          <div className="ringMoving text-black">2</div>
+          <div className="ringMoving text-black">3</div>
+          <div className="ringMoving text-black">6</div>
+          <div className="ringMoving text-black">5</div>
+          <div className="ringMoving text-black">4</div>
         </>
       );
     } else if (ring3 >= 1 && ring3 <= 50) {
       return (
         <>
-          <div className="ringEnd">🍓</div>
+          {/* <div className="ringEnd">🍓</div>
           <div className="ringEnd">🍇</div>
           <div className="ringEnd">🍊</div>
-          <div className="ringEnd">🥭</div>
+          <div className="ringEnd">🥭</div> */}
+
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
         </>
       );
     } else if (ring3 > 50 && ring3 <= 75) {
       return (
         <>
-          <div className="ringEnd">🍇</div>
+          {/* <div className="ringEnd">🍇</div>
           <div className="ringEnd">🍊</div>
           <div className="ringEnd">🥭</div>
-          <div className="ringEnd">🍓</div>
+          <div className="ringEnd">🍓</div> */}
+
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
         </>
       );
     } else if (ring3 > 75 && ring3 <= 95) {
       return (
         <>
-          <div className="ringEnd">🍊</div>
+          {/* <div className="ringEnd">🍊</div>
           <div className="ringEnd">🥭</div>
           <div className="ringEnd">🍓</div>
-          <div className="ringEnd">🍇</div>
+          <div className="ringEnd">🍇</div> */}
+
+          <div className="ringEnd text-black">3</div>
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
         </>
       );
     } else if (ring3 > 95 && ring3 <= 100) {
       return (
         <>
-          <div className="ringEnd">🥭</div>
+          {/* <div className="ringEnd">🥭</div>
           <div className="ringEnd">🍓</div>
           <div className="ringEnd">🍇</div>
-          <div className="ringEnd">🍊</div>
+          <div className="ringEnd">🍊</div> */}
+
+          <div className="ringEnd text-black">4</div>
+          <div className="ringEnd text-black">1</div>
+          <div className="ringEnd text-black">2</div>
+          <div className="ringEnd text-black">3</div>
         </>
       );
     }
   }
 
+  // function win() {
+  //   if (ring1 <= 50 && ring2 <= 50 && ring3 <= 50 && ring1 != undefined) {
+  //     setPrice(1);
+  //   } else if (
+  //     ring1 > 50 &&
+  //     ring1 <= 75 &&
+  //     ring2 > 50 &&
+  //     ring2 <= 75 &&
+  //     ring3 > 50 &&
+  //     ring3 <= 75 &&
+  //     ring1 != undefined
+  //   ) {
+  //     setPrice();
+  //   } else if (
+  //     ring1 > 75 &&
+  //     ring1 <= 95 &&
+  //     ring2 > 75 &&
+  //     ring2 <= 95 &&
+  //     ring3 > 75 &&
+  //     ring3 <= 95 &&
+  //     ring1 != undefined
+  //   ) {
+  //     setPrice(3);
+  //   } else if (
+  //     ring1 > 95 &&
+  //     ring1 <= 100 &&
+  //     ring2 > 95 &&
+  //     ring2 <= 100 &&
+  //     ring3 > 95 &&
+  //     ring3 <= 100 &&
+  //     ring1 != undefined
+  //   ) {
+  //     setPrice(4);
+  //   } else {
+  //     setPrice(0);
+  //   }
+  // }
+
   function win() {
-    if (ring1 <= 50 && ring2 <= 50 && ring3 <= 50 && ring1 != undefined) {
-      setPrice(1);
-    } else if (
-      ring1 > 50 &&
-      ring1 <= 75 &&
-      ring2 > 50 &&
-      ring2 <= 75 &&
-      ring3 > 50 &&
-      ring3 <= 75 &&
-      ring1 != undefined
-    ) {
-      setPrice(2);
-    } else if (
+    if (
       ring1 > 75 &&
       ring1 <= 95 &&
       ring2 > 75 &&
@@ -222,19 +337,7 @@ const SlotMachine = ({ id, owned, close, expires }) => {
       ring3 <= 95 &&
       ring1 != undefined
     ) {
-      setPrice(3);
-    } else if (
-      ring1 > 95 &&
-      ring1 <= 100 &&
-      ring2 > 95 &&
-      ring2 <= 100 &&
-      ring3 > 95 &&
-      ring3 <= 100 &&
-      ring1 != undefined
-    ) {
-      setPrice(4);
-    } else {
-      setPrice(0);
+      setPrice("1000");
     }
   }
 
@@ -255,85 +358,110 @@ const SlotMachine = ({ id, owned, close, expires }) => {
       setRing1();
       setRing2();
       setRing3();
-      setBalance(balance - input);
-      setJackpot(jackpot + input / 2);
+      // setBalance(balance - input);
+      // setJackpot(jackpot + input / 2);
       setTimeout(function () {
         rand();
       }, 2000);
     }
+    setToggle(!toggle);
+    SpinJackpot();
   }
 
-  function win() {
-    if (ring1 <= 50 && ring2 <= 50 && ring3 <= 50 && ring1 != undefined) {
-      setPrice(1);
-      // setBalance(balance + balance * 15);
-    } else if (
-      ring1 > 50 &&
-      ring1 <= 75 &&
-      ring2 > 50 &&
-      ring2 <= 75 &&
-      ring3 > 50 &&
-      ring3 <= 75 &&
-      ring1 != undefined
-    ) {
-      setPrice(2);
-      // setBalance(balance + balance * 20);
-    } else if (
-      ring1 > 75 &&
-      ring1 <= 95 &&
-      ring2 > 75 &&
-      ring2 <= 95 &&
-      ring3 > 75 &&
-      ring3 <= 95 &&
-      ring1 != undefined
-    ) {
-      setPrice(3);
-      // setBalance(balance + balance * 25);
-    } else if (
-      ring1 > 95 &&
-      ring1 <= 100 &&
-      ring2 > 95 &&
-      ring2 <= 100 &&
-      ring3 > 95 &&
-      ring3 <= 100 &&
-      ring1 != undefined
-    ) {
-      setPrice(4);
-      // setBalance(balance + jackpot);
-      setJackpot(0);
-    } else {
-      setPrice(0);
+  async function SpinJackpot() {
+    try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/api/jackpot/jackpotItemsSpinner",
+        {},
+        {
+          headers: headers,
+        }
+      );
+    } catch (err) {
+      console.log(err);
     }
   }
 
+  // function win() {
+  //   if (ring1 <= 50 && ring2 <= 50 && ring3 <= 50 && ring1 != undefined) {
+  //     setPrice(1);
+  //     // setBalance(balance + balance * 15);
+  //   } else if (
+  //     ring1 > 50 &&
+  //     ring1 <= 75 &&
+  //     ring2 > 50 &&
+  //     ring2 <= 75 &&
+  //     ring3 > 50 &&
+  //     ring3 <= 75 &&
+  //     ring1 != undefined
+  //   ) {
+  //     setPrice(2);
+  //     // setBalance(balance + balance * 20);
+  //   } else if (
+  //     ring1 > 75 &&
+  //     ring1 <= 95 &&
+  //     ring2 > 75 &&
+  //     ring2 <= 95 &&
+  //     ring3 > 75 &&
+  //     ring3 <= 95 &&
+  //     ring1 != undefined
+  //   ) {
+  //     setPrice(3);
+  //     // setBalance(balance + balance * 25);
+  //   } else if (
+  //     ring1 > 95 &&
+  //     ring1 <= 100 &&
+  //     ring2 > 95 &&
+  //     ring2 <= 100 &&
+  //     ring3 > 95 &&
+  //     ring3 <= 100 &&
+  //     ring1 != undefined
+  //   ) {
+  //     setPrice(4);
+  //     // setBalance(balance + jackpot);
+  //     setJackpot(0);
+  //   } else {
+  //     setPrice(0);
+  //   }
+  // }
+
   function premio() {
-    if (price === 1 && ring3 > 1) {
-      return (
-        <p className="priceInd">{"🍇 X15 You've won " + realBet * 15 + "€!"}</p>
-      );
-    } else if (price === 2 && ring3 > 1) {
-      return (
-        <p className="priceInd">{"🍊 X20 You've won " + realBet * 20 + "€!"}</p>
-      );
-    } else if (price === 3 && ring3 > 1) {
-      return (
-        <p className="priceInd">{"🥭 X25 You've won " + realBet * 25 + "€!"}</p>
-      );
-    } else if (price === 4 && ring3 > 1) {
+    // if (price === 1 && ring3 > 1) {
+    //   return (
+    //     <p className="priceInd">{"🍇 X15 You've won " + realBet * 15 + "€!"}</p>
+    //   );
+    // } else if (price === 2 && ring3 > 1) {
+    //   return (
+    //     <p className="priceInd">{"🍊 X20 You've won " + realBet * 20 + "€!"}</p>
+    //   );
+    // } else if (price === 3 && ring3 > 1) {
+    //   return (
+    //     <p className="priceInd">{"🥭 X25 You've won " + realBet * 25 + "€!"}</p>
+    //   );
+    // }
+
+    if (price === 4 && ring3 > 1) {
       return (
         <p className="priceInd">
           {"🍓 Jackpot! You've won: " + jackpot + "€!"}
         </p>
       );
-    } else if (price === 0 && ring3 > 1) {
-      return <p className="priceInd">😧 ¡So close! But no luck...</p>;
-    } else if (price === 10) {
-      return (
-        <p className="priceInd">
-          🥶 <span style={{ color: `red` }}>Not enough funds</span>{" "}
-        </p>
-      );
     }
+    // else if (price === 0 && ring3 > 1) {
+    //   return <p className="priceInd">😧 ¡So close! But no luck...</p>;
+    // } else if (price === 10) {
+    //   return (
+    //     <p className="priceInd">
+    //       🥶 <span style={{ color: `red` }}>Not enough funds</span>{" "}
+    //     </p>
+    //   );
+    // }
   }
 
   function numChecker(e) {
@@ -344,34 +472,56 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     }
   }
 
-  const jackpotSpinner = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-      const response = await axios.post(
-        "http://localhost:3000/api/jackpot/jackpotItemsSpinner",
-        {},
-        { headers: headers }
-      );
+  // useEffect(()=>{
+  //   async function jackpotSpinner(){
+  //     try{
 
-      if (response.status === 200) {
-        console.log(response.data);
-        setJackpotData(response.data);
+  //     }
+  //     catch(err){
+  //       console.log(err);
+  //     }
+  //   }
+  // })
 
-        console.log(jackpotData.result);
-      } else {
-        console.log("Something went wrong with the API request.");
+  useEffect(() => {
+    async function canSpins() {
+      try {
+        const token = localStorage.getItem("token");
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        };
+
+        const response = await axios.get(
+          "http://localhost:3000/api/jackpot/can-spin",
+          {
+            headers: headers,
+          }
+        );
+
+        if (response.status === 200) {
+          // setCanSpin(true);
+          if (response.data.canSpin == true) setCanSpin(true);
+          else setCanSpin(false);
+
+          console.log(response.data);
+        } else if (response.status === 400) {
+          setCanSpin(false);
+        } else {
+          navigate("/user/login");
+        }
+      } catch (err) {
+        setCanSpin(false);
       }
-    } catch (error) {
-      console.error("An error occurred:", error);
     }
-  };
+
+    canSpins();
+  }, [toggle]);
 
   return (
     <div
-      className="relative flex flex-col items-center justify-center w-full min-h-screen px-1"
+      className="relative flex flex-col items-center  w-full min-h-screen px-1"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
@@ -380,27 +530,31 @@ const SlotMachine = ({ id, owned, close, expires }) => {
       }}
     >
       <Navbar />
-      <div className="fullSlot bg-gray-400 p-5">
-        {/* <h1 className="casinoName">casino montecarlo</h1> */}
-        <img src={jackpotlogo} alt="jackpot" />
 
-        <h1 className="price">{"Jackpot: " + jackpot + "€"}</h1>
-        <div className="slot">
-          <div className="row">{row1()}</div>
-          <div className="row">{row2()}</div>
-          <div className="row">{row3()}</div>
+      {canSpin ? (
+        <div className="fullSlot bg-gray-400 p-5">
+          <h1 className="casinoName">BlazPay</h1>
+          <img src={jackpotlogo} alt="jackpot" />
+
+          <h1 className="price">{"Jackpot: " + jackpot + "€"}</h1>
+          <div className="slot">
+            <div className="row">{row1()}</div>
+            <div className="row">{row2()}</div>
+            <div className="row">{row3()}</div>
+          </div>
+          <h1 className="price">{premio()}</h1>
+          <div className="slotFoot">
+            <button
+              className="spinButton bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg"
+              onClick={() => play()}
+            >
+              Spin
+            </button>
+          </div>
         </div>
-        <h1 className="price">{premio()}</h1>
-        <div className="slotFoot">
-          <button
-            className="spinButton bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg"
-            onClick={() => play()}
-            // onClick={jackpotSpinner}
-          >
-            Spin
-          </button>
-        </div>
-      </div>
+      ) : (
+        <h1 className="w-full font-extrabold text-center">You Cant Spin </h1>
+      )}
     </div>
   );
 };

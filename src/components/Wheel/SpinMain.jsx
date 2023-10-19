@@ -154,7 +154,7 @@ const SpinMain = () => {
 
   const navigate = useNavigate();
 
-  const [canSpin, setCanSpin] = useState(null);
+  const [canSpin, setCanSpin] = useState(true);
 
   const segments = ["", "", "", "", "", "", "", ""];
   const segColors = [
@@ -197,17 +197,13 @@ const SpinMain = () => {
   useEffect(() => {
     async function checkCanSpin() {
       try {
-        // Replace with the actual URL of your backend API
-
         const token = localStorage.getItem("token");
 
         const headers = {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         };
-        // Replace with the actual URL of your backend API
 
-        // Make the request with the configured headers
         const response = await axios.get(
           "http://localhost:3000/api/jackpot/can-spin",
           {
@@ -216,13 +212,18 @@ const SpinMain = () => {
         );
 
         if (response.status === 200) {
-          setCanSpin(true);
+          // setCanSpin(true);
+          if (response.data.canSpin == true) setCanSpin(true);
+          else setCanSpin(false);
+
+          console.log(response.data);
         } else if (response.status === 400) {
           setCanSpin(false);
-          console.log("spin over");
+        } else {
+          navigate("/user/login");
         }
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        setCanSpin(false);
       }
     }
 
