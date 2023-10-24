@@ -23,15 +23,18 @@ const SlotMachine = ({ id, owned, close, expires }) => {
   const [toggle, setToggle] = useState(true);
   const [final, setFinal] = useState(false);
   const [finals, setFinals] = useState(false);
+  const [num1, setNum1] = useState([]);
+  const [num2, setNum2] = useState([]);
+  const [num3, setNum3] = useState([]);
 
   const [apiResponse, setApiResponse] = useState({
     result: [],
     reward: 0,
   });
 
-  const numbers1 = [1, 2, 5, 6];
-  const numbers2 = [3, 4, 5, 6];
-  const numbers3 = [1, 2, 3, 4];
+  let numbers1 = [1, 2, 5, 6];
+  let numbers2 = [3, 4, 5, 6];
+  let numbers3 = [1, 2, 3, 4];
 
   function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -40,9 +43,18 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     }
   }
 
-  shuffleArray(numbers1);
-  shuffleArray(numbers2);
-  shuffleArray(numbers3);
+  useEffect(() => {
+    console.log("ok");
+    shuffleArray(numbers1);
+    setNum1(numbers1);
+    console.log("num1", num1[0]);
+    shuffleArray(numbers2);
+    setNum2(numbers2);
+    console.log("num2", num2[0]);
+    shuffleArray(numbers3);
+    setNum3(numbers3);
+    console.log("num3", num3[0]);
+  }, [toggle]);
 
   // useEffect(() => {
 
@@ -55,6 +67,12 @@ const SlotMachine = ({ id, owned, close, expires }) => {
   useEffect(() => {
     if (ring3 !== undefined) {
       win();
+      console.log("finals", finals);
+
+      if (finals) {
+        toast.success("Won 1000 Tokens");
+        rewardToken();
+      }
     }
   }, [ring3]);
 
@@ -62,55 +80,55 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     if (!spin) {
       return (
         <>
-          <div className="ringEnd text-black">1</div>
-          <div className="ringEnd text-black">{numbers1[0]}</div>
-          <div className="ringEnd text-black">3</div>
-          <div className="ringEnd text-black">4</div>
+          <div className="text-black ringEnd">1</div>
+          <div className="text-black ringEnd">{num1[0]}</div>
+          <div className="text-black ringEnd">3</div>
+          <div className="text-black ringEnd">4</div>
         </>
       );
     } else if (spin && ring1 == undefined) {
       return (
         <>
-          <div className="ringMoving text-black">1</div>
-          <div className="ringMoving text-black">2</div>
-          <div className="ringMoving text-black">3</div>
-          <div className="ringMoving text-black">4</div>
+          <div className="text-black ringMoving">1</div>
+          <div className="text-black ringMoving">2</div>
+          <div className="text-black ringMoving">3</div>
+          <div className="text-black ringMoving">4</div>
         </>
       );
     } else if (ring1 >= 1 && ring1 <= 50) {
       return (
         <>
-          <div className="ringEnd text-black">1</div>
-          <div className="ringEnd text-black">{numbers1[0]}</div>
-          <div className="ringEnd text-black">3</div>
-          <div className="ringEnd text-black">4</div>
+          <div className="text-black ringEnd">1</div>
+          <div className="text-black ringEnd">{num1[0]}</div>
+          <div className="text-black ringEnd">3</div>
+          <div className="text-black ringEnd">4</div>
         </>
       );
     } else if (ring1 > 50 && ring1 <= 75) {
       return (
         <>
-          <div className="ringEnd text-black">2</div>
-          <div className="ringEnd text-black">{numbers1[0]}</div>
-          <div className="ringEnd text-black">4</div>
-          <div className="ringEnd text-black">1</div>
+          <div className="text-black ringEnd">2</div>
+          <div className="text-black ringEnd">{num1[0]}</div>
+          <div className="text-black ringEnd">4</div>
+          <div className="text-black ringEnd">1</div>
         </>
       );
-    } else if (ring1 > 75 && ring1 <= 98) {
+    } else if (ring1 > 75 && ring1 <= 90) {
       return (
         <>
-          <div className="ringEnd text-black">3</div>
-          <div className="ringEnd text-black">{numbers1[0]}</div>
-          <div className="ringEnd text-black">1</div>
-          <div className="ringEnd text-black">2</div>
+          <div className="text-black ringEnd">3</div>
+          <div className="text-black ringEnd">{num1[0]}</div>
+          <div className="text-black ringEnd">1</div>
+          <div className="text-black ringEnd">2</div>
         </>
       );
-    } else if (ring1 > 98 && ring1 <= 100) {
+    } else if (ring1 > 90 && ring1 <= 100) {
       return (
         <>
-          <div className="ringEnd text-black">4</div>
-          <div className="ringEnd text-black">{numbers1[0]}</div>
-          <div className="ringEnd text-black">3</div>
-          <div className="ringEnd text-black">2</div>
+          <div className="text-black ringEnd">4</div>
+          <div className="text-black ringEnd">{num1[0]}</div>
+          <div className="text-black ringEnd">3</div>
+          <div className="text-black ringEnd">2</div>
         </>
       );
     }
@@ -120,55 +138,55 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     if (!spin) {
       return (
         <>
-          <div className="ringEnd text-black">4</div>
-          <div className="ringEnd text-black">{numbers2[0]}</div>
-          <div className="ringEnd text-black">2</div>
-          <div className="ringEnd text-black">3</div>
+          <div className="text-black ringEnd">4</div>
+          <div className="text-black ringEnd">{num2[0]}</div>
+          <div className="text-black ringEnd">2</div>
+          <div className="text-black ringEnd">3</div>
         </>
       );
     } else if (spin && ring2 == undefined) {
       return (
         <>
-          <div className="ringMoving text-black">1</div>
-          <div className="ringMoving text-black">2</div>
-          <div className="ringMoving text-black">3</div>
-          <div className="ringMoving text-black">4</div>
+          <div className="text-black ringMoving">1</div>
+          <div className="text-black ringMoving">2</div>
+          <div className="text-black ringMoving">3</div>
+          <div className="text-black ringMoving">4</div>
         </>
       );
     } else if (ring2 >= 1 && ring2 <= 50) {
       return (
         <>
-          <div className="ringEnd text-black">1</div>
-          <div className="ringEnd text-black">{numbers2[0]}</div>
-          <div className="ringEnd text-black">3</div>
-          <div className="ringEnd text-black">4</div>
+          <div className="text-black ringEnd">1</div>
+          <div className="text-black ringEnd">{num2[0]}</div>
+          <div className="text-black ringEnd">3</div>
+          <div className="text-black ringEnd">4</div>
         </>
       );
     } else if (ring2 > 50 && ring2 <= 75) {
       return (
         <>
-          <div className="ringEnd text-black">2</div>
-          <div className="ringEnd text-black">{numbers2[0]}</div>
-          <div className="ringEnd text-black">4</div>
-          <div className="ringEnd text-black">1</div>
+          <div className="text-black ringEnd">2</div>
+          <div className="text-black ringEnd">{num2[0]}</div>
+          <div className="text-black ringEnd">4</div>
+          <div className="text-black ringEnd">1</div>
         </>
       );
-    } else if (ring2 > 75 && ring2 <= 98) {
+    } else if (ring2 > 75 && ring2 <= 90) {
       return (
         <>
-          <div className="ringEnd text-black">3</div>
-          <div className="ringEnd text-black">{numbers2[0]}</div>
-          <div className="ringEnd text-black">1</div>
-          <div className="ringEnd text-black">2</div>
+          <div className="text-black ringEnd">3</div>
+          <div className="text-black ringEnd">{num2[0]}</div>
+          <div className="text-black ringEnd">1</div>
+          <div className="text-black ringEnd">2</div>
         </>
       );
-    } else if (ring2 > 98 && ring2 <= 100) {
+    } else if (ring2 > 90 && ring2 <= 100) {
       return (
         <>
-          <div className="ringEnd text-black">4</div>
-          <div className="ringEnd text-black">{numbers1[0]}</div>
-          <div className="ringEnd text-black">2</div>
-          <div className="ringEnd text-black">3</div>
+          <div className="text-black ringEnd">4</div>
+          <div className="text-black ringEnd">{num1[0]}</div>
+          <div className="text-black ringEnd">2</div>
+          <div className="text-black ringEnd">3</div>
         </>
       );
     }
@@ -178,57 +196,57 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     if (!spin) {
       return (
         <>
-          <div className="ringEnd text-black">4</div>
-          <div className="ringEnd text-black">{numbers3[0]}</div>
-          <div className="ringEnd text-black">2</div>
-          <div className="ringEnd text-black">1</div>
+          <div className="text-black ringEnd">4</div>
+          <div className="text-black ringEnd">{num3[0]}</div>
+          <div className="text-black ringEnd">2</div>
+          <div className="text-black ringEnd">1</div>
         </>
       );
     } else if (spin && ring3 == undefined) {
       return (
         <>
-          <div className="ringMoving text-black">1</div>
-          <div className="ringMoving text-black">2</div>
-          <div className="ringMoving text-black">3</div>
-          <div className="ringMoving text-black">6</div>
-          <div className="ringMoving text-black">5</div>
-          <div className="ringMoving text-black">4</div>
+          <div className="text-black ringMoving">1</div>
+          <div className="text-black ringMoving">2</div>
+          <div className="text-black ringMoving">3</div>
+          <div className="text-black ringMoving">6</div>
+          <div className="text-black ringMoving">5</div>
+          <div className="text-black ringMoving">4</div>
         </>
       );
     } else if (ring3 >= 1 && ring3 <= 50) {
       return (
         <>
-          <div className="ringEnd text-black">1</div>
-          <div className="ringEnd text-black">{numbers3[0]}</div>
-          <div className="ringEnd text-black">3</div>
-          <div className="ringEnd text-black">4</div>
+          <div className="text-black ringEnd">1</div>
+          <div className="text-black ringEnd">{num3[0]}</div>
+          <div className="text-black ringEnd">3</div>
+          <div className="text-black ringEnd">4</div>
         </>
       );
     } else if (ring3 > 50 && ring3 <= 75) {
       return (
         <>
-          <div className="ringEnd text-black">2</div>
-          <div className="ringEnd text-black">{numbers3[0]}</div>
-          <div className="ringEnd text-black">4</div>
-          <div className="ringEnd text-black">1</div>
+          <div className="text-black ringEnd">2</div>
+          <div className="text-black ringEnd">{num3[0]}</div>
+          <div className="text-black ringEnd">4</div>
+          <div className="text-black ringEnd">1</div>
         </>
       );
-    } else if (ring3 > 75 && ring3 <= 98) {
+    } else if (ring3 > 75 && ring3 <= 90) {
       return (
         <>
-          <div className="ringEnd text-black">3</div>
-          <div className="ringEnd text-black">{numbers3[0]}</div>
-          <div className="ringEnd text-black">1</div>
-          <div className="ringEnd text-black">2</div>
+          <div className="text-black ringEnd">3</div>
+          <div className="text-black ringEnd">{num3[0]}</div>
+          <div className="text-black ringEnd">1</div>
+          <div className="text-black ringEnd">2</div>
         </>
       );
-    } else if (ring3 > 98 && ring3 <= 100) {
+    } else if (ring3 > 90 && ring3 <= 100) {
       return (
         <>
-          <div className="ringEnd text-black">4</div>
-          <div className="ringEnd text-black">{numbers1[0]}</div>
-          <div className="ringEnd text-black">2</div>
-          <div className="ringEnd text-black">3</div>
+          <div className="text-black ringEnd">4</div>
+          <div className="text-black ringEnd">{num1[0]}</div>
+          <div className="text-black ringEnd">2</div>
+          <div className="text-black ringEnd">3</div>
         </>
       );
     }
@@ -249,18 +267,22 @@ const SlotMachine = ({ id, owned, close, expires }) => {
   }
 
   function rand() {
-    // setFinals(false);
-    const r1 = Math.floor(Math.random() * (100 - 1) + 1);
+    // const r1 = Math.floor(Math.random() * (100 - 1) + 1);
+    const r1 = 93;
+    const r2 = 93;
+    const r3 = 93;
     setRing1(r1);
     console.log("ring1", ring1);
 
     setTimeout(function () {
-      const r2 = Math.floor(Math.random() * (100 - 1) + 1);
+      // const r2 = Math.floor(Math.random() * (100 - 1) + 1);
+      // const r2 = 93;
       setRing2(r2);
       console.log("ring2", ring2);
     }, 1000);
     setTimeout(function () {
-      const r3 = Math.floor(Math.random() * (100 - 1) + 1);
+      // const r3 = Math.floor(Math.random() * (100 - 1) + 1);
+      // const r3 = 93;
 
       setRing3(r3);
 
@@ -269,7 +291,7 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     // 98 < ring1 <= 100 && 98 < ring2 <= 100 && 98 < ring3 <= 100
 
     setTimeout(() => {
-      if (ring1 > 98 && ring2 > 98 && ring3 > 98) {
+      if (r1 > 90 && r2 > 90 && r3 > 90) {
         setFinals(true);
       } else {
         setFinals(false);
@@ -286,6 +308,7 @@ const SlotMachine = ({ id, owned, close, expires }) => {
       setRing3();
       // setBalance(balance - input);
       // setJackpot(jackpot + input / 2);
+      setFinals(false);
       setTimeout(function () {
         rand();
       }, 2000);
@@ -302,17 +325,19 @@ const SlotMachine = ({ id, owned, close, expires }) => {
         "Content-Type": "application/json",
       };
 
-      const response = await axios.post(
-        "http://localhost:3000/api/jackpot/jackpotItemsSpinner",
-        {},
+      const response = await axios.get(
+        "http://localhost:3000/api/jackpot/can-jackpot",
+
         {
           headers: headers,
         }
       );
       if (response.status === 200) {
-        setApiResponse(response.data);
+        // setApiResponse(response.data);
 
-        console.log(apiResponse.result);
+        console.log("kyaaaaa huaaaaaaa", response.data);
+
+        console.log("baby", response.data.canJackpot);
       } else {
         navigate("/user/login");
       }
@@ -345,9 +370,15 @@ const SlotMachine = ({ id, owned, close, expires }) => {
         );
 
         if (response.status === 200) {
+          console.log(response.data, "data");
           // setCanSpin(true);
-          if (response.data.canSpin == true) setCanSpin(true);
-          else setCanSpin(false);
+          if (response.data.canSpin == true) {
+            setCanSpin(true);
+            console.log("Achhhaaa 2", response.data);
+          } else {
+            setCanSpin(false);
+            console.log("Galatttt 2", response.data);
+          }
 
           console.log(response.data);
         } else if (response.status === 400) {
@@ -365,9 +396,35 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     canSpins();
   }, [toggle]);
 
+  async function rewardToken() {
+    try {
+      const token = localStorage.getItem("token");
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/api/jackpot/jackpotDone",
+        { amount: 1000 },
+        {
+          headers: headers,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Added Token", response.data.message);
+      } else {
+        navigate("/user/login");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
   return (
     <div
-      className="relative flex flex-col items-center  w-full min-h-screen px-1"
+      className="relative flex flex-col items-center w-full min-h-screen px-1"
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
@@ -378,7 +435,7 @@ const SlotMachine = ({ id, owned, close, expires }) => {
       <Navbar />
 
       {canSpin ? (
-        <div className="fullSlot bg-gray-400 p-5">
+        <div className="p-5 bg-gray-400 fullSlot">
           <h1 className="casinoName">BlazPay</h1>
           <img src={jackpotlogo} alt="jackpot" />
 
