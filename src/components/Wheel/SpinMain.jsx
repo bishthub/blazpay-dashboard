@@ -191,6 +191,9 @@ const SpinMain = () => {
 
     if (prize !== "Better Luck Next Time") {
       toast.success("Won " + prize);
+
+      console.log(prize);
+      rewardToken(prize);
       // Add any other actions you want to perform
     }
   };
@@ -267,6 +270,33 @@ const SpinMain = () => {
       if (error.response.status === 400) {
         toast.warning("Spins Over");
       }
+    }
+  }
+  async function rewardToken(prize) {
+    try {
+      console.log(prize);
+      const token = localStorage.getItem("token");
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/api/jackpot/spinDone",
+        { amount: prize },
+        {
+          headers: headers,
+        }
+      );
+
+      if (response.status === 200) {
+        console.log("Added Token", response.data.message);
+      } else {
+        navigate("/user/login");
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 
