@@ -267,10 +267,10 @@ const SlotMachine = ({ id, owned, close, expires }) => {
   }
 
   function rand() {
-    // const r1 = Math.floor(Math.random() * (100 - 1) + 1);
-    const r1 = 93;
-    const r2 = 93;
-    const r3 = 93;
+    const r1 = Math.floor(Math.random() * (100 - 1) + 1);
+    const r2 = Math.floor(Math.random() * (100 - 1) + 1);
+    const r3 = Math.floor(Math.random() * (100 - 1) + 1);
+
     setRing1(r1);
     console.log("ring1", ring1);
 

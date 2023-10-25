@@ -214,26 +214,65 @@ const SpinMain = () => {
         if (response.status === 200) {
           // setCanSpin(true);
           if (response.data.canSpin == true) setCanSpin(true);
-          else setCanSpin(false);
+          else if (response.data.canSpin == false) setCanSpin(false);
 
           console.log(response.data);
-        } else if (response.status === 400) {
-          setCanSpin(false);
-        } else {
+        }
+        // else if (response.status === 400) {
+        //   setCanSpin(false);
+        // }
+        else {
           navigate("/user/login");
         }
       } catch (err) {
+        console.log(err);
         setCanSpin(false);
       }
     }
 
     checkCanSpin();
     console.log("clicked");
-  }, [result]);
+  }, []);
+
+  const onclick = () => {
+    console.log("selected");
+    SpinJackpot();
+  };
+  async function SpinJackpot() {
+    try {
+      const token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      };
+
+      const response = await axios.post(
+        "http://localhost:3000/api/jackpot/jackpotItemsSpinner",
+        {},
+
+        {
+          headers: headers,
+        }
+      );
+      if (response.status === 200) {
+        // setApiResponse(response.data);
+
+        console.log("kyaaaaa huaaaaaaa", response.data);
+      } else {
+        navigate("/user/login");
+      }
+    } catch (err) {
+      setCanSpin(false);
+      console.log(err);
+      if (error.response.status === 400) {
+        toast.warning("Spins Over");
+      }
+    }
+  }
 
   return (
     <div
-      className="flex relative flex-col items-center  w-full min-h-screen px-1 "
+      className="relative flex flex-col items-center w-full min-h-screen px-1 "
       style={{
         backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
@@ -264,7 +303,7 @@ const SpinMain = () => {
             </div>
           )}
           <div className="flex items-center justify-center w-full ">
-            <div className="w-1/2 ">
+            <div className="w-1/2 " onClick={onclick}>
               <WheelComponent
                 segments={segments}
                 segColors={segColors}
