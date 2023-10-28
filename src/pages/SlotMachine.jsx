@@ -56,12 +56,6 @@ const SlotMachine = ({ id, owned, close, expires }) => {
     console.log("num3", num3[0]);
   }, [toggle]);
 
-  // useEffect(() => {
-
-  //   console.log("number1", numbers1);
-  //   // console.log(numbers2);
-  // }, [apiResponse]);
-
   console.log(numbers1);
 
   useEffect(() => {
@@ -268,7 +262,10 @@ const SlotMachine = ({ id, owned, close, expires }) => {
 
   function rand() {
     const r1 = Math.floor(Math.random() * (100 - 1) + 1);
+    // const r1 = 94;
+    // const r2 = 94;
     const r2 = Math.floor(Math.random() * (100 - 1) + 1);
+    // const r3 = 95;
     const r3 = Math.floor(Math.random() * (100 - 1) + 1);
 
     setRing1(r1);
@@ -325,8 +322,9 @@ const SlotMachine = ({ id, owned, close, expires }) => {
         "Content-Type": "application/json",
       };
 
-      const response = await axios.get(
-        "http://localhost:3000/api/jackpot/can-jackpot",
+      const response = await axios.post(
+        "http://localhost:3000/api/jackpot/jackpotSpinner",
+        {},
 
         {
           headers: headers,
@@ -335,14 +333,23 @@ const SlotMachine = ({ id, owned, close, expires }) => {
       if (response.status === 200) {
         // setApiResponse(response.data);
 
-        console.log("kyaaaaa huaaaaaaa", response.data);
+        if (response.status.canJackpots === true) setCanSpin(true);
+        else setCanSpin(false);
 
-        console.log("baby", response.data.canJackpot);
+        console.log("kyaaaaa huaaaaaaa", response.data);
       } else {
-        navigate("/user/login");
+        setCanSpin(false);
+
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       }
     } catch (err) {
+      setCanSpin(false);
       console.log(err);
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
     }
   }
 
@@ -363,60 +370,65 @@ const SlotMachine = ({ id, owned, close, expires }) => {
         };
 
         const response = await axios.get(
-          "http://localhost:3000/api/jackpot/can-spin",
+          "http://localhost:3000/api/jackpot/can-jackpot",
           {
             headers: headers,
           }
         );
 
         if (response.status === 200) {
-          console.log(response.data, "data");
-          // setCanSpin(true);
-          if (response.data.canSpin == true) {
+          console.log(response.data);
+          if (response.data.canJackpot == true) {
             setCanSpin(true);
-            console.log("Achhhaaa 2", response.data);
+            console.log("Achhhaaa 2", "Can pin");
           } else {
             setCanSpin(false);
-            console.log("Galatttt 2", response.data);
+            console.log("Galatttt 2", "Cant Spin");
           }
-
-          console.log(response.data);
         } else if (response.status === 400) {
           setCanSpin(false);
         } else {
-          navigate("/user/login");
+          setCanSpin(false);
+          setTimeout(() => {
+            navigate("/");
+          }, 2000);
         }
       } catch (err) {
         console.log(err);
-        toast.error(err);
+
         setCanSpin(false);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       }
     }
 
     canSpins();
-  }, [toggle]);
+  }, []);
 
   async function rewardToken() {
     try {
-      const token = localStorage.getItem("token");
+      if (canSpin) {
+        const token = localStorage.getItem("token");
 
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      };
+        const headers = {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        };
 
-      const response = await axios.post(
-        "http://localhost:3000/api/jackpot/jackpotDone",
-        { amount: 1000 },
-        {
-          headers: headers,
+        const response = await axios.post(
+          "http://localhost:3000/api/jackpot/jackpotDone",
+          { amount: 1000 },
+          {
+            headers: headers,
+          }
+        );
+
+        if (response.status === 200) {
+          console.log("Added Token", response.data.message);
+        } else {
+          navigate("/user/login");
         }
-      );
-
-      if (response.status === 200) {
-        console.log("Added Token", response.data.message);
-      } else {
-        navigate("/user/login");
       }
     } catch (err) {
       console.log(err);
