@@ -91,7 +91,7 @@ const StoreFront = () => {
   return (
     <div className={inner ? "min-h-screen" : "min-h-full"}>
       <div
-        className={inner ? "min-h-screen w-full" : "min-h-full w-full"}
+        className={inner ? "min-h-screen w-full p-5" : "min-h-full w-full p-5"}
         style={{ backgroundColor: "#171717" }}
       >
         {inner ? <Navbar /> : <></>}
