@@ -22,8 +22,8 @@ const Block2 = () => {
   };
 
   return (
-    <div className="flex flex-row items-start justify-start flex-1 w-full gap-2 px-3 pt-8">
-      <div className="grid w-1/2 grid-cols-2 grid-rows-2 gap-2">
+    <div className="grid grid-cols-2 gap-4 p-5">
+      <div className="grid w-full grid-cols-2 grid-rows-2 gap-2">
         <div onClick={() => openOverlay(<ManageFunds />)}>
           <ManageFund />
         </div>
@@ -33,21 +33,12 @@ const Block2 = () => {
         <div onClick={() => openOverlay(<Refer />)}>
           <Refer />
         </div>
-        {/* <div onClick={() => openOverlay(<Spin />)}>
-          <PlayGames />
-        </div> */}
-
         <div onClick={() => openOverlay(<PlayGamesMain />)}>
           <PlayGames />
         </div>
-
-        {/* <Link className="w-full" to="/user/playgames">
-          <div className="w-full">
-            <PlayGames />
-          </div>
-        </Link> */}
       </div>
-      <div className="w-1/2">
+
+      <div className="w-full">
         <Link to="/leaderboard">
           <LeaderBoard />
         </Link>
