@@ -38,7 +38,6 @@ import ConnectWallet from "./components/ConnectWallet";
 import SpinMain from "./components/Wheel/SpinMain";
 import SpinWin from "./components/Wheel/SpinWin";
 import Mynft from "./components/Mynft";
-import SpinCheck from "./pages/Try";
 
 // const BaseRoute = () => (
 function BaseRoute() {
@@ -255,7 +254,7 @@ function BaseRoute() {
           }
         />
         <Route exact path="/user/password" element={<Password />} />
-        <Route exact path="/r" element={<SpinCheck />} />
+
         <Route exact path="/user/username" element={<UsernameForm />} />
         <Route exact path="/user/wallet" element={<WalletConnect />} />
         <Route exact path="/user/entrypass" element={<EntryPass />} />

@@ -219,6 +219,32 @@ const UserProfile = () => {
   //   }
   // };
 
+  const changebio = () => {
+    setEdit(false);
+  };
+
+  function bioSubmit() {
+    return (
+      <form onSubmit={handleBioSubmit}>
+        <textarea
+          rows="5"
+          cols=""
+          name="message"
+          placeholder="Add Bio...."
+          className="w-full p-4 text-gray-700 rounded-lg"
+          value={bio}
+          onChange={handleBioChange}
+        ></textarea>
+        <button
+          type="submit"
+          className="flex w-32 items-center justify-center  h-10 p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg text-white py-2 px-4 "
+        >
+          Save Bio
+        </button>
+      </form>
+    );
+  }
+
   return (
     <div
       style={{
@@ -299,29 +325,38 @@ const UserProfile = () => {
                       {profileData?.bio}
                     </div>
                     <div className="">
-                      <button className="flex w-12 items-center justify-center  p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg m-auto">
-                        Edit
-                      </button>
+                      {edit ? (
+                        <button
+                          onClick={changebio}
+                          className="flex w-12 items-center justify-center  p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg m-auto"
+                        >
+                          Edit
+                        </button>
+                      ) : (
+                        bioSubmit()
+                      )}
                     </div>
                   </div>
                 ) : (
-                  <form onSubmit={handleBioSubmit}>
-                    <textarea
-                      rows="5"
-                      cols=""
-                      name="message"
-                      placeholder="Add Bio...."
-                      className="w-full p-4 text-gray-700 rounded-lg"
-                      value={bio}
-                      onChange={handleBioChange}
-                    ></textarea>
-                    <button
-                      type="submit"
-                      className="flex w-32 items-center justify-center  h-10 p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg text-white py-2 px-4 "
-                    >
-                      Save Bio
-                    </button>
-                  </form>
+                  // <form onSubmit={handleBioSubmit}>
+                  //   <textarea
+                  //     rows="5"
+                  //     cols=""
+                  //     name="message"
+                  //     placeholder="Add Bio...."
+                  //     className="w-full p-4 text-gray-700 rounded-lg"
+                  //     value={bio}
+                  //     onChange={handleBioChange}
+                  //   ></textarea>
+                  //   <button
+                  //     type="submit"
+                  //     className="flex w-32 items-center justify-center  h-10 p-2 bg-gradient-to-r from-[#FF3503] to-yellow-500 rounded-lg text-white py-2 px-4 "
+                  //   >
+                  //     Save Bio
+                  //   </button>
+                  // </form>
+
+                  bioSubmit()
                 )}
               </div>
             </div>
