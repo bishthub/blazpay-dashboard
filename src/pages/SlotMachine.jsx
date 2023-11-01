@@ -330,13 +330,13 @@ const SlotMachine = ({ id, owned, close, expires }) => {
           headers: headers,
         }
       );
+
+      // console.log("Anmol Bisht ji", response.data);
       if (response.status === 200) {
-        // setApiResponse(response.data);
+        // console.log("Anmol Ji", response.data.canJackpots);
 
-        if (response.status.canJackpots === true) setCanSpin(true);
+        if (response.data.canJackpots === true) setCanSpin(true);
         else setCanSpin(false);
-
-        console.log("kyaaaaa huaaaaaaa", response.data);
       } else {
         setCanSpin(false);
 
@@ -377,7 +377,7 @@ const SlotMachine = ({ id, owned, close, expires }) => {
         );
 
         if (response.status === 200) {
-          console.log(response.data);
+          console.log("Anmol ji", response.data.canJackpot);
           if (response.data.canJackpot == true) {
             setCanSpin(true);
             console.log("Achhhaaa 2", "Can pin");
