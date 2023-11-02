@@ -333,7 +333,7 @@ const SlotMachine = ({ id, owned, close, expires }) => {
       if (response.status === 200) {
         // setApiResponse(response.data);
 
-        if (response.status.canJackpots === true) setCanSpin(true);
+        if (response.data.canJackpots === true) setCanSpin(true);
         else setCanSpin(false);
 
         console.log("kyaaaaa huaaaaaaa", response.data);
