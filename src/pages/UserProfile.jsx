@@ -14,6 +14,7 @@ import { ethers } from 'ethers';
 import { useDispatch } from 'react-redux';
 import { AiFillEdit } from 'react-icons/ai';
 import { setWallet } from '../redux/WalletAddressReducer';
+import { color } from 'd3';
 
 const UserProfile = () => {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ const UserProfile = () => {
   const username = localStorage.getItem('username');
 
   const [loading, setLoading] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [selectedChain, setSelectedChain] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState('Name Surname');
   const [profileData, setProfileData] = useState([]);
@@ -40,6 +43,37 @@ const UserProfile = () => {
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
+  };
+
+  const addNewChain = async () => {
+    const payload = {
+      chainName: selectedChain,
+      walletAddress: '', // Ideally, you should have an input for the user to enter this.
+      tokens: 0,
+      isPrimary: false,
+    };
+    console.log('payloadddddd', payload);
+
+    try {
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      };
+      const response = await axios.post(
+        'http://localhost:3000/api/wallet/add-chain',
+        payload,
+        { headers }
+      );
+      if (response.status === 200) {
+        toast.success('Chain added successfully!');
+        WalletChains(); // Refetch the user's chains.
+        setShowDropdown(false); // Hide the dropdown.
+      } else {
+        toast.error('Failed to add the chain.');
+      }
+    } catch (error) {
+      toast.error('Error adding the chain.');
+    }
   };
 
   const ProfileUpdate = useMemo(() => {
@@ -417,7 +451,36 @@ const UserProfile = () => {
                   </div>
                 ))
               ) : (
-                <h1>No Addresses</h1>
+                <div>
+                  <h1>No Addresses</h1>
+                  {showDropdown ? (
+                    <div>
+                      <select
+                        value={selectedChain}
+                        onChange={(e) => setSelectedChain(e.target.value)}
+                        style={{ color: 'black' }}
+                      >
+                        <option value='ethereum' style={{ color: 'black' }}>
+                          Ethereum
+                        </option>
+                        <option value='matic' style={{ color: 'black' }}>
+                          Matic
+                        </option>
+                        <option value='blazpay' style={{ color: 'black' }}>
+                          Blazpay
+                        </option>
+                        <option value='binance' style={{ color: 'black' }}>
+                          Binance
+                        </option>
+                      </select>
+                      <button onClick={addNewChain}>Add Chain</button>
+                    </div>
+                  ) : (
+                    <button onClick={() => setShowDropdown(true)}>
+                      Add Address
+                    </button>
+                  )}
+                </div>
               )}
 
               <div></div>
